@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 3: Markerless Pose Tracking &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/03_pose_tracking';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/03_pose_tracking.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -421,15 +446,15 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-3-markerless-pose-tracking">
-<h1>Lab 3: Markerless Pose Tracking<a class="headerlink" href="#lab-3-markerless-pose-tracking" title="Permalink to this heading">#</a></h1>
+<h1>Lab 3: Markerless Pose Tracking<a class="headerlink" href="#lab-3-markerless-pose-tracking" title="Link to this heading">#</a></h1>
 <p>This lab develops convolutional neural networks (CNNs) for pose tracking in behavioral videos. The model is inspired by <a class="reference external" href="http://www.mackenziemathislab.org/deeplabcut">DeepLabCut</a> (DLC), a popular tool for estimating keypoint locations from raw image data by leveraging features of pretrained neural networks for image classification.</p>
 <p>We’ll start with a simpler approach and build a CNN that frames pose tracking as a logistic regression problem. We convolve the input image with a template for each keypoint to get log-odds, and then pass them through the logistic function to get probabilities of the keypoints being present at each pixel.</p>
 <p>The simple model forms a baseline for our deep neural network. We’ll download a pretrained resnet50 and re-route an intermediate layer to obtain features for pose tracking. We’ll skip some of the bells and whistles of DLC and just train a simple linear classifier on top of these features. As you’ll see, the simple CNN makes for a pretty strong baseline. We’ll see if we can eek out some improvement with the resnet!</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -464,7 +489,7 @@ document.write(`
 </div>
 </div>
 <section id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
 <p>The dataset was downloaded from the <a class="reference external" href="https://github.com/DeepLabCut/DeepLabCut/">DeepLabCut github repo</a> and lightly preprocessed with <a class="reference external" href="https://colab.research.google.com/drive/1-1MTX16Azx-lYr4ivzxxWwQvJXs4YKrM?usp=sharing">this notebook</a>.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -502,7 +527,7 @@ document.write(`
 </div>
 </section>
 <section id="helper-functions">
-<h3>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this heading">#</a></h3>
+<h3>Helper functions<a class="headerlink" href="#helper-functions" title="Link to this heading">#</a></h3>
 <div class="cell tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -744,7 +769,7 @@ document.write(`
 </div>
 </section>
 <section id="plot-a-few-training-examples">
-<h3>Plot a few training examples<a class="headerlink" href="#plot-a-few-training-examples" title="Permalink to this heading">#</a></h3>
+<h3>Plot a few training examples<a class="headerlink" href="#plot-a-few-training-examples" title="Link to this heading">#</a></h3>
 <p>Each example consists of an image and a set of binary masks, one for each keypoint. To create the masks, we first made a one-hot matrix with a 1 at the position of the keypoint. Then we performed a <a class="reference external" href="https://en.wikipedia.org/wiki/Dilation_(morphology)#Binary_dilation">binary dilation</a> to make that target and make it visible in these plots. We’ll do the same thing when we train the models below: a larger target offers some room for error in the pose tracking models and makes them easier to train.</p>
 <p>Notice a few things:</p>
 <ul class="simple">
@@ -773,7 +798,7 @@ document.write(`
 </div>
 </section>
 <section id="play-the-test-movie">
-<h3>Play the test movie<a class="headerlink" href="#play-the-test-movie" title="Permalink to this heading">#</a></h3>
+<h3>Play the test movie<a class="headerlink" href="#play-the-test-movie" title="Link to this heading">#</a></h3>
 <p>We’ll test the models on this 8 second clip of the mouse reaching for a joystick and licking a spout. Here, all the frames are ordered and the same size, so it makes sense to show a movie.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -793,10 +818,10 @@ document.write(`
 </section>
 </section>
 <section id="part-1-groundwork-for-fitting-models">
-<h2>Part 1: Groundwork for fitting models<a class="headerlink" href="#part-1-groundwork-for-fitting-models" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Groundwork for fitting models<a class="headerlink" href="#part-1-groundwork-for-fitting-models" title="Link to this heading">#</a></h2>
 <p>Before writing the PyTorch models, let’s first lay some groundwork for model fitting and evaluation. One of the nice features of PyTorch is its data loading framework. We’ll first write a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> class for loading and preprocessing the keypoint data. Then we’ll write a generic function for training models via stochastic gradient descent. These will come in handy in Parts 2 and 3 of the lab.</p>
 <section id="make-a-pytorch-dataset-class-for-keypoint-data">
-<h3>Make a PyTorch Dataset class for keypoint data<a class="headerlink" href="#make-a-pytorch-dataset-class-for-keypoint-data" title="Permalink to this heading">#</a></h3>
+<h3>Make a PyTorch Dataset class for keypoint data<a class="headerlink" href="#make-a-pytorch-dataset-class-for-keypoint-data" title="Link to this heading">#</a></h3>
 <p>We follow the <a class="reference external" href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html">PyTorch data loading tutorial</a> to make a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> object for this data. As the comments below say, the dataset is a lightweight wrapper that implements the <code class="docutils literal notranslate"><span class="pre">iterable</span></code> interface. It has a <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> function that returns requested datapoints (typically we request just one at a time).  Each datapoint is packaged into a dictionary with an <code class="docutils literal notranslate"><span class="pre">image</span></code> key and a <code class="docutils literal notranslate"><span class="pre">targets</span></code> key, which contain <span class="math notranslate nohighlight">\(\mathbf{X}_n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Y}_n\)</span> in the notation above.</p>
 <p>Notes:</p>
 <ul class="simple">
@@ -876,7 +901,7 @@ document.write(`
 </div>
 </section>
 <section id="define-transformations-to-apply-to-each-datapoint">
-<h3>Define transformations to apply to each datapoint<a class="headerlink" href="#define-transformations-to-apply-to-each-datapoint" title="Permalink to this heading">#</a></h3>
+<h3>Define transformations to apply to each datapoint<a class="headerlink" href="#define-transformations-to-apply-to-each-datapoint" title="Link to this heading">#</a></h3>
 <p>As you see above, the getter in the <code class="docutils literal notranslate"><span class="pre">KeypointDataset</span></code> object can apply a sequence of transformations. Here we’ll define four such transformations. Each is an object with a <code class="docutils literal notranslate"><span class="pre">__call__</span></code> function, which takes as input a datapoint and outputs a transformed datapoint. As above, the datapoints are dictionaries with an <code class="docutils literal notranslate"><span class="pre">image</span></code> key and a <code class="docutils literal notranslate"><span class="pre">targets</span></code> key.</p>
 <p>We’ll implement the first two transformations for you, so you can see how they work. The first two are:</p>
 <ol class="arabic simple">
@@ -916,7 +941,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1a-implement-a-downsampling-transformation">
-<h3>Problem 1a: Implement a Downsampling transformation<a class="headerlink" href="#problem-1a-implement-a-downsampling-transformation" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a: Implement a Downsampling transformation<a class="headerlink" href="#problem-1a-implement-a-downsampling-transformation" title="Link to this heading">#</a></h3>
 <p>Write a transformation object called <code class="docutils literal notranslate"><span class="pre">Downsample</span></code> that downsamples the image and target by a specified factor. This will make our code run faster, albeit with slightly lower precision.</p>
 <p>You may need to consult the documentation in <a class="reference external" href="https://pytorch.org/docs/stable/nn.functional.html"><code class="docutils literal notranslate"><span class="pre">torch.nn.functional</span></code></a>, which is imported as <code class="docutils literal notranslate"><span class="pre">F</span></code> below.</p>
 <div class="cell docutils container">
@@ -981,7 +1006,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1b-implement-a-transformation-to-dilate-the-targets">
-<h3>Problem 1b: Implement a transformation to dilate the targets<a class="headerlink" href="#problem-1b-implement-a-transformation-to-dilate-the-targets" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Implement a transformation to dilate the targets<a class="headerlink" href="#problem-1b-implement-a-transformation-to-dilate-the-targets" title="Link to this heading">#</a></h3>
 <p>Dilate the targets to make them a bit bigger. This offers more positive examples for our model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1044,7 +1069,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1c-initialize-datasets-for-the-training-validation-and-test-data">
-<h3>Problem 1c: Initialize datasets for the training, validation, and test data<a class="headerlink" href="#problem-1c-initialize-datasets-for-the-training-validation-and-test-data" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Initialize datasets for the training, validation, and test data<a class="headerlink" href="#problem-1c-initialize-datasets-for-the-training-validation-and-test-data" title="Link to this heading">#</a></h3>
 <p>Make <code class="docutils literal notranslate"><span class="pre">KeypointDataset</span></code> objects for the training, validation, and test data. In all cases, apply the following (ordered) set of transformations:</p>
 <ol class="arabic simple">
 <li><p>Convert the tensors and move them to the GPU with <code class="docutils literal notranslate"><span class="pre">Transpose</span></code></p></li>
@@ -1097,7 +1122,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1d-comment-this-function-for-training-pytorch-models">
-<h3>Problem 1d: Comment this function for training Pytorch models<a class="headerlink" href="#problem-1d-comment-this-function-for-training-pytorch-models" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1d: Comment this function for training Pytorch models<a class="headerlink" href="#problem-1d-comment-this-function-for-training-pytorch-models" title="Link to this heading">#</a></h3>
 <p>We’ve written a generic model training function following <a class="reference external" href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">this example</a>.</p>
 <p><strong>The code is written. You just have to write comments for this function.</strong></p>
 <div class="cell docutils container">
@@ -1171,7 +1196,7 @@ document.write(`
 </section>
 </section>
 <section id="part-2-implement-basic-pose-tracking-with-a-cnn">
-<h2>Part 2: Implement basic pose tracking with a CNN<a class="headerlink" href="#part-2-implement-basic-pose-tracking-with-a-cnn" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Implement basic pose tracking with a CNN<a class="headerlink" href="#part-2-implement-basic-pose-tracking-with-a-cnn" title="Link to this heading">#</a></h2>
 <p>Our “basic model” will use a CNN to implement a template matching/logistic regression model.</p>
 <p>First, notation: let</p>
 <ul class="simple">
@@ -1208,7 +1233,7 @@ A few practical issues should be mentioned:</p>
 <li><p>Likewise, our basic model will operate on grayscale images by taking the mean over the color channels.</p></li>
 </ul>
 <section id="problem-2a-implement-the-basic-model">
-<h3>Problem 2a: Implement the basic model<a class="headerlink" href="#problem-2a-implement-the-basic-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a: Implement the basic model<a class="headerlink" href="#problem-2a-implement-the-basic-model" title="Link to this heading">#</a></h3>
 <p>A PyTorch model inherits from <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>. It has trainable parameters, which are encapsulated in its class variables. For example, the <code class="docutils literal notranslate"><span class="pre">BasicPoseTracker</span></code> model below has a <code class="docutils literal notranslate"><span class="pre">self.final_conv</span></code> class variable, which is an instance of <code class="docutils literal notranslate"><span class="pre">nn.Conv2d</span></code>, an object that implements a 2D convolution. (We’ve said this before, but remember convolutions in deep learning are cross-correlations in the real world.) The <code class="docutils literal notranslate"><span class="pre">Conv2d</span></code> object has inside of it a set of parameters, which the training algorithm above will modify, in place, via stochastic gradient descent. In particular, the <code class="docutils literal notranslate"><span class="pre">Conv2d</span></code> object has a stack of weights and a set of biases, one for each keypoint.</p>
 <p>PyTorch models implement a <code class="docutils literal notranslate"><span class="pre">forward</span></code> function, which takes an input and produces an output. Here, the input is a batch of images <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">3</span> <span class="pre">x</span> <span class="pre">P_H</span> <span class="pre">x</span> <span class="pre">P_W</span></code>, but really the batch will just be shape <code class="docutils literal notranslate"><span class="pre">1</span></code> since different images may be different sizes. The output will be a <code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">x</span> <span class="pre">K</span> <span class="pre">x</span> <span class="pre">P_H</span> <span class="pre">x</span> <span class="pre">P_W</span></code> set of log-odds, or “logits,” one for each image, keypoint, and pixel.</p>
 <p>In the basic model, the <code class="docutils literal notranslate"><span class="pre">foward</span></code> function should perform the following operations:</p>
@@ -1295,7 +1320,7 @@ A few practical issues should be mentioned:</p>
 </div>
 </section>
 <section id="instantiate-the-model-and-move-it-to-the-gpu">
-<h3>Instantiate the model and move it to the GPU<a class="headerlink" href="#instantiate-the-model-and-move-it-to-the-gpu" title="Permalink to this heading">#</a></h3>
+<h3>Instantiate the model and move it to the GPU<a class="headerlink" href="#instantiate-the-model-and-move-it-to-the-gpu" title="Link to this heading">#</a></h3>
 <p>Fix the random seed so the weights will be reproducible.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1313,7 +1338,7 @@ A few practical issues should be mentioned:</p>
 </div>
 </section>
 <section id="problem-2b-plot-model-predictions">
-<h3>Problem 2b: Plot model predictions<a class="headerlink" href="#problem-2b-plot-model-predictions" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Plot model predictions<a class="headerlink" href="#problem-2b-plot-model-predictions" title="Link to this heading">#</a></h3>
 <p>Write a function to compute the keypoint probabilities output by the model.</p>
 <p>Since the constructor initialized the <code class="docutils literal notranslate"><span class="pre">Conv2d</span></code> layer with random weights, the initial predictions should be terrible.</p>
 <div class="cell docutils container">
@@ -1349,7 +1374,7 @@ A few practical issues should be mentioned:</p>
 </div>
 </section>
 <section id="problem-2c-math-log-sum-exp-trick">
-<h3>Problem 2c [Math] Log-sum-exp trick<a class="headerlink" href="#problem-2c-math-log-sum-exp-trick" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c [Math] Log-sum-exp trick<a class="headerlink" href="#problem-2c-math-log-sum-exp-trick" title="Link to this heading">#</a></h3>
 <p>The log likelihood contains terms of the form,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1366,7 +1391,7 @@ m + \log (e^{-m} + e^{a - m})
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-2d-implement-the-bernoulli-loss">
-<h3>Problem 2d: Implement the Bernoulli loss<a class="headerlink" href="#problem-2d-implement-the-bernoulli-loss" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d: Implement the Bernoulli loss<a class="headerlink" href="#problem-2d-implement-the-bernoulli-loss" title="Link to this heading">#</a></h3>
 <p>Implement the <code class="docutils literal notranslate"><span class="pre">bernoulli_loss</span></code> function below. It should return the average negative log likelihood over all keypoints and pixels. I.e.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1410,7 +1435,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="train-the-basic-model">
-<h3>Train the basic model<a class="headerlink" href="#train-the-basic-model" title="Permalink to this heading">#</a></h3>
+<h3>Train the basic model<a class="headerlink" href="#train-the-basic-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train the basic model</span>
@@ -1446,7 +1471,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="look-at-model-outputs">
-<h3>Look at model outputs<a class="headerlink" href="#look-at-model-outputs" title="Permalink to this heading">#</a></h3>
+<h3>Look at model outputs<a class="headerlink" href="#look-at-model-outputs" title="Link to this heading">#</a></h3>
 <p>Try the model on the same training image as above. If it’s working, you should see the keypoint probabilities are close to one (yellow) at the keypoint and zero (blue) elsewhere.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1471,13 +1496,13 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="problem-2e-short-answer-interpret-the-inferred-weights">
-<h3>Problem 2e [Short Answer]: Interpret the inferred weights<a class="headerlink" href="#problem-2e-short-answer-interpret-the-inferred-weights" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2e [Short Answer]: Interpret the inferred weights<a class="headerlink" href="#problem-2e-short-answer-interpret-the-inferred-weights" title="Link to this heading">#</a></h3>
 <p>The probabilities are derived from the learned weights, plotted above. Are they interpretable and/or expected?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 <section id="make-a-movie-of-the-predictions-on-the-test-data">
-<h3>Make a movie of the predictions on the test data<a class="headerlink" href="#make-a-movie-of-the-predictions-on-the-test-data" title="Permalink to this heading">#</a></h3>
+<h3>Make a movie of the predictions on the test data<a class="headerlink" href="#make-a-movie-of-the-predictions-on-the-test-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract probabilities for each frame</span>
@@ -1504,7 +1529,7 @@ m + \log (e^{-m} + e^{a - m})
 </section>
 </section>
 <section id="part-3-transfer-learning-from-a-pretrained-resnet">
-<h2>Part 3: Transfer learning from a pretrained ResNet<a class="headerlink" href="#part-3-transfer-learning-from-a-pretrained-resnet" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Transfer learning from a pretrained ResNet<a class="headerlink" href="#part-3-transfer-learning-from-a-pretrained-resnet" title="Link to this heading">#</a></h2>
 <p>Now we’ll download a pretrained residual network from PyTorch’s model zoo and hijack its intermediate layer features to predict keypoint locations.  This is called <strong>transfer learning</strong>: using a model trained for a different purpose (here, image classification) as the basis for a new task (here, keypoint detection).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1547,7 +1572,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 <p>We’ll write our own torch <code class="docutils literal notranslate"><span class="pre">Module</span></code> that freezes the weights of the pretrained ResNet and then learns to predict binary presence or absence of a keypoint at each pixel.</p>
 <section id="problem-3a-implement-the-resnet-model">
-<h3>Problem 3a: Implement the resnet model<a class="headerlink" href="#problem-3a-implement-the-resnet-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a: Implement the resnet model<a class="headerlink" href="#problem-3a-implement-the-resnet-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_layer_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;conv1&#39;</span><span class="p">,</span> <span class="s1">&#39;bn1&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="s1">&#39;maxpool&#39;</span><span class="p">]</span>
@@ -1622,7 +1647,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="instantiate-the-resnet-model">
-<h3>Instantiate the resnet model<a class="headerlink" href="#instantiate-the-resnet-model" title="Permalink to this heading">#</a></h3>
+<h3>Instantiate the resnet model<a class="headerlink" href="#instantiate-the-resnet-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the resnet pose model</span>
@@ -1643,7 +1668,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="problem-3b-plot-the-resnet-features-after-each-bottleneck-layer">
-<h3>Problem 3b: Plot the resnet features after each bottleneck layer<a class="headerlink" href="#problem-3b-plot-the-resnet-features-after-each-bottleneck-layer" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3b: Plot the resnet features after each bottleneck layer<a class="headerlink" href="#problem-3b-plot-the-resnet-features-after-each-bottleneck-layer" title="Link to this heading">#</a></h3>
 <p>First, write a function to compute the model predictions after a specified number of bottleneck layers. Then plot a few of the features for each layer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1692,13 +1717,13 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="problem-3c-short-answer-discuss-the-pros-cons-of-number-of-layers">
-<h3>Problem 3c [Short Answer]: Discuss the pros/cons of number of layers<a class="headerlink" href="#problem-3c-short-answer-discuss-the-pros-cons-of-number-of-layers" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3c [Short Answer]: Discuss the pros/cons of number of layers<a class="headerlink" href="#problem-3c-short-answer-discuss-the-pros-cons-of-number-of-layers" title="Link to this heading">#</a></h3>
 <p>When predicting keypoints, we could take the output of the model after any one of the layers. Discuss the considerations the pros and cons of deeper vs shallower layers.</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 <section id="train-the-resnet-model">
-<h3>Train the resnet model<a class="headerlink" href="#train-the-resnet-model" title="Permalink to this heading">#</a></h3>
+<h3>Train the resnet model<a class="headerlink" href="#train-the-resnet-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">resnet_model</span><span class="p">,</span> 
@@ -1733,7 +1758,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="plot-the-resnet-predictions">
-<h3>Plot the resnet predictions<a class="headerlink" href="#plot-the-resnet-predictions" title="Permalink to this heading">#</a></h3>
+<h3>Plot the resnet predictions<a class="headerlink" href="#plot-the-resnet-predictions" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_model_predictions</span><span class="p">(</span><span class="n">resnet_model</span><span class="p">,</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1746,7 +1771,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="make-a-movie-of-the-predictions-on-test-data">
-<h3>Make a movie of the predictions on test data<a class="headerlink" href="#make-a-movie-of-the-predictions-on-test-data" title="Permalink to this heading">#</a></h3>
+<h3>Make a movie of the predictions on test data<a class="headerlink" href="#make-a-movie-of-the-predictions-on-test-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract probabilities for each frame</span>
@@ -1773,9 +1798,9 @@ m + \log (e^{-m} + e^{a - m})
 </section>
 </section>
 <section id="part-4-model-comparison">
-<h2>Part 4: Model comparison<a class="headerlink" href="#part-4-model-comparison" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Model comparison<a class="headerlink" href="#part-4-model-comparison" title="Link to this heading">#</a></h2>
 <section id="problem-4a-grid-search">
-<h3>Problem 4a: Grid search<a class="headerlink" href="#problem-4a-grid-search" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4a: Grid search<a class="headerlink" href="#problem-4a-grid-search" title="Link to this heading">#</a></h3>
 <p>So far, you’ve trained models for only one set of hyperparameters. In practice, you would perofrm a grid search over these hyperparameters to see if you can find better settings.</p>
 <p>You could optimize many hyperparameters, but for this problem, you’ll focus on just one hyperparameter per model”</p>
 <p>For the <strong>basic model</strong> (from Part 2), fix the <code class="docutils literal notranslate"><span class="pre">patch_size</span></code> to 51 (a bit smaller than used above) and sweep over the <code class="docutils literal notranslate"><span class="pre">downsampling</span></code> factor. Plot the validation loss as a function of the <code class="docutils literal notranslate"><span class="pre">downsampling</span></code> factor.</p>
@@ -1790,7 +1815,7 @@ m + \log (e^{-m} + e^{a - m})
 </div>
 </section>
 <section id="problem-4b-short-answer-discussion">
-<h3>Problem 4b [Short Answer]: Discussion<a class="headerlink" href="#problem-4b-short-answer-discussion" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4b [Short Answer]: Discussion<a class="headerlink" href="#problem-4b-short-answer-discussion" title="Link to this heading">#</a></h3>
 <p>Summarize your results and discuss their implications. In your discussion, address the following prompts:</p>
 <ul class="simple">
 <li><p>Was there anything surprising about your results?</p></li>
@@ -1828,11 +1853,10 @@ m + \log (e^{-m} + e^{a - m})
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="02_calcium_imaging.html"
@@ -1852,10 +1876,7 @@ m + \log (e^{-m} + e^{a - m})
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1863,6 +1884,7 @@ m + \log (e^{-m} + e^{a - m})
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1934,9 +1956,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1960,8 +1983,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

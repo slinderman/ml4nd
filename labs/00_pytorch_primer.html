@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 0: PyTorch Primer &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/00_pytorch_primer';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/00_pytorch_primer.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -407,17 +432,17 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-0-pytorch-primer">
-<h1>Lab 0: PyTorch Primer<a class="headerlink" href="#lab-0-pytorch-primer" title="Permalink to this heading">#</a></h1>
+<h1>Lab 0: PyTorch Primer<a class="headerlink" href="#lab-0-pytorch-primer" title="Link to this heading">#</a></h1>
 <p>We’ll use Python and <a class="reference external" href="https://pytorch.org/">PyTorch</a> for the labs in this course. This lab is to help you get up to speed. It will introduce:</p>
 <ul class="simple">
 <li><p><strong>Tensors</strong>: PyTorch’s equivalent of NumPy arrays, but with more bells and whistles for running on GPUs and supporting automatic differentiation.</p></li>
 <li><p><strong>Broadcasting and Fancy Indexing</strong>: If you’re coming from Matlab or NumPy, you probably know that you can avoid costly for-loops by broadcasting computation over dimensions of an array (here, tensor) and using fancy indexing tricks.</p></li>
 <li><p><strong>Distributions</strong>: PyTorch has an excellent library of distributions for sampling, evaluating log probabilities, and much more.</p></li>
 </ul>
-<p>We’ll introduce these concepts in the context of the Poisson mixture model from class (c.f. <span class="xref myst">Probabilistic Modeling</span>).</p>
+<p>We’ll introduce these concepts in the context of the Poisson mixture model from class (c.f. <a class="reference internal" href="#../lectures/02_probabilistic_modeling.ipynb"><span class="xref myst">Probabilistic Modeling</span></a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -428,11 +453,11 @@ document.write(`
 </div>
 </div>
 <section id="constructing-tensors">
-<h2>1. Constructing Tensors<a class="headerlink" href="#constructing-tensors" title="Permalink to this heading">#</a></h2>
+<h2>1. Constructing Tensors<a class="headerlink" href="#constructing-tensors" title="Link to this heading">#</a></h2>
 <p>Tensors are PyTorch’s equivalent of NumPy arrays. The PyTorch documentation already has a <a class="reference external" href="https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html">great tutorial</a> on tensors. Rather than recreate the wheel, please start by reading that.</p>
 <p>Once you’ve read through that, try using torch functions like <code class="docutils literal notranslate"><span class="pre">arange</span></code>, <code class="docutils literal notranslate"><span class="pre">reshape</span></code>, etc. to construct the following tensors.</p>
 <section id="problem-1-1">
-<h3>Problem 1.1<a class="headerlink" href="#problem-1-1" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.1<a class="headerlink" href="#problem-1-1" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -450,7 +475,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1-2">
-<h3>Problem 1.2<a class="headerlink" href="#problem-1-2" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.2<a class="headerlink" href="#problem-1-2" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
         <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
@@ -467,7 +492,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1-3">
-<h3>Problem 1.3<a class="headerlink" href="#problem-1-3" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.3<a class="headerlink" href="#problem-1-3" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 </pre></div>
@@ -483,7 +508,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1-4">
-<h3>Problem 1.4<a class="headerlink" href="#problem-1-4" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.4<a class="headerlink" href="#problem-1-4" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
         <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
@@ -500,7 +525,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1-5">
-<h3>Problem 1.5<a class="headerlink" href="#problem-1-5" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.5<a class="headerlink" href="#problem-1-5" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">],</span>
         <span class="p">[</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">],</span>
@@ -518,7 +543,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-1-6">
-<h3>Problem 1.6<a class="headerlink" href="#problem-1-6" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1.6<a class="headerlink" href="#problem-1-6" title="Link to this heading">#</a></h3>
 <p>Construct the following tensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]]])</span>
 </pre></div>
@@ -534,10 +559,10 @@ document.write(`
 </section>
 </section>
 <section id="broadcasting-and-fancy-indexing">
-<h2>2. Broadcasting and Fancy Indexing<a class="headerlink" href="#broadcasting-and-fancy-indexing" title="Permalink to this heading">#</a></h2>
+<h2>2. Broadcasting and Fancy Indexing<a class="headerlink" href="#broadcasting-and-fancy-indexing" title="Link to this heading">#</a></h2>
 <p>Your life will be much easier and your code will be much faster once you get the hang of broadcasting and indexing. Start by reading the  <a class="reference external" href="https://pytorch.org/docs/stable/notes/broadcasting.html">PyTorch documentation</a>.</p>
 <section id="problem-2-1">
-<h3>Problem 2.1<a class="headerlink" href="#problem-2-1" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2.1<a class="headerlink" href="#problem-2-1" title="Link to this heading">#</a></h3>
 <p>Construct a tensor <code class="docutils literal notranslate"><span class="pre">X</span></code> where <code class="docutils literal notranslate"><span class="pre">X[i,j]</span> <span class="pre">=</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">j</span></code> by broadcasting a sum of two 1-dimensional tensors.</p>
 <p>For example, broadcast a sum to construct the following tensor,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
@@ -556,7 +581,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-2-2">
-<h3>Problem 2.2<a class="headerlink" href="#problem-2-2" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2.2<a class="headerlink" href="#problem-2-2" title="Link to this heading">#</a></h3>
 <p>Compute a distance matrix <code class="docutils literal notranslate"><span class="pre">D</span></code> where <code class="docutils literal notranslate"><span class="pre">D[i,j]</span></code> is the Euclidean distance between <code class="docutils literal notranslate"><span class="pre">X[i]</span></code> and <code class="docutils literal notranslate"><span class="pre">X[j]</span></code>, with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -580,7 +605,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-2-3">
-<h3>Problem 2.3<a class="headerlink" href="#problem-2-3" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2.3<a class="headerlink" href="#problem-2-3" title="Link to this heading">#</a></h3>
 <p>Extract the submatrix of rows <code class="docutils literal notranslate"><span class="pre">[2,3]</span></code> and columns <code class="docutils literal notranslate"><span class="pre">[0,1,4]</span></code> of the tensor,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -601,7 +626,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-2-4">
-<h3>Problem 2.4<a class="headerlink" href="#problem-2-4" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2.4<a class="headerlink" href="#problem-2-4" title="Link to this heading">#</a></h3>
 <p>Create a binary mask matrix <code class="docutils literal notranslate"><span class="pre">M</span></code> of the same shape as <code class="docutils literal notranslate"><span class="pre">A</span></code> where <code class="docutils literal notranslate"><span class="pre">M[i,j]</span></code> is True if and only if <code class="docutils literal notranslate"><span class="pre">A[i,j]</span></code> is divisible by 7. Let</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -625,7 +650,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-2-5">
-<h3>Problem 2.5<a class="headerlink" href="#problem-2-5" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2.5<a class="headerlink" href="#problem-2-5" title="Link to this heading">#</a></h3>
 <p>Add one to the entries in <code class="docutils literal notranslate"><span class="pre">A</span></code> that are divisible by 7. After updating in place, <code class="docutils literal notranslate"><span class="pre">A</span></code> should be,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">],</span>
         <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">],</span>
@@ -645,11 +670,11 @@ document.write(`
 </section>
 </section>
 <section id="distributions">
-<h2>3. Distributions<a class="headerlink" href="#distributions" title="Permalink to this heading">#</a></h2>
+<h2>3. Distributions<a class="headerlink" href="#distributions" title="Link to this heading">#</a></h2>
 <p>PyTorch has an excellent library of distributions in <code class="docutils literal notranslate"><span class="pre">torch.distributions</span></code>. Read the docs <a class="reference external" href="https://pytorch.org/docs/stable/distributions.html">here</a>.</p>
 <p>We will use these distribution objects to construct and fit a Poisson mixture model.</p>
 <section id="problem-3-1">
-<h3>Problem 3.1<a class="headerlink" href="#problem-3-1" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3.1<a class="headerlink" href="#problem-3-1" title="Link to this heading">#</a></h3>
 <p>Draw 50 samples from a Poisson distribution with rate 10.</p>
 <hr class="docutils" />
 <div class="cell docutils container">
@@ -661,7 +686,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-3-2">
-<h3>Problem 3.2<a class="headerlink" href="#problem-3-2" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3.2<a class="headerlink" href="#problem-3-2" title="Link to this heading">#</a></h3>
 <p>One of the awesome thing about PyTorch distributions is that they support broadcasting too.</p>
 <p>Construct a matrix <code class="docutils literal notranslate"><span class="pre">P</span></code> where <code class="docutils literal notranslate"><span class="pre">P[i,j]</span></code> equals <span class="math notranslate nohighlight">\(\mathrm{Pois}(x=j; \lambda=i)\)</span> for <span class="math notranslate nohighlight">\(i=0,\ldots,4\)</span> and <span class="math notranslate nohighlight">\(j=0,\ldots,4\)</span>.</p>
 <p>Your answer should be,</p>
@@ -682,7 +707,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-3-3">
-<h3>Problem 3.3<a class="headerlink" href="#problem-3-3" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3.3<a class="headerlink" href="#problem-3-3" title="Link to this heading">#</a></h3>
 <p>Evaluate the log probability of the points <code class="docutils literal notranslate"><span class="pre">[1.5,</span> <span class="pre">3.,</span> <span class="pre">4.2]</span></code> under a gamma distribution with shape (aka concentration) 2.0 and inverse scale (aka rate) 1.5.</p>
 <p>Your answer should be,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0336</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5905</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0540</span><span class="p">])</span>
@@ -698,7 +723,7 @@ document.write(`
 </div>
 </section>
 <section id="problem-3-4">
-<h3>Problem 3.4<a class="headerlink" href="#problem-3-4" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3.4<a class="headerlink" href="#problem-3-4" title="Link to this heading">#</a></h3>
 <p>Draw 1000 samples from a Poisson mixture model,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -719,9 +744,9 @@ p(x) &amp;= \frac{1}{2} \mathrm{Pois}(10.0) + \frac{1}{2} \mathrm{Pois}(2.0)
 </section>
 </section>
 <section id="map-estimation">
-<h2>4. MAP estimation<a class="headerlink" href="#map-estimation" title="Permalink to this heading">#</a></h2>
+<h2>4. MAP estimation<a class="headerlink" href="#map-estimation" title="Link to this heading">#</a></h2>
 <section id="problem-4-1">
-<h3>Problem 4.1<a class="headerlink" href="#problem-4-1" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4.1<a class="headerlink" href="#problem-4-1" title="Link to this heading">#</a></h3>
 <p>Let <code class="docutils literal notranslate"><span class="pre">data</span></code> be the samples from above. Assume there are <span class="math notranslate nohighlight">\(K = 2\)</span> clusters and the prior cluster probabilities <span class="math notranslate nohighlight">\([\tfrac{1}{2}, \tfrac{1}{2}]\)</span> are known. Complete the code below to perform MAP estimation.</p>
 <hr class="docutils" />
 <div class="cell docutils container">
@@ -803,7 +828,7 @@ p(x) &amp;= \frac{1}{2} \mathrm{Pois}(10.0) + \frac{1}{2} \mathrm{Pois}(2.0)
 </div>
 </section>
 <section id="problem-4-2-bonus">
-<h3>Problem 4.2 (Bonus)<a class="headerlink" href="#problem-4-2-bonus" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4.2 (Bonus)<a class="headerlink" href="#problem-4-2-bonus" title="Link to this heading">#</a></h3>
 <p>Now consider a more general model in which</p>
 <div class="math notranslate nohighlight">
 \[
@@ -839,11 +864,10 @@ z_n \sim \mathrm{Cat}(\boldsymbol{\pi})
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../index.html"
@@ -863,10 +887,7 @@ z_n \sim \mathrm{Cat}(\boldsymbol{\pi})
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -874,6 +895,7 @@ z_n \sim \mathrm{Cat}(\boldsymbol{\pi})
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -931,9 +953,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -957,8 +980,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

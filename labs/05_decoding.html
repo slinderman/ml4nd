@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 5: Bayesian Decoding &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/05_decoding';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/05_decoding.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -419,16 +444,16 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-5-bayesian-decoding">
-<h1>Lab 5: Bayesian Decoding<a class="headerlink" href="#lab-5-bayesian-decoding" title="Permalink to this heading">#</a></h1>
+<h1>Lab 5: Bayesian Decoding<a class="headerlink" href="#lab-5-bayesian-decoding" title="Link to this heading">#</a></h1>
 <p>The previous lab developed nonlinear <em>encoder</em> models for predicting neural responses to sensory stimuli.  This week we’ll develop <em>decoder</em> models for inferring movements from neural spike trains.  One way to decode is via Bayesian inference: if we have a strong encoding model and a good prior distribution on movements, we can combine them to infer the posterior distribution of movements given spikes. This allows us to build constraints into the prior; e.g. that movements tend to be smooth. Ultimately, decoding is just another regression problem, and the Bayesian approach offers just one way of constructing a conditional distribution of movements given spikes. In this lab, we’ll start with a Bayesian approach and then take a step back and construct a “direct” decoder that captures the dynamical structure of the Bayesian models while also capturing nonlinear features of the spike train.</p>
 <p>We’ll use a dataset from the <a class="reference external" href="https://shenoy.people.stanford.edu/">Prof. Krishna Shenoy</a>, a leader in the field of motor neuroscience who sadly passed away a few weeks ago. Please read this memorial of <a class="reference external" href="https://engineering.stanford.edu/magazine/krishna-shenoy-engineer-who-reimagined-how-brain-makes-body-move-dies-54">his life and work</a>. The data consists of a 96-channel Utah array recording from motor cortex of a non-human primate performing a center-out reaching task. The data and a related model are described in (Gilja*, Nuyujukian*, et al, 2012).</p>
 <p><strong>References</strong></p>
 <p>Gilja, Vikash, Paul Nuyujukian, Cindy A. Chestek, John P. Cunningham, Byron M. Yu, Joline M. Fan, Mark M. Churchland, et al. 2012. “A High-Performance Neural Prosthesis Enabled by Control Algorithm Design.” <em>Nature Neuroscience</em> 15 (12): 1752–57.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -611,7 +636,7 @@ document.write(`
 </details>
 </div>
 <section id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
 <p>We have preprocessed the data into training, validation, and test dictionaries. We’ll wrap them in <code class="docutils literal notranslate"><span class="pre">ReachDataset</span></code> objects below, but first we do a bit of preprocessing to account for delays between spikes and movement.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
@@ -656,7 +681,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </div>
 </section>
 <section id="compute-the-average-spike-triggered-average">
-<h3>Compute the average spike triggered average<a class="headerlink" href="#compute-the-average-spike-triggered-average" title="Permalink to this heading">#</a></h3>
+<h3>Compute the average spike triggered average<a class="headerlink" href="#compute-the-average-spike-triggered-average" title="Link to this heading">#</a></h3>
 <p>The average STA over the 96 channels shows that spikes tend to precede velocity changes by 100-125 ms (<span class="math notranslate nohighlight">\(\sim\)</span> 5 bins).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,7 +732,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </div>
 </section>
 <section id="account-for-delay">
-<h3>Account for delay<a class="headerlink" href="#account-for-delay" title="Permalink to this heading">#</a></h3>
+<h3>Account for delay<a class="headerlink" href="#account-for-delay" title="Link to this heading">#</a></h3>
 <p>Pad the spikes with zeros to account for this delay.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -725,7 +750,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </div>
 </section>
 <section id="package-the-data-into-datasets">
-<h3>Package the data into datasets<a class="headerlink" href="#package-the-data-into-datasets" title="Permalink to this heading">#</a></h3>
+<h3>Package the data into datasets<a class="headerlink" href="#package-the-data-into-datasets" title="Link to this heading">#</a></h3>
 <p>Now that we’ve added a lag to the spike counts, package the results into a dataset to allow easier access and iteration below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -759,7 +784,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </div>
 </section>
 <section id="plot-the-spike-counts-and-position-velocity-times-for-a-single-trial">
-<h3>Plot the spike counts and position/velocity times for a single trial<a class="headerlink" href="#plot-the-spike-counts-and-position-velocity-times-for-a-single-trial" title="Permalink to this heading">#</a></h3>
+<h3>Plot the spike counts and position/velocity times for a single trial<a class="headerlink" href="#plot-the-spike-counts-and-position-velocity-times-for-a-single-trial" title="Link to this heading">#</a></h3>
 <p>Let’s look at one trial. It consists of a time series of spike counts from each channel of the Utah array, as well as a position time series. We also plot the velocity, which is just a first-order estimate of the derivative of the position.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -792,7 +817,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </div>
 </section>
 <section id="plot-the-cursor-positions-across-all-trials">
-<h3>Plot the cursor positions across all trials<a class="headerlink" href="#plot-the-cursor-positions-across-all-trials" title="Permalink to this heading">#</a></h3>
+<h3>Plot the cursor positions across all trials<a class="headerlink" href="#plot-the-cursor-positions-across-all-trials" title="Link to this heading">#</a></h3>
 <p>Plot the reach directions color-coded by the condition type. Most conditions start at the center and move outward to a target. One condition type (gray) starts at the perimeter and moves to the center.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -817,7 +842,7 @@ lab5_data.pt        100%[===================&gt;]   6.37M  35.4MB/s    in 0.2s
 </section>
 </section>
 <section id="part-1-implement-a-simple-bayesian-decoder">
-<h2>Part 1: Implement a simple Bayesian decoder<a class="headerlink" href="#part-1-implement-a-simple-bayesian-decoder" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Implement a simple Bayesian decoder<a class="headerlink" href="#part-1-implement-a-simple-bayesian-decoder" title="Link to this heading">#</a></h2>
 <p>Our first model is an extremely simple Bayesian decoder.  Let <span class="math notranslate nohighlight">\(\mathbf{x}_{i,t} \in \mathbb{R}^2\)</span> denote the <strong>cursor velocity</strong> at time <span class="math notranslate nohighlight">\(t\)</span> on trial <span class="math notranslate nohighlight">\(i\)</span>. Likewise, let <span class="math notranslate nohighlight">\(\mathbf{y}_{i,t} \in \mathbb{R}^{96}\)</span> denote the spike count measured on the 96-channel array at time <span class="math notranslate nohighlight">\(t\)</span> on trial <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <p>We will estimate the posterior distribution over velocity under the following model,</p>
 <div class="math notranslate nohighlight">
@@ -861,7 +886,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 \end{split}\]</div>
 <p>In Part 1, you’ll estimate the parameters of this model, <span class="math notranslate nohighlight">\(\{\mathbf{Q}, \mathbf{C}, \mathbf{d}, \mathbf{R}\}\)</span> and implement it as a PyTorch module.</p>
 <section id="problem-1a-estimate-the-prior-covariance">
-<h3>Problem 1a: Estimate the prior covariance<a class="headerlink" href="#problem-1a-estimate-the-prior-covariance" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a: Estimate the prior covariance<a class="headerlink" href="#problem-1a-estimate-the-prior-covariance" title="Link to this heading">#</a></h3>
 <p>Estimate the prior covariance,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -896,7 +921,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-1b-estimate-the-encoding-model-parameters">
-<h3>Problem 1b: Estimate the encoding model parameters<a class="headerlink" href="#problem-1b-estimate-the-encoding-model-parameters" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Estimate the encoding model parameters<a class="headerlink" href="#problem-1b-estimate-the-encoding-model-parameters" title="Link to this heading">#</a></h3>
 <p>Estimate <span class="math notranslate nohighlight">\(\mathbf{C} \in \mathbb{R}^{96 \times 2}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{d} \in \mathbb{R}^{96}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{R} \in \mathbb{R}^{96 \times 96}\)</span> by fitting a linear regression to the training velocity and spikes.</p>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{LT \times 3}\)</span> denote the matrix of concatenated velocities across all trials with an additional column of ones for the intercept. Let <span class="math notranslate nohighlight">\(\mathbf{Y} \in \mathbb{R}^{LT \times 96}\)</span> denote a matrix of spike counts concatenated across all trials.</p>
 <p>The ordinary least squares estimate of the regression weights is,</p>
@@ -929,7 +954,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-1c-implement-the-simple-decoder-model">
-<h3>Problem 1c: Implement the simple decoder model<a class="headerlink" href="#problem-1c-implement-the-simple-decoder-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Implement the simple decoder model<a class="headerlink" href="#problem-1c-implement-the-simple-decoder-model" title="Link to this heading">#</a></h3>
 <p>Implement the simple decoder as a PyTorch <code class="docutils literal notranslate"><span class="pre">Module</span></code>. We won’t be fitting any parameters (you just estimated them above!), but implementing it this way will allow us to compare directly to the model developed in Part 3.</p>
 <p>Specifically, complete the <code class="docutils literal notranslate"><span class="pre">forward</span></code> function to compute <code class="docutils literal notranslate"><span class="pre">J</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, <code class="docutils literal notranslate"><span class="pre">mu</span></code>, and <code class="docutils literal notranslate"><span class="pre">Sigma</span></code>. The functions <code class="docutils literal notranslate"><span class="pre">torch.linalg.solve</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.linalg.inv</span></code> will be useful.</p>
 <p><em>Note: there are generally more numerically stable/efficient approaches than directly computing a matrix inverse—solve is almost always preferable!—but for this lab go ahead and call <code class="docutils literal notranslate"><span class="pre">torch.linalg.inv</span></code> to compute <code class="docutils literal notranslate"><span class="pre">Sigma</span></code>.</em></p>
@@ -991,7 +1016,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-1d-compute-the-multivariate-normal-log-probability">
-<h3>Problem 1d: Compute the multivariate normal log probability<a class="headerlink" href="#problem-1d-compute-the-multivariate-normal-log-probability" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1d: Compute the multivariate normal log probability<a class="headerlink" href="#problem-1d-compute-the-multivariate-normal-log-probability" title="Link to this heading">#</a></h3>
 <p>Write a function to compute the (average negative) log probability under the a multivariate normal distribution,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1036,7 +1061,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="plot-the-decoded-positions">
-<h3>Plot the decoded positions<a class="headerlink" href="#plot-the-decoded-positions" title="Permalink to this heading">#</a></h3>
+<h3>Plot the decoded positions<a class="headerlink" href="#plot-the-decoded-positions" title="Link to this heading">#</a></h3>
 <p>That’s it! No more fitting required. You already estimated the parametes in Problems 1a and 1b. Now we’ll decode the velocities from the test set and integrate them to get positions that we can compare to the true cursor trajectories.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1068,14 +1093,14 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-1e-short-answer-explain-your-results">
-<h3>Problem 1e: [Short answer] Explain your results<a class="headerlink" href="#problem-1e-short-answer-explain-your-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1e: [Short answer] Explain your results<a class="headerlink" href="#problem-1e-short-answer-explain-your-results" title="Link to this heading">#</a></h3>
 <p>Why do the decoded trajectories look so noisy when the real trajectories are so smooth?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="part-2-bayesian-decoding-with-a-linear-dynamical-system-prior">
-<h2>Part 2: Bayesian decoding with a linear dynamical system prior<a class="headerlink" href="#part-2-bayesian-decoding-with-a-linear-dynamical-system-prior" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Bayesian decoding with a linear dynamical system prior<a class="headerlink" href="#part-2-bayesian-decoding-with-a-linear-dynamical-system-prior" title="Link to this heading">#</a></h2>
 <p>The simple model failed to account for any temporal correlations in the velocities. This followed from the fact that both the prior and the likelihood were independent across time bins. In this section, we’ll address this shortcoming by building temporal dependencies into the prior.</p>
 <p>Consider the following model instead,</p>
 <div class="math notranslate nohighlight">
@@ -1089,7 +1114,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 \end{split}\]</div>
 <p>Under this model, the velocity <span class="math notranslate nohighlight">\(\mathbf{x}_{i,t}\)</span> is a linear function of the preceding velocity with additive Gaussian noise. This is called a <em>linear dynamical system</em> (LDS). These autoregressive dependencies of the LDS lead to correlations across time in the posterior.</p>
 <section id="problem-2a-math-derive-the-natural-parameters-of-the-lds-posterior">
-<h3>Problem 2a [Math]: Derive the natural parameters of the LDS posterior<a class="headerlink" href="#problem-2a-math-derive-the-natural-parameters-of-the-lds-posterior" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a [Math]: Derive the natural parameters of the LDS posterior<a class="headerlink" href="#problem-2a-math-derive-the-natural-parameters-of-the-lds-posterior" title="Link to this heading">#</a></h3>
 <p>Since the model is linear and Gaussian, the posterior distribution of the LDS is also a multivariate Gaussian,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1141,7 +1166,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-2b-estimate-the-velocity-dynamics">
-<h3>Problem 2b: Estimate the velocity dynamics<a class="headerlink" href="#problem-2b-estimate-the-velocity-dynamics" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Estimate the velocity dynamics<a class="headerlink" href="#problem-2b-estimate-the-velocity-dynamics" title="Link to this heading">#</a></h3>
 <p>Write a function to estimate the prior parameters <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}}_0\)</span>, <span class="math notranslate nohighlight">\(\hat{\mathbf{A}}\)</span>, and <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}}\)</span>. Estimate <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}}_0\)</span> as the empirical variance of the initial velocity (similar to Problem 1a), and estimate <span class="math notranslate nohighlight">\(\hat{\mathbf{A}}\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}}\)</span> via linear regression (similar to Problem 1b).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1165,7 +1190,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="a-helper-function-to-construct-a-symmetric-block-tridiagonal-matrix-from-its-parts">
-<h3>A helper function to construct a symmetric block tridiagonal matrix from its parts<a class="headerlink" href="#a-helper-function-to-construct-a-symmetric-block-tridiagonal-matrix-from-its-parts" title="Permalink to this heading">#</a></h3>
+<h3>A helper function to construct a symmetric block tridiagonal matrix from its parts<a class="headerlink" href="#a-helper-function-to-construct-a-symmetric-block-tridiagonal-matrix-from-its-parts" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">symm_block_tridiag</span><span class="p">(</span><span class="n">J_diag</span><span class="p">,</span> <span class="n">J_lower_diag</span><span class="p">):</span>
@@ -1193,7 +1218,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-2c-implement-the-lds-decoder">
-<h3>Problem 2c: Implement the LDS decoder<a class="headerlink" href="#problem-2c-implement-the-lds-decoder" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c: Implement the LDS decoder<a class="headerlink" href="#problem-2c-implement-the-lds-decoder" title="Link to this heading">#</a></h3>
 <p>Implement the LDS decoder as a PyTorch module, using your derivations from Problem 2a and the helper function above to construct the big <span class="math notranslate nohighlight">\(\mathbf{J}\)</span> matrix and <span class="math notranslate nohighlight">\(\mathbf{h}\)</span> vector. Then use <code class="docutils literal notranslate"><span class="pre">torch.linalg.inv</span></code> to convert the natural parameters to mean parameters <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.</p>
 <p>As in Part 1, return <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> as a <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">2</span></code> tensor and <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> as a <code class="docutils literal notranslate"><span class="pre">2T</span> <span class="pre">x</span> <span class="pre">2T</span></code> tensor.</p>
 <p><strong>Note</strong>: Inverting <span class="math notranslate nohighlight">\(\mathbf{J}\)</span> naively takse <span class="math notranslate nohighlight">\(O(T^3)\)</span> operations since it’s a <span class="math notranslate nohighlight">\(2T \times 2T\)</span> matrix.  We can get this down to <span class="math notranslate nohighlight">\(O(T)\)</span> using the Kalman smoother—a dynamic programming algorithm. We’ll talk more about this in class. For now, just pay the cubic price since these matrices aren’t that big anyway.</p>
@@ -1263,7 +1288,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="id1">
-<h3>Plot the decoded positions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Plot the decoded positions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Once again, that’s it! No more fitting required. You already estimated the parametes in Problems 1a and 1b. Now we’ll decode the velocities from the test set and integrate them to get positions that we can compare to the true cursor trajectories.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1277,14 +1302,14 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="problem-2d-short-answer-explain-your-results">
-<h3>Problem 2d: [Short answer] Explain your results<a class="headerlink" href="#problem-2d-short-answer-explain-your-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d: [Short answer] Explain your results<a class="headerlink" href="#problem-2d-short-answer-explain-your-results" title="Link to this heading">#</a></h3>
 <p>The decoded trajectories (i.e. cursor positions) are much smoother than before! Are the decoded velocities (i.e. the mean output by the decoder) similarly smooth?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="part-3-direct-decoding-with-structured-prediction">
-<h2>Part 3: Direct decoding with structured prediction<a class="headerlink" href="#part-3-direct-decoding-with-structured-prediction" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Direct decoding with structured prediction<a class="headerlink" href="#part-3-direct-decoding-with-structured-prediction" title="Link to this heading">#</a></h2>
 <p>One of the limitations of the LDS in Part 2 is that it treated the spikes as a <strong>linear function</strong> of the instantaneous velocity with <strong>additive Gaussian</strong> noise. We could work on the encoder and instead substitute a Poisson GLM for <span class="math notranslate nohighlight">\(p(\mathbf{y}_{i,t} \mid \mathbf{x}_{i,t})\)</span>, for example, but that would destroy the conjugacy of the model, and the resulting posterior distribution would no longer have a closed form.</p>
 <p>A common approach to Bayesian inference in “non-conjugate” models is to approximate the resulting posterior with a Gaussian distribution; e.g. via Laplace approximation. Note that the Gaussian approximation to the non-conjugate model’s posterior is not the same as the posterior under a linear Gaussian model—it is influenced by the nonlinear likelihood model, for instance.</p>
 <p>That said, if we’re ultimately going to approximate the posterior as a Gaussian, why not just <em>learn</em> to output a Gaussian distribution whose mean and covariance are some function of the spikes <span class="math notranslate nohighlight">\(\mathbf{y}_i\)</span>? There are a few challenges:</p>
@@ -1316,7 +1341,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 (Note that you’ll have to handle edge cases in <span class="math notranslate nohighlight">\(J_{11}\)</span> and <span class="math notranslate nohighlight">\(J_{TT}\)</span> as in Part 2.)</p>
 <p>This model retains the LDS prior that couples the velocities via a linear Gaussian model, but it allows richer functions of the data in place of the likelihood. Let’s see if we can get this model to improve on the decoders above!</p>
 <section id="problem-3a-implement-a-structured-decoder-with-features-from-a-cnn">
-<h3>Problem 3a: Implement a structured decoder with features from a CNN<a class="headerlink" href="#problem-3a-implement-a-structured-decoder-with-features-from-a-cnn" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a: Implement a structured decoder with features from a CNN<a class="headerlink" href="#problem-3a-implement-a-structured-decoder-with-features-from-a-cnn" title="Link to this heading">#</a></h3>
 <p>Implement the functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> above by first passing the spikes through a <code class="docutils literal notranslate"><span class="pre">Conv1d</span></code> layer with 96 input channels, <code class="docutils literal notranslate"><span class="pre">interm_dim</span></code> output channels, a kernel of size <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>, and half that padding on either end to obtain a <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">interm_dim</span></code> output. Pass the output through a <code class="docutils literal notranslate"><span class="pre">relu</span></code> and then apply two separate linear layers.</p>
 <ol class="arabic simple">
 <li><p>The first linear layer gives you a <code class="docutils literal notranslate"><span class="pre">Tx2</span></code> tensor containing the linear coefficients <span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span>.</p></li>
@@ -1396,7 +1421,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="train-the-model">
-<h3>Train the model<a class="headerlink" href="#train-the-model" title="Permalink to this heading">#</a></h3>
+<h3>Train the model<a class="headerlink" href="#train-the-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training structured decoder model. This should take about 4 minutes...&quot;</span><span class="p">)</span>
@@ -1438,7 +1463,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="plot-the-decoded-movements">
-<h3>Plot the decoded movements<a class="headerlink" href="#plot-the-decoded-movements" title="Permalink to this heading">#</a></h3>
+<h3>Plot the decoded movements<a class="headerlink" href="#plot-the-decoded-movements" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -1452,7 +1477,7 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </div>
 </section>
 <section id="compute-and-report-the-test-loss-for-all-three-decoders">
-<h3>Compute and report the test loss for all three decoders<a class="headerlink" href="#compute-and-report-the-test-loss-for-all-three-decoders" title="Permalink to this heading">#</a></h3>
+<h3>Compute and report the test loss for all three decoders<a class="headerlink" href="#compute-and-report-the-test-loss-for-all-three-decoders" title="Link to this heading">#</a></h3>
 <p>Compute the test loss for all three models, averaging the loss over test trial. Compare to a baseline of indepedent Gaussian velocities for each trial and timesteps.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1494,28 +1519,28 @@ p(\mathbf{x}_i \mid \mathbf{y}_i)
 </section>
 </section>
 <section id="part-4-discussion">
-<h2>Part 4: Discussion<a class="headerlink" href="#part-4-discussion" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Discussion<a class="headerlink" href="#part-4-discussion" title="Link to this heading">#</a></h2>
 <section id="problem-4a">
-<h3>Problem 4a<a class="headerlink" href="#problem-4a" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4a<a class="headerlink" href="#problem-4a" title="Link to this heading">#</a></h3>
 <p>Why do you think we decoded velocity instead of position? What are the limitations of decoding velocity and then integrating it to obtain position estimates?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-4b">
-<h3>Problem 4b<a class="headerlink" href="#problem-4b" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4b<a class="headerlink" href="#problem-4b" title="Link to this heading">#</a></h3>
 <p>Decoding performance could be limited by either the raw amount of information about movement contained in the neural activity, or by the particular form of decoder that we employed. What do you think the limiting factor is in this lab?
 Why?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-4c">
-<h3>Problem 4c<a class="headerlink" href="#problem-4c" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4c<a class="headerlink" href="#problem-4c" title="Link to this heading">#</a></h3>
 <p>We only used the mean velocity output by the decoder, <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span>. How could you use the covariance <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-4d">
-<h3>Problem 4d<a class="headerlink" href="#problem-4d" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4d<a class="headerlink" href="#problem-4d" title="Link to this heading">#</a></h3>
 <p>Suppose we wanted to use the decoder to control a prosthetic limb and we needed it to work for months or years at a time. Would you expect the same decoder parameters to work throughout that time course, and if not, how might you adapt the decoder over time to maintain or potentially even improve performance?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
@@ -1548,11 +1573,10 @@ Why?</p>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="04_glms.html"
@@ -1572,10 +1596,7 @@ Why?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1583,6 +1604,7 @@ Why?</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1652,9 +1674,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1678,8 +1701,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

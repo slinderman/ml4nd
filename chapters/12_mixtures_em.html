@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Mixture Models and the EM Algorithm &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/12_mixtures_em';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/12_mixtures_em.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -389,10 +414,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mixture-models-and-the-em-algorithm">
-<h1>Mixture Models and the EM Algorithm<a class="headerlink" href="#mixture-models-and-the-em-algorithm" title="Permalink to this heading">#</a></h1>
+<h1>Mixture Models and the EM Algorithm<a class="headerlink" href="#mixture-models-and-the-em-algorithm" title="Link to this heading">#</a></h1>
 <p>Unit II was all about <em>supervised</em> learning problems. Both encoding and decoding involve predicting one signal from another: neural firing rates given stimuli, or behavioral outputs given neural activity. Now we turn our attention to <em>unsupervised</em> learning problems. Given measurements of neural activity or behavior, we aim to find latent variables — cluster, factors, etc. — that can explain the data.</p>
 <p>Unsupervised learning has many applications in neuroscience. First and foremost, it’s a means of <strong>dimensionality reduction</strong>. Latent variables offer a compressed representation of high-dimensional neural spike trains or behavioral videos. Low dimensional representations can aid in <strong>visualization</strong> as well as <strong>hypothesis generation</strong>.</p>
 <p>We encountered a few examples of unsupervised learning in Unit I. Spike sorting and calcium deconvolution were both unsupervised problems: the spike times and templates were a low dimensional representation of a high dimensional voltage trace or video.</p>
@@ -406,7 +431,7 @@ document.write(`
 </ul>
 <p>This are certainly not an exhaustive list of the types of constraints, but it covers many bases. Thinking in terms of constraints allows us to organize many commonly used models.</p>
 <section id="gaussian-mixture-models">
-<h2>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
+<h2>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Link to this heading">#</a></h2>
 <p>Let’s start with a simple and canonical example: the <strong>Gaussian mixture model (GMM)</strong>.</p>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{x}_t \in \mathbb{R}^D\)</span> denote the <span class="math notranslate nohighlight">\(t\)</span>-th observation. Let <span class="math notranslate nohighlight">\(z_t \in \{1, \ldots, K\}\)</span> denote the discrete latent state (aka cluster assignment) of that data point.</p>
 <p>Assume each observation is independently drawn according to the following model:</p>
@@ -429,8 +454,8 @@ p(\mathbf{z}_{1:T}, \mathbf{x}_{1:T}; \boldsymbol{\theta})
 \]</div>
 </section>
 <section id="map-estimation-and-k-means">
-<h2>MAP estimation and K-means<a class="headerlink" href="#map-estimation-and-k-means" title="Permalink to this heading">#</a></h2>
-<p>In <a class="reference internal" href="02_probabilistic_modeling.html"><span class="doc std std-doc">Chapter 2</span></a>, we fit this type of model using MAP estimation,</p>
+<h2>MAP estimation and K-means<a class="headerlink" href="#map-estimation-and-k-means" title="Link to this heading">#</a></h2>
+<p>In <a class="reference internal" href="02_probabilistic_modeling.html"><span class="std std-doc">Chapter 2</span></a>, we fit this type of model using MAP estimation,</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{z}_{1:T}^\star, \boldsymbol{\theta}^\star =
@@ -458,7 +483,7 @@ p(\mathbf{z}_{1:T}, \mathbf{x}_{1:T}; \boldsymbol{\theta})
 <p>In words, we set the cluster means and covariances equal to the same means and covariances of the data points assigned to that cluster. If we were to fix <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}_k = \mathbf{I}\)</span> for all clusters, this algorithm would be equivalent to <strong>K-means clustering</strong>.</p>
 </section>
 <section id="expectation-maximization-em">
-<h2>Expectation-Maximization (EM)<a class="headerlink" href="#expectation-maximization-em" title="Permalink to this heading">#</a></h2>
+<h2>Expectation-Maximization (EM)<a class="headerlink" href="#expectation-maximization-em" title="Link to this heading">#</a></h2>
 <p>MAP estimation gives us a <strong>point estimate</strong> of the latent variables and parameters.
 However, point estimates can lead to an overly optimistic view of the model.
 Specifically, MAP estimation found the <strong>best assignment</strong> of latent, which may not reflect how well samples from the model match the observed data.</p>
@@ -499,7 +524,7 @@ p(\mathbf{z}_{1:T} \mid \mathbf{x}_{1:T}; \boldsymbol{\theta}).
 <p>The posterior probabilities <span class="math notranslate nohighlight">\(q_{t,k}\)</span> are sometimes called the <strong>responsibilities</strong>. When we update the parameters, we take a <strong>weighted average</strong> of all data points based on these responsibilities.</p>
 </section>
 <section id="the-evidence-lower-bound-elbo">
-<h2>The Evidence Lower Bound (ELBO)<a class="headerlink" href="#the-evidence-lower-bound-elbo" title="Permalink to this heading">#</a></h2>
+<h2>The Evidence Lower Bound (ELBO)<a class="headerlink" href="#the-evidence-lower-bound-elbo" title="Link to this heading">#</a></h2>
 <p>Why does EM work? We can view it as coordinate ascent on the <strong>evidence lower bound (ELBO)</strong>. First, let’s rewrite the log marginal likelihood as the log of an expectation,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -536,7 +561,7 @@ f(\mathbb{E}[\mathbf{x}]) \leq \mathbb{E}[f(\mathbf{x})]
 <p>The functional <span class="math notranslate nohighlight">\(\mathcal{L}[q, \boldsymbol{\theta}]\)</span> is called evidence lower bound, a.k.a. the ELBO.</p>
 </section>
 <section id="em-and-coordinate-ascent">
-<h2>EM and coordinate ascent<a class="headerlink" href="#em-and-coordinate-ascent" title="Permalink to this heading">#</a></h2>
+<h2>EM and coordinate ascent<a class="headerlink" href="#em-and-coordinate-ascent" title="Link to this heading">#</a></h2>
 <p>We can view the EM algorithm as coordinate ascent on the ELBO.</p>
 <ol class="arabic">
 <li><p><strong>M-step:</strong> Update the parameters,</p>
@@ -583,14 +608,14 @@ f(\mathbb{E}[\mathbf{x}]) \leq \mathbb{E}[f(\mathbf{x})]
 <p>Iterating between the E- and M-steps converges to a local optimum of the ELBO. Since after each E-step the ELBO is tight, the local optimum of the ELBO must also be a local optimum of the log marginal likelihood.</p>
 </section>
 <section id="exponential-family-mixtures">
-<h2>Exponential family mixtures<a class="headerlink" href="#exponential-family-mixtures" title="Permalink to this heading">#</a></h2>
+<h2>Exponential family mixtures<a class="headerlink" href="#exponential-family-mixtures" title="Link to this heading">#</a></h2>
 <p>So far we’ve focused on Gaussian mixture models. Now let’s consider the more general case of <strong>exponential family mixture models</strong> for which,</p>
 <div class="math notranslate nohighlight">
 \[
 p(\mathbf{x}_n \mid z_n = k; \boldsymbol{\eta}) 
 = h(\mathbf{x}_n) \exp \left\{\langle t(\mathbf{x}_n), \boldsymbol{\eta}_k \rangle - A(\boldsymbol{\eta}_k) \right\}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\eta} = \{\boldsymbol{\eta}_k\}_{k=1}^K\)</span> is the set of <em>natural parameters</em>, <span class="math notranslate nohighlight">\(t(\mathbf{x}_n)\)</span> are the <em>sufficient statistics</em>, and <span class="math notranslate nohighlight">\(A(\boldsymbol{\eta}_k)\)</span> is the <em>log normalizer</em>.  Recall <a class="reference internal" href="09_glm.html"><span class="doc std std-doc">Chapter 9</span></a> for an introduction to exponential family distributions.</p>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\eta} = \{\boldsymbol{\eta}_k\}_{k=1}^K\)</span> is the set of <em>natural parameters</em>, <span class="math notranslate nohighlight">\(t(\mathbf{x}_n)\)</span> are the <em>sufficient statistics</em>, and <span class="math notranslate nohighlight">\(A(\boldsymbol{\eta}_k)\)</span> is the <em>log normalizer</em>.  Recall <a class="reference internal" href="09_glm.html"><span class="std std-doc">Chapter 9</span></a> for an introduction to exponential family distributions.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>We have switched to indexing data points by <span class="math notranslate nohighlight">\(n\)</span> instead of <span class="math notranslate nohighlight">\(t\)</span> to avoid confusion with the sufficient statistic <span class="math notranslate nohighlight">\(t\)</span>. Furthermore, we are assuming that all <span class="math notranslate nohighlight">\(K\)</span> components of the mixture model belong to the same exponential family (and hence have the same sufficient statistics, log normalizer, base measure, etc.).</p>
@@ -640,7 +665,7 @@ N_k &amp;= \sum_{n=1}^N q_{n,k}.
 </div>
 </section>
 <section id="stochastic-em">
-<h2>Stochastic EM<a class="headerlink" href="#stochastic-em" title="Permalink to this heading">#</a></h2>
+<h2>Stochastic EM<a class="headerlink" href="#stochastic-em" title="Link to this heading">#</a></h2>
 <p>Finally, the EM algorithm presented above is a <strong>batch</strong> algorithm. The M-step involves aggregating sufficient statistics from the entire dataset. For very large datasets, it is more efficient to do an M-step after each <strong>mini-batch</strong> of data. That is how <strong>stochastic EM</strong> works.</p>
 <p>The key idea is to maintain a running estimate of the sufficient statistics. Assume we have <span class="math notranslate nohighlight">\(N\)</span> data points equally divided into <span class="math notranslate nohighlight">\(M\)</span> mini-batches, each of size <span class="math notranslate nohighlight">\(\tfrac{N}{M}\)</span>. Let <span class="math notranslate nohighlight">\(\overline{t}_k^{(m)}\)</span> and <span class="math notranslate nohighlight">\(\overline{N}_k^{(m)}\)</span> be the normalized statistics and responsibilities computed on the <span class="math notranslate nohighlight">\(m\)</span>-th mini-batch. (They are normalized by summing over the mini-batch and then dividing by its size, <span class="math notranslate nohighlight">\(\tfrac{N}{M}\)</span>.)</p>
 <p>In stochastic EM, we keep a running estimate of the normalized statistics. After processing each mini-batch, we update the running estimate by taking a <strong>convex combination</strong> of the previous estimate and the estimate from the current mini-batch.</p>
@@ -659,7 +684,7 @@ N_k &amp;= \sum_{n=1}^N q_{n,k}.
 <p>To ensure convergence, we decay the learning rate according to a <strong>schedule</strong>, starting with <span class="math notranslate nohighlight">\(\alpha = 1\)</span> and slowly decaying it toward zero after each mini-batch.</p>
 <p>One sweep through the entire set of <span class="math notranslate nohighlight">\(M\)</span> mini-batches — i.e., a sweep through the whole dataset — is called an <strong>epoch</strong>. Since stochastic EM updates parameters once per mini-batch as opposed to once per epoch, as in standard EM, the parameter estimates often converge in many fewer epochs.</p>
 <section id="stochastic-em-for-gmm">
-<h3>Stochastic EM for GMM<a class="headerlink" href="#stochastic-em-for-gmm" title="Permalink to this heading">#</a></h3>
+<h3>Stochastic EM for GMM<a class="headerlink" href="#stochastic-em-for-gmm" title="Link to this heading">#</a></h3>
 <p>Let’s consider the special case of the Gaussian mixture model and derive the stochastic EM algorithm. The Gaussian probability can be written in exponential family form as,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -739,7 +764,7 @@ We could write this log probability in terms of its natural parameters <span cla
 </section>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>This chapter introduced unsupervised learning methods using latent variables.</p>
 <ul class="simple">
 <li><p>We started with the Gaussian mixture model and recalled the coordinate ascent algorithm for MAP estimation, which is very similar to K-means.</p></li>
@@ -776,11 +801,10 @@ We could write this log probability in terms of its natural parameters <span cla
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="11_decoding.html"
@@ -800,10 +824,7 @@ We could write this log probability in terms of its natural parameters <span cla
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -811,6 +832,7 @@ We could write this log probability in terms of its natural parameters <span cla
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -850,9 +872,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -876,8 +899,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

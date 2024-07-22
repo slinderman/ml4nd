@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 8: Sequential VAEs &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/08_lfads';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/08_lfads.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -395,10 +420,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-8-sequential-vaes">
-<h1>Lab 8: Sequential VAEs<a class="headerlink" href="#lab-8-sequential-vaes" title="Permalink to this heading">#</a></h1>
+<h1>Lab 8: Sequential VAEs<a class="headerlink" href="#lab-8-sequential-vaes" title="Link to this heading">#</a></h1>
 <p>In this lab we will build a very simple version of of <a class="reference external" href="https://www.nature.com/articles/s41592-018-0109-9"><strong>LFADS: Latent Factor Analysis for Dynamical Systems</strong></a> (Pandarinath et al, 2018). LFADS is a popular technique for for modeling neural spike train data, finding low-dimensional factors of variation, and studying their nonlinear dynamics.</p>
 <p>Technically, LFADS is a sequential variational autoencoder (VAE). Like all VAEs, it consists of two parts:</p>
 <ol class="arabic simple">
@@ -411,7 +436,7 @@ document.write(`
 <li><p>Pandarinath, Chethan, et al. “Inferring single-trial neural population dynamics using sequential auto-encoders.” Nature methods 15.10 (2018): 805-815.</p></li>
 </ul>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -430,7 +455,7 @@ document.write(`
 </div>
 </section>
 <section id="part-0-make-some-synthetic-data">
-<h2>Part 0: Make some synthetic data<a class="headerlink" href="#part-0-make-some-synthetic-data" title="Permalink to this heading">#</a></h2>
+<h2>Part 0: Make some synthetic data<a class="headerlink" href="#part-0-make-some-synthetic-data" title="Link to this heading">#</a></h2>
 <p>We’ll start by simulating data from a simple oscillatory system with sparse “kicks” to the state. There are two underlying oscillators, <span class="math notranslate nohighlight">\(\theta_0\)</span> and <span class="math notranslate nohighlight">\(\theta_1\)</span>, with different angular velocities (rates), <span class="math notranslate nohighlight">\(\dot{\theta}_0\)</span> and <span class="math notranslate nohighlight">\(\dot{\theta}_1\)</span>. Each <em>trial</em> starts in the same initial condition, <span class="math notranslate nohighlight">\(\theta_0 = \theta_1 = 0\)</span>, but then the oscillators receive random inputs <span class="math notranslate nohighlight">\(u_t \sim \mathrm{Unif}([0, 2 \pi))\)</span>. Importantly, both oscillators receive the same kicks! The resulting dynamics are,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -545,7 +570,7 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 </div>
 </section>
 <section id="part-1-recurrent-neural-networks-in-pytorch">
-<h2>Part 1: Recurrent Neural Networks in PyTorch<a class="headerlink" href="#part-1-recurrent-neural-networks-in-pytorch" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Recurrent Neural Networks in PyTorch<a class="headerlink" href="#part-1-recurrent-neural-networks-in-pytorch" title="Link to this heading">#</a></h2>
 <p>First, let’s check out PyTorch’s built-in recurrent neural network modules. Specifically, we will use a <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.GRU.html?highlight=gru#torch.nn.GRU"><strong>Gated Recurrent Unit (GRU)</strong></a>.</p>
 <ul class="simple">
 <li><p>Like other RNNs, a GRU takes in <em>inputs</em> and an <em>initial state</em> to produces a sequence of states.</p></li>
@@ -617,10 +642,10 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 </div>
 </section>
 <section id="part-2-building-lfads">
-<h2>Part 2: Building LFADS<a class="headerlink" href="#part-2-building-lfads" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Building LFADS<a class="headerlink" href="#part-2-building-lfads" title="Link to this heading">#</a></h2>
 <p>Next, we construct an LFADS model. Once we’ve built it, we’ll use it to estimate the latent oscillatory factors underlying our simulated data.</p>
 <section id="part-2a-generative-model">
-<h3>Part 2a: Generative model<a class="headerlink" href="#part-2a-generative-model" title="Permalink to this heading">#</a></h3>
+<h3>Part 2a: Generative model<a class="headerlink" href="#part-2a-generative-model" title="Link to this heading">#</a></h3>
 <p>The LFADS generative model consists of two parts: inputs <span class="math notranslate nohighlight">\(\mathbf{u}_t\)</span> and states <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span>. The state at time <span class="math notranslate nohighlight">\(t\)</span> is a deterministic function of the previous state, the input, and the RNN weights <span class="math notranslate nohighlight">\(\theta_{\mathsf{RNN}}\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -710,7 +735,7 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 </div>
 </section>
 <section id="part-2b-encoder">
-<h3>Part 2b: Encoder<a class="headerlink" href="#part-2b-encoder" title="Permalink to this heading">#</a></h3>
+<h3>Part 2b: Encoder<a class="headerlink" href="#part-2b-encoder" title="Link to this heading">#</a></h3>
 <p>The LFADS encoder takes in a spike train and produces a <strong>variational posterior</strong> distribution over the initial condition and inputs. In our implementation, we will model the posteriors as Gaussian distributions,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -821,7 +846,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </div>
 </section>
 <section id="part-2c-the-combined-lfads-model">
-<h3>Part 2c: The combined LFADS model<a class="headerlink" href="#part-2c-the-combined-lfads-model" title="Permalink to this heading">#</a></h3>
+<h3>Part 2c: The combined LFADS model<a class="headerlink" href="#part-2c-the-combined-lfads-model" title="Link to this heading">#</a></h3>
 <p>Now that we’ve implemented the generative model and encoder, all that’s left is to stick them together! The <code class="docutils literal notranslate"><span class="pre">LFADS</span></code> module below does exactly that. Its <code class="docutils literal notranslate"><span class="pre">forward</span></code> function takes in a spike train, passes it through the encoder to obtain a posterior distribution over initial condition and inputs, samples the posterior, and passes the result through the generator to obtain reconstructed firing rates.</p>
 <p><strong>Note:</strong> It’s important to use <code class="docutils literal notranslate"><span class="pre">rsample</span></code> to sample the variational posteriors using the <strong>reparameterization trick</strong>!</p>
 <div class="cell docutils container">
@@ -884,7 +909,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </div>
 </section>
 <section id="part-2d-implement-the-elbo-objective">
-<h3>Part 2d: Implement the ELBO objective<a class="headerlink" href="#part-2d-implement-the-elbo-objective" title="Permalink to this heading">#</a></h3>
+<h3>Part 2d: Implement the ELBO objective<a class="headerlink" href="#part-2d-implement-the-elbo-objective" title="Link to this heading">#</a></h3>
 <p>Finally, implement the ELBO,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -937,7 +962,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </section>
 </section>
 <section id="part-3-fit-it">
-<h2>Part 3: Fit it!<a class="headerlink" href="#part-3-fit-it" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Fit it!<a class="headerlink" href="#part-3-fit-it" title="Link to this heading">#</a></h2>
 <p>First, we’ve written a simple function to fit the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1022,7 +1047,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </div>
 </div>
 <section id="part-3a-reconstruct-firing-rates">
-<h3>Part 3a: Reconstruct firing rates<a class="headerlink" href="#part-3a-reconstruct-firing-rates" title="Permalink to this heading">#</a></h3>
+<h3>Part 3a: Reconstruct firing rates<a class="headerlink" href="#part-3a-reconstruct-firing-rates" title="Link to this heading">#</a></h3>
 <p>As a first check, let’s see if the model has learned to reconstruct the firing rates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,7 +1088,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </div>
 </section>
 <section id="part-3b-simulate-from-the-learned-model">
-<h3>Part 3b: Simulate from the learned model<a class="headerlink" href="#part-3b-simulate-from-the-learned-model" title="Permalink to this heading">#</a></h3>
+<h3>Part 3b: Simulate from the learned model<a class="headerlink" href="#part-3b-simulate-from-the-learned-model" title="Link to this heading">#</a></h3>
 <p>The reconstructions above were based on <strong>inferred inputs</strong>. To see if the model has truly learned the oscillatory dynamics of this synthetic data, let’s simulate from the model with zero inputs. We’ll start it with a sample from the initial distribution output by the encoder.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1117,7 +1142,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 <p><strong>Question:</strong> What does this finding suggest about how you should interpret the inferred inputs?</p>
 </section>
 <section id="part-3c-looking-at-the-inferred-states">
-<h3>Part 3c: Looking at the inferred states<a class="headerlink" href="#part-3c-looking-at-the-inferred-states" title="Permalink to this heading">#</a></h3>
+<h3>Part 3c: Looking at the inferred states<a class="headerlink" href="#part-3c-looking-at-the-inferred-states" title="Link to this heading">#</a></h3>
 <p>In LFADS, the firing rates are rectified linear functions of the underlying RNN states. We can get a sense for how high-dimensional those states are by looking at the SVD of the output weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1167,7 +1192,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 </section>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>From here, you could further unpack the learned generator to study its fixed points and the linearized dynamics around them. Such analyses can shed light on how the RNN works, at least in the language of linear dynamics and fixed points. This perspective on reverse engineering neural systems is sometimes referred to as <strong>computation through dynamics</strong> <a class="reference external" href="https://www.annualreviews.org/doi/abs/10.1146/annurev-neuro-092619-094115">(Vyas et al, 2020)</a>.</p>
 <p>Note that the model above is a rather simplified version of LFADS. The <a class="reference external" href="https://github.com/google-research/computation-thru-dynamics/blob/master/notebooks/LFADS%20Tutorial.ipynb">standard LFADS implementation</a> has a more complex encoder that uses the generator RNN in the posterior computation. There are also many more tricks to improve training performance. That said, this notebook should give you the gist of how this class of models works under the hood!</p>
 <p>References:</p>
@@ -1200,11 +1225,10 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="07_slds.html"
@@ -1224,10 +1248,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1235,6 +1256,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1280,9 +1302,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1306,8 +1329,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

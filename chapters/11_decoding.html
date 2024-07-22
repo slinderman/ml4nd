@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Decoding Models &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/11_decoding';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/11_decoding.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -386,14 +411,14 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="decoding-models">
-<h1>Decoding Models<a class="headerlink" href="#decoding-models" title="Permalink to this heading">#</a></h1>
+<h1>Decoding Models<a class="headerlink" href="#decoding-models" title="Link to this heading">#</a></h1>
 <p>If encoding models approximate the conditional probability of neural activity <span class="math notranslate nohighlight">\(y\)</span> given covariates <span class="math notranslate nohighlight">\(x\)</span>, then <strong>decoding models</strong> do the reverse: they predict covariates given neural activity. For example, we could decode arm movements from neural activity in motor cortex to drive a prosthetic limb. Or we could decode an animal’s position by measuring the activity of place cells in its hippocampus. Or we could infer what a person is seeing based on measurements of neural activity in visual cortex. All of these are examples of decoding an external signal given neural measurements.</p>
 <p>At the end of the day, it’s all just regression. With enough data, we can train a predictive model to output <span class="math notranslate nohighlight">\(p(x \mid y)\)</span>. However, sometimes we can be a bit more clever. With a good encoding model and a prior distribution over covariates, we can build <strong>Bayesian decoders</strong> to estimate the <strong>posterior distribution</strong> of covariates <span class="math notranslate nohighlight">\(x\)</span> given neural activity <span class="math notranslate nohighlight">\(y\)</span>. If we don’t have all the ingredients for a Bayesian decoder — if we have a good prior but a poor encoding model — we can build <strong>structured prediction</strong> models that capture key constraints on the outputs.  This chapter will discuss both of these approaches.</p>
 <section id="bayesian-decoders">
-<h2>Bayesian decoders<a class="headerlink" href="#bayesian-decoders" title="Permalink to this heading">#</a></h2>
+<h2>Bayesian decoders<a class="headerlink" href="#bayesian-decoders" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{y}_t \in \mathbb{R}^N\)</span> denote the neural measurement at time <span class="math notranslate nohighlight">\(t\)</span>, and let <span class="math notranslate nohighlight">\(\mathbf{x}_t \in \mathbb{R}^D\)</span> be the covariate of interest. For example, <span class="math notranslate nohighlight">\(\mathbf{y}_t \in \mathbb{N}_0^N\)</span> could be a vector of spike counts and <span class="math notranslate nohighlight">\(\mathbf{x}_t \in \mathbb{R}^2\)</span> the position of an animal’s hand.</p>
 <p>Suppose we have a good estimate of the prior distribution on hand positions <span class="math notranslate nohighlight">\(p(\mathbf{x}_t)\)</span>. Likewise, suppose we have fit an encoding model <span class="math notranslate nohighlight">\(p(\mathbf{y}_t \mid \mathbf{x}_t)\)</span> to predict neural activity as a function of hand position. Then we can use <strong>Bayes’ rule</strong> to infer the posterior distribuition over positions given neural activity,</p>
 <div class="math notranslate nohighlight">
@@ -407,7 +432,7 @@ p(\mathbf{x}_t \mid \mathbf{y}_t)
 <p>The encoder is the <strong>likelihood</strong> and the decoder is the <strong>posterior</strong>.</p>
 </section>
 <section id="simple-model">
-<h2>Simple model<a class="headerlink" href="#simple-model" title="Permalink to this heading">#</a></h2>
+<h2>Simple model<a class="headerlink" href="#simple-model" title="Link to this heading">#</a></h2>
 <p>Consider a Gaussian prior,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -456,7 +481,7 @@ p(\mathbf{x}_t \mid \mathbf{y}_t)
 \mathbf{h}_t &amp;= \mathbf{C}^\top \mathbf{R}^{-1} (\mathbf{y}_t - \mathbf{d}).
 \end{align*}
 \end{split}\]</div>
-<p>The posterior is proportional to an exponentiated quadratic, so it too is a Gaussian distribution! <span class="math notranslate nohighlight">\(\mathbf{J}_t\)</span> and <span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> are its <strong>natural paramters</strong>. (Refer back to the <a class="reference internal" href="09_glm.html"><span class="doc std std-doc">chapter on GLMs and exponential family distributions</span></a>!) To convert the natural paramters back into <strong>mean parameters</strong>, we need to <a class="reference external" href="https://en.wikipedia.org/wiki/Completing_the_square"><strong>complete the square</strong></a>,</p>
+<p>The posterior is proportional to an exponentiated quadratic, so it too is a Gaussian distribution! <span class="math notranslate nohighlight">\(\mathbf{J}_t\)</span> and <span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> are its <strong>natural paramters</strong>. (Refer back to the <a class="reference internal" href="09_glm.html"><span class="std std-doc">chapter on GLMs and exponential family distributions</span></a>!) To convert the natural paramters back into <strong>mean parameters</strong>, we need to <a class="reference external" href="https://en.wikipedia.org/wiki/Completing_the_square"><strong>complete the square</strong></a>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align*}
@@ -467,7 +492,7 @@ p(\mathbf{x}_t \mid \mathbf{y}_t) &amp;= \mathcal{N}(\mathbf{x}_t \mid \boldsymb
 \end{split}\]</div>
 </section>
 <section id="information-form">
-<h2>Information Form<a class="headerlink" href="#information-form" title="Permalink to this heading">#</a></h2>
+<h2>Information Form<a class="headerlink" href="#information-form" title="Link to this heading">#</a></h2>
 <div class="admonition-the-information-form-of-the-gaussian-distribution admonition">
 <p class="admonition-title">The “Information Form” of the Gaussian distribution</p>
 <p>The multivariate normal (aka Gaussian) distribution is typically written in terms of its mean <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> and covariance <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>. However, for Bayesian inference, it is often easier to work with its <strong>information form</strong>,</p>
@@ -508,7 +533,7 @@ $$ -->
 </div>
 </section>
 <section id="linear-dynamical-system-prior">
-<h2>Linear dynamical system prior<a class="headerlink" href="#linear-dynamical-system-prior" title="Permalink to this heading">#</a></h2>
+<h2>Linear dynamical system prior<a class="headerlink" href="#linear-dynamical-system-prior" title="Link to this heading">#</a></h2>
 <p>The prior was arguably the “weakest link” of the simple model above. Hand positions are obviously not independent across time. An easy way to improve upon the simple model is to incorporate temporal dependencies into the prior,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -527,7 +552,7 @@ p(\mathbf{x}_1) \prod_{t=2}^T p(\mathbf{x}_t \mid \mathbf{x}_{t-1}) \\
 <p>We could optionally include a dynamics bias term, like the emission bias above.</p>
 </section>
 <section id="computing-the-posterior">
-<h2>Computing the posterior<a class="headerlink" href="#computing-the-posterior" title="Permalink to this heading">#</a></h2>
+<h2>Computing the posterior<a class="headerlink" href="#computing-the-posterior" title="Link to this heading">#</a></h2>
 <p>The key point is that prior is still a <strong>linear Gaussian model</strong>. As such, the posterior distribution is as well:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -569,7 +594,7 @@ p(\mathbf{x}_{1:T} \mid \mathbf{y}_{1:T})
 </div>
 </section>
 <section id="beyond-gaussian-encoders">
-<h2>Beyond Gaussian encoders<a class="headerlink" href="#beyond-gaussian-encoders" title="Permalink to this heading">#</a></h2>
+<h2>Beyond Gaussian encoders<a class="headerlink" href="#beyond-gaussian-encoders" title="Link to this heading">#</a></h2>
 <p>When working with spike counts <span class="math notranslate nohighlight">\(\mathbf{y}_t \in \mathbb{N}_0^N\)</span>, the Gaussian encoding model is less than ideal. A more reasonable model would have a discrete distribution over counts, like the Poisson GLM,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -600,7 +625,7 @@ p(\mathbf{x}_{1:T} \mid \mathbf{y}_{1:T}) \approx \mathcal{N}(\mathbf{x}_{1:T} \
 </div>
 </section>
 <section id="structured-prediction">
-<h2>Structured prediction<a class="headerlink" href="#structured-prediction" title="Permalink to this heading">#</a></h2>
+<h2>Structured prediction<a class="headerlink" href="#structured-prediction" title="Link to this heading">#</a></h2>
 <p>If we’re going to make a Gaussian approximation anyway, why not relax the encoding model even further? Let’s keep the prior on <span class="math notranslate nohighlight">\(\mathbf{x}_{1:T}\)</span> since it adds reasonable temporal dependencies, but allow for more general dependencies on the data as follows,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -618,7 +643,7 @@ p(\mathbf{x}_{1:T}) \prod_{t=1}^T e^{\phi(\mathbf{x}_t; \mathbf{y}_{1:T})},
 <p>This model is called a <strong>conditional random field (CRF)</strong>, and it is used for <strong>structured prediction</strong>. The catch is that we need to learn the parameters of the <span class="math notranslate nohighlight">\(\mathbf{J}_t\)</span> and <span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> functions. In practice, these could be implemented by convolutional neural networks that share parameters across time. We can estimate the parameters by stochastic gradient descent on the negative log probability.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Encoding and decoding are two sides of the same coin.</p></li>
 <li><p>We can treat decoding as a simple regression problem, but sometimes we can leverage prior information about <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and an encoder <span class="math notranslate nohighlight">\(p(\mathbf{y} \mid \mathbf{x})\)</span>.</p></li>
@@ -654,11 +679,10 @@ p(\mathbf{x}_{1:T}) \prod_{t=1}^T e^{\phi(\mathbf{x}_t; \mathbf{y}_{1:T})},
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="10_poisson_processes.html"
@@ -678,10 +702,7 @@ p(\mathbf{x}_{1:T}) \prod_{t=1}^T e^{\phi(\mathbf{x}_t; \mathbf{y}_{1:T})},
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -689,6 +710,7 @@ p(\mathbf{x}_{1:T}) \prod_{t=1}^T e^{\phi(\mathbf{x}_t; \mathbf{y}_{1:T})},
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -725,9 +747,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -751,8 +774,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

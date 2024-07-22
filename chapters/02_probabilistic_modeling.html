@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Probabilistic Modeling &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02_probabilistic_modeling';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/02_probabilistic_modeling.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -395,17 +420,17 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-modeling">
-<h1>Probabilistic Modeling<a class="headerlink" href="#probabilistic-modeling" title="Permalink to this heading">#</a></h1>
+<h1>Probabilistic Modeling<a class="headerlink" href="#probabilistic-modeling" title="Link to this heading">#</a></h1>
 <p>Probabilistic models are distributions over data.
 The shape of the distribution is determine by model <strong>parameters</strong>.
 Our goal to <strong>estimate</strong> or <strong>infer</strong> those parameters from observed data.</p>
 <p>As the course goes on, we will encounter more and more complex datasets, and we will construct more and more sophisticated models.
 However, our models will still be composed of just a handful of basic building blocks, and our central goal of parameter estimation and inference remains the same.</p>
 <section id="simple-example">
-<h2>Simple example<a class="headerlink" href="#simple-example" title="Permalink to this heading">#</a></h2>
+<h2>Simple example<a class="headerlink" href="#simple-example" title="Link to this heading">#</a></h2>
 <p>For example, let <span class="math notranslate nohighlight">\(x_t \in \mathbb{N}_0\)</span> denote the number of spikes a neuron fires in time bin <span class="math notranslate nohighlight">\(t\)</span>. One of the simplest (and yet surprisingly not bad) models of neural spike counts is the <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_distribution"><strong>Poisson distribution</strong></a> with rate <span class="math notranslate nohighlight">\(\lambda \in \mathbb{R}_+\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[x_t \sim \mathrm{Pois}(\lambda).\]</div>
@@ -427,7 +452,7 @@ However, our models will still be composed of just a handful of basic building b
 </div>
 </section>
 <section id="sampling-from-a-poisson-distribution">
-<h2>Sampling from a Poisson distribution<a class="headerlink" href="#sampling-from-a-poisson-distribution" title="Permalink to this heading">#</a></h2>
+<h2>Sampling from a Poisson distribution<a class="headerlink" href="#sampling-from-a-poisson-distribution" title="Link to this heading">#</a></h2>
 <p>Expand the code below to see how to sample a Poisson distribution using the <code class="docutils literal notranslate"><span class="pre">torch.distributions.Poisson</span></code> object in <a class="reference external" href="https://pytorch.org/docs/stable/">PyTorch</a>. The code plots the empirical distribution of 1000 independent samples from the Poisson distribution alongside the Poisson pmf.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -457,12 +482,12 @@ However, our models will still be composed of just a handful of basic building b
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/49293d02a912b3c692bd4ddaa5c3939bfb4b4094e82096aec4d3c684c2fc4bcf.png" src="../_images/49293d02a912b3c692bd4ddaa5c3939bfb4b4094e82096aec4d3c684c2fc4bcf.png" />
+<img alt="../_images/cac206aa0aea58e3b1fa168d57e1a3df78319136fa90dfc8b64e21c642a2716d.png" src="../_images/cac206aa0aea58e3b1fa168d57e1a3df78319136fa90dfc8b64e21c642a2716d.png" />
 </div>
 </div>
 </section>
 <section id="fitting-a-poisson-distribution">
-<h2>Fitting a Poisson distribution<a class="headerlink" href="#fitting-a-poisson-distribution" title="Permalink to this heading">#</a></h2>
+<h2>Fitting a Poisson distribution<a class="headerlink" href="#fitting-a-poisson-distribution" title="Link to this heading">#</a></h2>
 <p>Now suppose you observe the empirical spike counts sampled above (i.e. the blue histogram) and you want to estimate the rate <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{x} = (x_1, \ldots, x_T)\)</span> denote the vector of spike counts.</p>
 <p>Since the simulated spike counts are <strong>independent</strong> random variables, their <strong>joint probability</strong> is a product of Poisson pmf’s,</p>
@@ -483,7 +508,7 @@ p(\mathbf{x}; \lambda)
 <p>This is called <strong>maximum likelihood estimation</strong>, and <span class="math notranslate nohighlight">\(\lambda_{\mathsf{MLE}}\)</span> is called the <strong>maximum likelihood estimate (MLE)</strong>.</p>
 </section>
 <section id="solving-for-the-mle">
-<h2>Solving for the MLE<a class="headerlink" href="#solving-for-the-mle" title="Permalink to this heading">#</a></h2>
+<h2>Solving for the MLE<a class="headerlink" href="#solving-for-the-mle" title="Link to this heading">#</a></h2>
 <p>In this simple model, we can derive a closed form expression for the MLE.</p>
 <p>First, note that maximizing <span class="math notranslate nohighlight">\(p(\mathbf{x}; \lambda)\)</span> is the same as maximizing <span class="math notranslate nohighlight">\(\log p(\mathbf{x}; \lambda)\)</span>, since the log is a concave function.</p>
 <p>Taking logs of both sides, we find</p>
@@ -511,7 +536,7 @@ p(\mathbf{x}; \lambda)
 <p>In other words, the MLE is just the mean of the empirical spike counts, which seems sensible!</p>
 </section>
 <section id="adding-a-prior-distribution">
-<h2>Adding a prior distribution<a class="headerlink" href="#adding-a-prior-distribution" title="Permalink to this heading">#</a></h2>
+<h2>Adding a prior distribution<a class="headerlink" href="#adding-a-prior-distribution" title="Link to this heading">#</a></h2>
 <p>Maximum likelihood estimation finds the rate that maximizes the probability of the observed spike counts, but it doesn’t take into account any prior information.</p>
 <p>For example, this may not be the first neuron you’ve ever encountered. Maybe, based on your experience, you have a sense for the distribution of neural firing rates. That knowledge can be encoded in a <strong>prior distribution</strong>.</p>
 <p>One common choice of prior on rates is the <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution"><strong>gamma distribution</strong></a>,</p>
@@ -541,7 +566,7 @@ p(\mathbf{x}; \lambda)
 </div>
 </section>
 <section id="sampling-from-a-gamma-distribution">
-<h2>Sampling from a gamma distribution<a class="headerlink" href="#sampling-from-a-gamma-distribution" title="Permalink to this heading">#</a></h2>
+<h2>Sampling from a gamma distribution<a class="headerlink" href="#sampling-from-a-gamma-distribution" title="Link to this heading">#</a></h2>
 <p>Expand the code below to see how to sample a gamma distribution using the <a class="reference external" href="https://pytorch.org/docs/stable/distributions.html#gamma"><code class="docutils literal notranslate"><span class="pre">torch.distributions.Gamma</span></code></a> object. The code plots the empirical distribution of 1000 independent samples from the gamma distribution, binned into 25 evenly sized bins. It overlays the gamma pdf for comparison.</p>
 <p>In words, we might say this particular gamma distribution conveys a prior belief that</p>
 <blockquote>
@@ -577,12 +602,12 @@ p(\mathbf{x}; \lambda)
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/14596011d5c24d83a0db24d2541cc49986b25248ee4fbe7eda20524cd8b98dc3.png" src="../_images/14596011d5c24d83a0db24d2541cc49986b25248ee4fbe7eda20524cd8b98dc3.png" />
+<img alt="../_images/ed0dff1fdf91b739437b5a2a54215e3b91b47dbe54f1c4bb0873ed4c164e48a3.png" src="../_images/ed0dff1fdf91b739437b5a2a54215e3b91b47dbe54f1c4bb0873ed4c164e48a3.png" />
 </div>
 </div>
 </section>
 <section id="fitting-a-poisson-distribution-with-a-gamma-prior">
-<h2>Fitting a Poisson distribution with a gamma prior<a class="headerlink" href="#fitting-a-poisson-distribution-with-a-gamma-prior" title="Permalink to this heading">#</a></h2>
+<h2>Fitting a Poisson distribution with a gamma prior<a class="headerlink" href="#fitting-a-poisson-distribution-with-a-gamma-prior" title="Link to this heading">#</a></h2>
 <p>When we add in the prior distribution on <span class="math notranslate nohighlight">\(\lambda\)</span>, it becomes a random variable too. Now we have to consider the <strong>joint distribution</strong> of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -628,7 +653,7 @@ Technically, we use the bar when we are writing a <strong>conditional distributi
 </div>
 </section>
 <section id="bayesian-inference">
-<h2>Bayesian inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h2>
+<h2>Bayesian inference<a class="headerlink" href="#bayesian-inference" title="Link to this heading">#</a></h2>
 <p>What does it mean to “fit” the rate of a Poisson distribution under a gamma prior? Formally, we perform <strong>Bayesian inference</strong>.</p>
 <p>We want to compute the <strong>posterior distribution</strong> of the rate <span class="math notranslate nohighlight">\(\lambda\)</span> <em>given</em> the observed spike counts <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (and the prior parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, which are assumed fixed),</p>
 <div class="math notranslate nohighlight">
@@ -647,7 +672,7 @@ p(\lambda \mid \mathbf{x}) \propto p(\mathbf{x}, \lambda).
 \]</div>
 </section>
 <section id="maximum-a-posteriori-inference">
-<h2>Maximum <em>a posteriori</em> inference<a class="headerlink" href="#maximum-a-posteriori-inference" title="Permalink to this heading">#</a></h2>
+<h2>Maximum <em>a posteriori</em> inference<a class="headerlink" href="#maximum-a-posteriori-inference" title="Link to this heading">#</a></h2>
 <p>A simple summary of the posterior distribution is its <strong>mode</strong> — the point(s) where the pdf is maximized,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -665,7 +690,7 @@ p(\lambda \mid \mathbf{x}) \propto p(\mathbf{x}, \lambda).
 </div>
 </section>
 <section id="conjugate-priors">
-<h2>Conjugate priors<a class="headerlink" href="#conjugate-priors" title="Permalink to this heading">#</a></h2>
+<h2>Conjugate priors<a class="headerlink" href="#conjugate-priors" title="Link to this heading">#</a></h2>
 <p>Now let’s go back and expand the Poisson pmf and the gamma pdf in the joint distribution,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -697,7 +722,7 @@ p(\lambda \mid \mathbf{x})
 <p>Thus, the posterior distribution is a gamma distribution, just like the prior! For this reason, we say the gamma is a <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior"><strong>conjugate prior</strong></a> for the rate of the Poisson distribution.</p>
 </section>
 <section id="solving-for-the-map-estimate">
-<h2>Solving for the MAP estimate<a class="headerlink" href="#solving-for-the-map-estimate" title="Permalink to this heading">#</a></h2>
+<h2>Solving for the MAP estimate<a class="headerlink" href="#solving-for-the-map-estimate" title="Link to this heading">#</a></h2>
 <p>How do we solve for the MAP estimate, <span class="math notranslate nohighlight">\(\lambda_{\mathsf{MAP}} = \text{arg max} \; p(\lambda \mid \mathbf{x})\)</span>?</p>
 <p>Now that you know the posterior is a gamma distribution, you can expand its pdf, take the log, take the derivative wrt <span class="math notranslate nohighlight">\(\lambda\)</span>, set it to zero and solve.</p>
 <p>Or you can just go to the Wikipedia page on the <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a> and see that its mode is</p>
@@ -712,7 +737,7 @@ p(\lambda \mid \mathbf{x})
 </div>
 </section>
 <section id="map-estimation-in-our-simulated-example">
-<h2>MAP estimation in our simulated example<a class="headerlink" href="#map-estimation-in-our-simulated-example" title="Permalink to this heading">#</a></h2>
+<h2>MAP estimation in our simulated example<a class="headerlink" href="#map-estimation-in-our-simulated-example" title="Link to this heading">#</a></h2>
 <p>Take the simulated data from above. What is the MAP estimate of the rate given the observed spike counts and the prior, and how does it compare to the MLE? We have…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -728,8 +753,8 @@ p(\lambda \mid \mathbf{x})
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MLE: tensor(4.9320)
-MAP: tensor(4.9361)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MLE: tensor(5.0600)
+MAP: tensor(5.0639)
 </pre></div>
 </div>
 </div>
@@ -743,11 +768,11 @@ MAP: tensor(4.9361)
 </div>
 </section>
 <section id="mixture-models-and-latent-variables">
-<h2>Mixture models and latent variables<a class="headerlink" href="#mixture-models-and-latent-variables" title="Permalink to this heading">#</a></h2>
+<h2>Mixture models and latent variables<a class="headerlink" href="#mixture-models-and-latent-variables" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="up-down">
 <img alt="../_images/up_down.png" src="../_images/up_down.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example of a mixture model with a latent variable <span class="math notranslate nohighlight">\(z_t\)</span> specifying whether the neuron is in the up or down state.</span><a class="headerlink" href="#up-down" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example of a mixture model with a latent variable <span class="math notranslate nohighlight">\(z_t\)</span> specifying whether the neuron is in the up or down state.</span><a class="headerlink" href="#up-down" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We’ve already gotten a lot of mileage out of this simple Poisson example! However, real data will rarely be so simple. One way to build richer models is by introducing <strong>latent variables</strong>.</p>
@@ -775,7 +800,7 @@ p(x_t \mid \boldsymbol{\lambda})
 </div>
 </section>
 <section id="sampling-a-poisson-mixture-model">
-<h2>Sampling a Poisson mixture model<a class="headerlink" href="#sampling-a-poisson-mixture-model" title="Permalink to this heading">#</a></h2>
+<h2>Sampling a Poisson mixture model<a class="headerlink" href="#sampling-a-poisson-mixture-model" title="Link to this heading">#</a></h2>
 <p>Let’s draw samples from the mixture model, like we did above for the single Poisson distribution.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -818,7 +843,7 @@ p(x_t \mid \boldsymbol{\lambda})
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/e21b49b1577cca0129b7cb3c57d50cf411e638277ab5a528cc7a0e896416cebc.png" src="../_images/e21b49b1577cca0129b7cb3c57d50cf411e638277ab5a528cc7a0e896416cebc.png" />
+<img alt="../_images/6b847588d576c3508212da9b98c85d6c551bd9ad4c649b3d46c1d6fb39612c78.png" src="../_images/6b847588d576c3508212da9b98c85d6c551bd9ad4c649b3d46c1d6fb39612c78.png" />
 </div>
 </div>
 <p>With this model, we can capture <strong>multimodal</strong> firing rate distributions.</p>
@@ -828,7 +853,7 @@ p(x_t \mid \boldsymbol{\lambda})
 </div>
 </section>
 <section id="fitting-a-mixture-model-by-coordinate-ascent">
-<h2>Fitting a mixture model by coordinate ascent<a class="headerlink" href="#fitting-a-mixture-model-by-coordinate-ascent" title="Permalink to this heading">#</a></h2>
+<h2>Fitting a mixture model by coordinate ascent<a class="headerlink" href="#fitting-a-mixture-model-by-coordinate-ascent" title="Link to this heading">#</a></h2>
 <p>Conceptually, fitting the mixture model is no different than fitting the the simple Poisson model above.</p>
 <p>We will perform MAP estimation to find,</p>
 <div class="math notranslate nohighlight">
@@ -890,7 +915,7 @@ z_t \sim \mathrm{Cat}([\pi_0, \pi_1])
 </div>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <p>This chapter introduced the basics of probabilistic modeling:</p>
 <ul class="simple">
 <li><p>We encountered 3 common distributions: Poisson, gamma, and categorical.</p></li>
@@ -902,7 +927,7 @@ z_t \sim \mathrm{Cat}([\pi_0, \pi_1])
 <p>Next time, we’ll apply these concepts to our first real neural data analysis problem: spike sorting electrophysiological recordings.</p>
 </section>
 <section id="further-reading">
-<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
 <p>There are many great references on probabilistic modeling. I like:</p>
 <ul class="simple">
 <li><p>Ch 2.1 and 2.2 of <span id="id1">[<a class="reference internal" href="99_references.html#id2" title="Kevin P. Murphy. Probabilistic Machine Learning: Advanced Topics. MIT Press, 2023. URL: http://probml.github.io/book2.">Murphy, 2023</a>]</span></p></li>
@@ -936,11 +961,10 @@ z_t \sim \mathrm{Cat}([\pi_0, \pi_1])
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../labs/08_lfads.html"
@@ -960,10 +984,7 @@ z_t \sim \mathrm{Cat}([\pi_0, \pi_1])
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -971,6 +992,7 @@ z_t \sim \mathrm{Cat}([\pi_0, \pi_1])
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1016,9 +1038,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1042,8 +1065,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

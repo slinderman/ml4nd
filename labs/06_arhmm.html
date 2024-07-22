@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 6: Autoregressive HMMs &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/06_arhmm';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/06_arhmm.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -440,22 +465,22 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-6-autoregressive-hmms">
-<h1>Lab 6: Autoregressive HMMs<a class="headerlink" href="#lab-6-autoregressive-hmms" title="Permalink to this heading">#</a></h1>
+<h1>Lab 6: Autoregressive HMMs<a class="headerlink" href="#lab-6-autoregressive-hmms" title="Link to this heading">#</a></h1>
 <p><img alt="" src="https://ars.els-cdn.com/content/image/1-s2.0-S0896627315010375-gr1.jpg" /></p>
 <p>In this lab we’ll develop hidden Markov models, specifically Gaussian and autoregressive hidden Markov models, to analyze depth videos of freely behaving mice. We’ll implement, from scratch, the model developed by Wiltschko et al (2015) and extended in Markowitz et al (2018). Figure 1 of Wiltschko et al is reproduced above.</p>
 <p><strong>References</strong></p>
 <p>Markowitz, J. E., Gillis, W. F., Beron, C. C., Neufeld, S. Q., Robertson, K., Bhagat, N. D., … &amp; Sabatini, B. L. (2018). The striatum organizes 3D behavior via moment-to-moment action selection. Cell, 174(1), 44-58.</p>
 <p>Wiltschko, A. B., Johnson, M. J., Iurilli, G., Peterson, R. E., Katon, J. M., Pashkovski, S. L., … &amp; Datta, S. R. (2015). Mapping sub-second structure in mouse behavior. Neuron, 88(6), 1121-1135.</p>
 <section id="environment-setup">
-<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h2>
+<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%capture
-!pip install pynwb
-!pip install git+https://github.com/lindermanlab/ssm.git@master#egg=ssm
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pynwb</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lindermanlab</span><span class="o">/</span><span class="n">ssm</span><span class="o">.</span><span class="n">git</span><span class="nd">@master</span><span class="c1">#egg=ssm</span>
 </pre></div>
 </div>
 </div>
@@ -860,13 +885,13 @@ document.write(`
 </details>
 </div>
 <section id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
 <p>Fetch a single nwb file from the dropbox repo. These nwb files contain all relevant data from a specific moseq session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%capture
-!wget -nc https://www.dropbox.com/s/564wzasu1w7iogh/moseq_data.zip
-!unzip -n moseq_data.zip
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">nc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">dropbox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="mi">564</span><span class="n">wzasu1w7iogh</span><span class="o">/</span><span class="n">moseq_data</span><span class="o">.</span><span class="n">zip</span>
+<span class="err">!</span><span class="n">unzip</span> <span class="o">-</span><span class="n">n</span> <span class="n">moseq_data</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 </div>
@@ -874,7 +899,7 @@ document.write(`
 </section>
 </section>
 <section id="warm-up-intro-to-the-neurodata-without-borders-nwb-format">
-<h2>Warm up: Intro to the Neurodata Without Borders (NWB) format<a class="headerlink" href="#warm-up-intro-to-the-neurodata-without-borders-nwb-format" title="Permalink to this heading">#</a></h2>
+<h2>Warm up: Intro to the Neurodata Without Borders (NWB) format<a class="headerlink" href="#warm-up-intro-to-the-neurodata-without-borders-nwb-format" title="Link to this heading">#</a></h2>
 <p><em>This section was prepared by Akshay Jaggi (Datta Lab)</em></p>
 <p>NWBs are hdf5 files with added structure. Like hdf5 files, they are hierarchically organized into Groups and Datasets. However, unlike hdf5 files, NWBs have rigid organization and labeling of these Groups and Datasets to ensure consistency across labs.</p>
 <p>The highest level of organization in NWBs are acquisitions and processing modules. Acquisitions are raw data streams (or links to them), and processing modules are groups of analyzed data derived from the acquisitions.</p>
@@ -898,7 +923,7 @@ document.write(`
 </pre></div>
 </div>
 <section id="readin-an-nwb-file">
-<h3>Readin an NWB file<a class="headerlink" href="#readin-an-nwb-file" title="Permalink to this heading">#</a></h3>
+<h3>Readin an NWB file<a class="headerlink" href="#readin-an-nwb-file" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwb_path</span> <span class="o">=</span> <span class="s1">&#39;saline_example_0.nwb&#39;</span>
@@ -1009,7 +1034,7 @@ Fields:
 </div>
 </section>
 <section id="load-the-video-frames">
-<h3>Load the video frames<a class="headerlink" href="#load-the-video-frames" title="Permalink to this heading">#</a></h3>
+<h3>Load the video frames<a class="headerlink" href="#load-the-video-frames" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Since NWBs are backed with HDF5, you can do typical lazy/partial loading here</span>
@@ -1035,7 +1060,7 @@ Fields:
 </div>
 </section>
 <section id="now-we-ll-load-all-the-mice-into-memory">
-<h3>Now we’ll load all the mice into memory<a class="headerlink" href="#now-we-ll-load-all-the-mice-into-memory" title="Permalink to this heading">#</a></h3>
+<h3>Now we’ll load all the mice into memory<a class="headerlink" href="#now-we-ll-load-all-the-mice-into-memory" title="Link to this heading">#</a></h3>
 <p>The frames, even after cropping, are still 80x80 pixels. That’s a 3600 dimensional observation. In practice, the frames can be adequately reconstructed with far fewer principal components. As little as ten PCs does a pretty good job of capturing the mouse’s posture.</p>
 <p>The Datta lab has already computed the principal components and included them in the NWB. We’ll extract them, along with other relevant information like the centroid position and heading angle of the mouse, which we’ll use for making “crowd” movies below. Finally, they also included labels from MoSeq, an autoregressive (AR) HMM. You’ll build an ARHMM in Part 3 of the lab and infer similar discrete latent state sequences yourself!</p>
 <div class="cell docutils container">
@@ -1088,7 +1113,7 @@ Fields:
 </section>
 </section>
 <section id="id1">
-<h2>Load the data<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2>Load the data<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Play a movie of the first 30 sec of data</span>
@@ -1107,7 +1132,7 @@ Fields:
 </video></div></div>
 </div>
 <section id="standardize-the-principal-components">
-<h3>Standardize the principal components<a class="headerlink" href="#standardize-the-principal-components" title="Permalink to this heading">#</a></h3>
+<h3>Standardize the principal components<a class="headerlink" href="#standardize-the-principal-components" title="Link to this heading">#</a></h3>
 <p>Standardize the principal components so that they are
 mean zero and unit variance. This will not affect the
 subsequent modeling, but it will make it easier for us
@@ -1132,7 +1157,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="plot-a-slice-of-data">
-<h3>Plot a slice of data<a class="headerlink" href="#plot-a-slice-of-data" title="Permalink to this heading">#</a></h3>
+<h3>Plot a slice of data<a class="headerlink" href="#plot-a-slice-of-data" title="Link to this heading">#</a></h3>
 <p>In the background, we’re showing the labels that were given to us from MoSeq, an autoregressive hidden Markov model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1147,16 +1172,16 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h3>
 <p>You should now have a <code class="docutils literal notranslate"><span class="pre">train_dataset</span></code> and a <code class="docutils literal notranslate"><span class="pre">test_dataset</span></code> loaded in memory. Each dataset is a list of dictionaries, one for each mouse. Each dictionary contains a few keys, most important of which is the <code class="docutils literal notranslate"><span class="pre">data</span></code> key, containing the standardized principal component time series, as shown above. For the test dataset, we also included the <code class="docutils literal notranslate"><span class="pre">frames</span></code> key, which has the original 80x80 images. We’ll use these to create the movies of each inferred state.</p>
 <p><strong>Note:</strong> Keeping the data in memory is costly but convenient.  You shouldn’t run out of memory in this lab, but if you ever did, a better solution might be to write the preprocessed data (e.g. with the standardized PC trajectories) back to the NWB files and reload those files as necessary during fitting.</p>
 </section>
 </section>
 <section id="part-1-implement-the-forward-backward-algorithm">
-<h2>Part 1: Implement the forward-backward algorithm<a class="headerlink" href="#part-1-implement-the-forward-backward-algorithm" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Implement the forward-backward algorithm<a class="headerlink" href="#part-1-implement-the-forward-backward-algorithm" title="Link to this heading">#</a></h2>
 <p>First, implement the forward-backward algorithm for computing the posterior distribution on latent states of a hidden Markov model, <span class="math notranslate nohighlight">\(q(z) = p(z \mid x, \Theta)\)</span>. Specifically, this algorithm will return a <span class="math notranslate nohighlight">\(T \times K\)</span> matrix where each entry represents the posterior probability that <span class="math notranslate nohighlight">\(q(z_t = k)\)</span>.</p>
 <section id="helper-functions-to-create-random-parameters">
-<h3>Helper functions to create random parameters<a class="headerlink" href="#helper-functions-to-create-random-parameters" title="Permalink to this heading">#</a></h3>
+<h3>Helper functions to create random parameters<a class="headerlink" href="#helper-functions-to-create-random-parameters" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">stickiness</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
@@ -1177,7 +1202,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="problem-1a-implement-the-forward-pass">
-<h3>Problem 1a: Implement the forward pass<a class="headerlink" href="#problem-1a-implement-the-forward-pass" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a: Implement the forward pass<a class="headerlink" href="#problem-1a-implement-the-forward-pass" title="Link to this heading">#</a></h3>
 <p>As we derived in class, the forward pass recursively computes the <em>normalized</em> forward messages <span class="math notranslate nohighlight">\(\tilde{\alpha}_t\)</span> and the marginal log likelihood <span class="math notranslate nohighlight">\(\log p(x \mid \Theta = \sum_{t} \log A_t\)</span>.</p>
 <p><strong>Notes</strong>:</p>
 <ul class="simple">
@@ -1247,7 +1272,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="problem-1b-implement-the-backward-pass">
-<h3>Problem 1b: Implement the backward pass<a class="headerlink" href="#problem-1b-implement-the-backward-pass" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Implement the backward pass<a class="headerlink" href="#problem-1b-implement-the-backward-pass" title="Link to this heading">#</a></h3>
 <p>Recursively compute the backward messages <span class="math notranslate nohighlight">\(\beta_t\)</span>. Again, normalize to avoid underflow, and be careful when you exponentiate the log likelihoods. The same trick of subtracting the max before exponentiating will work here too.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1307,7 +1332,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="problem-1c-combine-the-forward-and-backward-passes-to-perform-the-e-step">
-<h3>Problem 1c: Combine the forward and backward passes to perform the E step<a class="headerlink" href="#problem-1c-combine-the-forward-and-backward-passes-to-perform-the-e-step" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Combine the forward and backward passes to perform the E step<a class="headerlink" href="#problem-1c-combine-the-forward-and-backward-passes-to-perform-the-e-step" title="Link to this heading">#</a></h3>
 <p>Compute the posterior marginal probabilities. We call these the <code class="docutils literal notranslate"><span class="pre">expected_states</span></code> because <span class="math notranslate nohighlight">\(q(z_t = k) = \mathbb{E}_{q(z)}[\mathbb{I}[z_t = k]]\)</span>. To copmute them, combine the forward messages, backward messages, and the likelihoods, then normalize. Again, be careful when exponentiating the likelihoods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1368,7 +1393,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="time-it-on-some-more-realistic-sizes">
-<h3>Time it on some more realistic sizes<a class="headerlink" href="#time-it-on-some-more-realistic-sizes" title="Permalink to this heading">#</a></h3>
+<h3>Time it on some more realistic sizes<a class="headerlink" href="#time-it-on-some-more-realistic-sizes" title="Link to this heading">#</a></h3>
 <p>It should take about 4 seconds for a <span class="math notranslate nohighlight">\(T=36000\)</span> time series with <span class="math notranslate nohighlight">\(K=50\)</span> states. For a dataset with 24 mice, that’s about 96 seconds per epoch for the E steps. (The M-steps will take about the same amount of time, so you’re looking at around 1min per epoch.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1385,7 +1410,7 @@ to visualize the time series.</p>
 </div>
 </section>
 <section id="helper-function-to-create-a-random-initial-posterior-distribution">
-<h3>Helper function to create a random initial posterior distribution<a class="headerlink" href="#helper-function-to-create-a-random-initial-posterior-distribution" title="Permalink to this heading">#</a></h3>
+<h3>Helper function to create a random initial posterior distribution<a class="headerlink" href="#helper-function-to-create-a-random-initial-posterior-distribution" title="Link to this heading">#</a></h3>
 <p>Finally, we’ll initialize the HMM with a random posterior distribution. That way our first M step will yield reasonable parameters estimates from a random weighted combination of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1405,7 +1430,7 @@ to visualize the time series.</p>
 </section>
 </section>
 <section id="part-2-gaussian-hmm">
-<h2>Part 2: Gaussian HMM<a class="headerlink" href="#part-2-gaussian-hmm" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Gaussian HMM<a class="headerlink" href="#part-2-gaussian-hmm" title="Link to this heading">#</a></h2>
 <p>First we’ll implement a hidden Markov model (HMM) with Gaussian observations. This is the same model we studied in class,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1415,7 +1440,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 \]</div>
 <p>with parameters <span class="math notranslate nohighlight">\(\Theta = \pi, P, \{b_k, Q_k\}_{k=1}^K\)</span>. The observed datapoints are <span class="math notranslate nohighlight">\(x_t \in \mathbb{R}^{D}\)</span> and the latent states are <span class="math notranslate nohighlight">\(z_t \in \{1,\ldots, K\}\)</span>.</p>
 <section id="problem-2a-write-a-gaussian-observations-object">
-<h3>Problem 2a: Write a Gaussian Observations object<a class="headerlink" href="#problem-2a-write-a-gaussian-observations-object" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a: Write a Gaussian Observations object<a class="headerlink" href="#problem-2a-write-a-gaussian-observations-object" title="Link to this heading">#</a></h3>
 <p>We’ll write a <code class="docutils literal notranslate"><span class="pre">GaussianObservations</span></code> class to wrap the parameters and implement key functions for EM.</p>
 <p>Most important, <code class="docutils literal notranslate"><span class="pre">M_step</span></code> solves for the optimal parameters given the expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{N}_k, \overline{\mathbf{t}}_{k,1}, \overline{\mathbf{t}}_{k,2}\)</span>, which are passed in as a tuple. The new parameters are written to the class variables <code class="docutils literal notranslate"><span class="pre">self.means</span></code> and <code class="docutils literal notranslate"><span class="pre">self.covs</span></code></p>
 <div class="cell docutils container">
@@ -1545,7 +1570,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="precompute-the-sufficient-statistics">
-<h3>Precompute the sufficient statistics<a class="headerlink" href="#precompute-the-sufficient-statistics" title="Permalink to this heading">#</a></h3>
+<h3>Precompute the sufficient statistics<a class="headerlink" href="#precompute-the-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>This updates the datasets in place with the sufficient statistics for a Gaussian distribution.  The statistics are placed in the <code class="docutils literal notranslate"><span class="pre">suff_stats</span></code> key.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1557,7 +1582,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="problem-2b-write-a-function-to-compute-normalized-expected-sufficient-statistics">
-<h3>Problem 2b: Write a function to compute <em>normalized</em> expected sufficient statistics<a class="headerlink" href="#problem-2b-write-a-function-to-compute-normalized-expected-sufficient-statistics" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Write a function to compute <em>normalized</em> expected sufficient statistics<a class="headerlink" href="#problem-2b-write-a-function-to-compute-normalized-expected-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(M\)</span> denote the number of mice in the dataset and let <span class="math notranslate nohighlight">\(x_t^{(m)}\)</span> and <span class="math notranslate nohighlight">\(z_t^{(m)}\)</span> denote their data and discrete states, respectively. Compute</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\overline{N}_{k}\)</span> for each of the <span class="math notranslate nohighlight">\(k\)</span> states</p></li>
@@ -1644,7 +1669,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="problem-2c-write-a-function-to-fit-an-hmm-with-em">
-<h3>Problem 2c: Write a function to fit an HMM with EM<a class="headerlink" href="#problem-2c-write-a-function-to-fit-an-hmm-with-em" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c: Write a function to fit an HMM with EM<a class="headerlink" href="#problem-2c-write-a-function-to-fit-an-hmm-with-em" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_hmm</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> 
@@ -1749,7 +1774,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="fit-it-just-to-one-mouse-for-now">
-<h3>Fit it! (Just to one mouse for now…)<a class="headerlink" href="#fit-it-just-to-one-mouse-for-now" title="Permalink to this heading">#</a></h3>
+<h3>Fit it! (Just to one mouse for now…)<a class="headerlink" href="#fit-it-just-to-one-mouse-for-now" title="Link to this heading">#</a></h3>
 <p>We’ll just use the first mouse’s data for now.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1785,7 +1810,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="plot-the-data-and-the-inferred-latent-states">
-<h3>Plot the data and the inferred latent states<a class="headerlink" href="#plot-the-data-and-the-inferred-latent-states" title="Permalink to this heading">#</a></h3>
+<h3>Plot the data and the inferred latent states<a class="headerlink" href="#plot-the-data-and-the-inferred-latent-states" title="Link to this heading">#</a></h3>
 <p>We’ll make the same plot as above (in the warm-up) but using our inferred states instead. Hopefully, the states seem to switch along with changes in the data.</p>
 <p><strong>Note</strong>: We’re showing the state with the highest marginal probability, <span class="math notranslate nohighlight">\(z_t^\star = \mathrm{arg} \, \mathrm{max}_k \; q(z_t = k)\)</span>. This is different from the most likely state path, <span class="math notranslate nohighlight">\(z_{1:T}^\star = \mathrm{arg}\,\mathrm{max} \; q(z)\)</span>. We could compute the latter with the Viterbi algorithm, which is similar to the forward-backward algorithm you implemented above.</p>
 <div class="cell docutils container">
@@ -1801,7 +1826,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="plot-the-state-usage-histogram">
-<h3>Plot the state usage histogram<a class="headerlink" href="#plot-the-state-usage-histogram" title="Permalink to this heading">#</a></h3>
+<h3>Plot the state usage histogram<a class="headerlink" href="#plot-the-state-usage-histogram" title="Link to this heading">#</a></h3>
 <p>The state usage histogram shows how often each discrete state was used under the posterior distribution. You’ll probably see a long tail of states with non-trivial usage (hundreds of frames), all the way out to state 50. That suggests the model is using all its available capacity, and we could probably crank the number of states up even further for this model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1825,7 +1850,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="make-average-pc-plots-for-each-state">
-<h3>Make average PC plots for each state<a class="headerlink" href="#make-average-pc-plots-for-each-state" title="Permalink to this heading">#</a></h3>
+<h3>Make average PC plots for each state<a class="headerlink" href="#make-average-pc-plots-for-each-state" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_average_pcs</span><span class="p">(</span><span class="n">ghmm_order</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">train_posteriors</span><span class="p">)</span>
@@ -1838,7 +1863,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="make-crowd-movies">
-<h3>Make “crowd” movies<a class="headerlink" href="#make-crowd-movies" title="Permalink to this heading">#</a></h3>
+<h3>Make “crowd” movies<a class="headerlink" href="#make-crowd-movies" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">play</span><span class="p">(</span><span class="n">make_crowd_movie</span><span class="p">(</span><span class="n">ghmm_order</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_posteriors</span><span class="p">))</span>
@@ -1901,7 +1926,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="download-crowd-movies-for-each-state">
-<h3>Download crowd movies for each state<a class="headerlink" href="#download-crowd-movies-for-each-state" title="Permalink to this heading">#</a></h3>
+<h3>Download crowd movies for each state<a class="headerlink" href="#download-crowd-movies-for-each-state" title="Link to this heading">#</a></h3>
 <p>I’ve commented this out because it takes about ten minutes. Please do it once though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1925,14 +1950,14 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 </section>
 <section id="problem-2d-short-answer-hyperparameter-selection">
-<h3>Problem 2d [Short Answer]: Hyperparameter selection<a class="headerlink" href="#problem-2d-short-answer-hyperparameter-selection" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d [Short Answer]: Hyperparameter selection<a class="headerlink" href="#problem-2d-short-answer-hyperparameter-selection" title="Link to this heading">#</a></h3>
 <p>The results above give some qualitative reason to believe the model is “working” reasonably. However, there are a few knobs that we had to set. What are they? How could you try to set them in a more principled manner? Is there even a “right” setting of them?</p>
 <p><em>Answer below this line</em></p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="part-3-autoregressive-hmms">
-<h2>Part 3: Autoregressive HMMs<a class="headerlink" href="#part-3-autoregressive-hmms" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Autoregressive HMMs<a class="headerlink" href="#part-3-autoregressive-hmms" title="Link to this heading">#</a></h2>
 <p>Autoregressive hidden Markov models (ARHMMs) replace the Gaussian observations with an AR model:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1966,7 +1991,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <p>is a block matrix of the autoregressive weights and the bias.</p>
 <p><em>Note that the covariates are fixed functions of the data so we can precompute them, if we know the number of lags <span class="math notranslate nohighlight">\(G\)</span>.</em></p>
 <section id="problem-3a-math-derive-the-natural-parameters-and-sufficient-statistics-for-a-linear-regression">
-<h3>Problem 3a [Math]: Derive the natural parameters and sufficient statistics for a linear regression<a class="headerlink" href="#problem-3a-math-derive-the-natural-parameters-and-sufficient-statistics-for-a-linear-regression" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a [Math]: Derive the natural parameters and sufficient statistics for a linear regression<a class="headerlink" href="#problem-3a-math-derive-the-natural-parameters-and-sufficient-statistics-for-a-linear-regression" title="Link to this heading">#</a></h3>
 <p>Expand the the ELBO in terms of <span class="math notranslate nohighlight">\(W_k\)</span> and <span class="math notranslate nohighlight">\(b_k\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1980,13 +2005,13 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </section>
 <hr class="docutils" />
 <section id="problem-3b-math-solve-for-the-optimal-linear-regression-parameters-given-expected-sufficient-statistics">
-<h3>Problem 3b [Math]: Solve for the optimal linear regression parameters given expected sufficient statistics<a class="headerlink" href="#problem-3b-math-solve-for-the-optimal-linear-regression-parameters-given-expected-sufficient-statistics" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3b [Math]: Solve for the optimal linear regression parameters given expected sufficient statistics<a class="headerlink" href="#problem-3b-math-solve-for-the-optimal-linear-regression-parameters-given-expected-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>Solve for <span class="math notranslate nohighlight">\(W_k^\star, Q_k^\star\)</span> that maximize the objective above in terms of the expected sufficient statistics <span class="math notranslate nohighlight">\(N_k\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,1}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,2}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,3}\)</span>.</p>
 <p><em>Answer below this line</em></p>
 </section>
 <hr class="docutils" />
 <section id="problem-3c-implement-an-linear-regression-observations-object">
-<h3>Problem 3c: Implement an Linear Regression Observations object<a class="headerlink" href="#problem-3c-implement-an-linear-regression-observations-object" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3c: Implement an Linear Regression Observations object<a class="headerlink" href="#problem-3c-implement-an-linear-regression-observations-object" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearRegressionObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -2084,7 +2109,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="problem-3d-precompute-the-covariates-for-an-autoregressive-model">
-<h3>Problem 3d: Precompute the covariates for an autoregressive model<a class="headerlink" href="#problem-3d-precompute-the-covariates-for-an-autoregressive-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3d: Precompute the covariates for an autoregressive model<a class="headerlink" href="#problem-3d-precompute-the-covariates-for-an-autoregressive-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">precompute_ar_covariates</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> 
@@ -2105,7 +2130,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="precompute-the-ar-features-and-the-sufficient-statistics">
-<h3>Precompute the AR features and the sufficient statistics<a class="headerlink" href="#precompute-the-ar-features-and-the-sufficient-statistics" title="Permalink to this heading">#</a></h3>
+<h3>Precompute the AR features and the sufficient statistics<a class="headerlink" href="#precompute-the-ar-features-and-the-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>We’ll store them in memory for convenience, even though it’s redundant and memory intensive.</p>
 <p><strong>Note: avoid running this cell multiple times as it will cause you to run out of memory and crash the notebook.</strong></p>
 <div class="cell docutils container">
@@ -2121,7 +2146,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="fit-it">
-<h3>Fit it!<a class="headerlink" href="#fit-it" title="Permalink to this heading">#</a></h3>
+<h3>Fit it!<a class="headerlink" href="#fit-it" title="Link to this heading">#</a></h3>
 <p>This should take about 10 minutes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2158,7 +2183,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="plot-the-data-and-the-inferred-states">
-<h3>Plot the data and the inferred states<a class="headerlink" href="#plot-the-data-and-the-inferred-states" title="Permalink to this heading">#</a></h3>
+<h3>Plot the data and the inferred states<a class="headerlink" href="#plot-the-data-and-the-inferred-states" title="Link to this heading">#</a></h3>
 <p>We’ll make the same plot as above (in the warm-up) but using our inferred states instead. Hopefully, the states seem to switch along with changes in the data.</p>
 <p><strong>Note</strong>: We’re showing the state with the highest marginal probability, <span class="math notranslate nohighlight">\(z_t^\star = \mathrm{arg} \, \mathrm{max}_k \; q(z_t = k)\)</span>. This is different from the most likely state path, <span class="math notranslate nohighlight">\(z_{1:T}^\star = \mathrm{arg}\,\mathrm{max} \; q(z)\)</span>. We could compute the latter with the Viterbi algorithm, which is similar to the forward-backward algorithm you implemented above.</p>
 <div class="cell docutils container">
@@ -2174,7 +2199,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id2">
-<h3>Plot the state usage histogram<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>Plot the state usage histogram<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>The state usage histogram shows how often each discrete state was used under the posterior distribution. You’ll probably see a long tail of states with non-trivial usage (hundreds of frames), all the way out to state 50. That suggests the model is using all its available capacity, and we could probably crank the number of states up even further for this model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2199,7 +2224,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="plot-the-average-pc-trajectory-time-locked-to-state-entry">
-<h3>Plot the average PC trajectory time locked to state entry<a class="headerlink" href="#plot-the-average-pc-trajectory-time-locked-to-state-entry" title="Permalink to this heading">#</a></h3>
+<h3>Plot the average PC trajectory time locked to state entry<a class="headerlink" href="#plot-the-average-pc-trajectory-time-locked-to-state-entry" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_average_pcs</span><span class="p">(</span><span class="n">arhmm_order</span><span class="p">[</span><span class="mi">34</span><span class="p">],</span> <span class="n">train_dataset</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">train_posteriors</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
@@ -2212,7 +2237,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="plot-some-crowd-movies">
-<h3>Plot some “crowd” movies<a class="headerlink" href="#plot-some-crowd-movies" title="Permalink to this heading">#</a></h3>
+<h3>Plot some “crowd” movies<a class="headerlink" href="#plot-some-crowd-movies" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">play</span><span class="p">(</span><span class="n">make_crowd_movie</span><span class="p">(</span><span class="n">arhmm_order</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_posteriors</span><span class="p">))</span>
@@ -2305,7 +2330,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id3">
-<h3>Download crowd movies for each state<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3>Download crowd movies for each state<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>I’ve commented this out because it takes about ten minutes. Please do it once though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2327,10 +2352,10 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </section>
 </section>
 <section id="bonus-problem-4-fitting-arhmms-with-stochastic-em">
-<h2>Bonus Problem 4: Fitting ARHMMs with Stochastic EM<a class="headerlink" href="#bonus-problem-4-fitting-arhmms-with-stochastic-em" title="Permalink to this heading">#</a></h2>
+<h2>Bonus Problem 4: Fitting ARHMMs with Stochastic EM<a class="headerlink" href="#bonus-problem-4-fitting-arhmms-with-stochastic-em" title="Link to this heading">#</a></h2>
 <p>The EM algorithm above sweeps through the entire dataset during each E-step. In this part, you’ll implement a stochastic EM algorithm that performs an E-step on one minibatch of data at a time and keeps a rolling average of the expected sufficient statistics.</p>
 <section id="bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead">
-<h3>Bonus Problem 4a: Adapt your EM code to run stochastic EM instead<a class="headerlink" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead" title="Permalink to this heading">#</a></h3>
+<h3>Bonus Problem 4a: Adapt your EM code to run stochastic EM instead<a class="headerlink" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_hmm_stoch_em</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> 
@@ -2483,7 +2508,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id4">
-<h3>Plot the data and the inferred states<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3>Plot the data and the inferred states<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>We’ll make the same plot as above (in the warm-up) but using our inferred states instead. Hopefully, the states seem to switch along with changes in the data.</p>
 <p><strong>Note</strong>: We’re showing the state with the highest marginal probability, <span class="math notranslate nohighlight">\(z_t^\star = \mathrm{arg} \, \mathrm{max}_k \; q(z_t = k)\)</span>. This is different from the most likely state path, <span class="math notranslate nohighlight">\(z_{1:T}^\star = \mathrm{arg}\,\mathrm{max} \; q(z)\)</span>. We could compute the latter with the Viterbi algorithm, which is similar to the forward-backward algorithm you implemented above.</p>
 <div class="cell docutils container">
@@ -2496,7 +2521,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id5">
-<h3>Plot the state usage histogram<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3>Plot the state usage histogram<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Sort states by usage</span>
@@ -2516,7 +2541,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="plot-pc-trajectories-upon-state-entry">
-<h3>Plot PC trajectories upon state entry<a class="headerlink" href="#plot-pc-trajectories-upon-state-entry" title="Permalink to this heading">#</a></h3>
+<h3>Plot PC trajectories upon state entry<a class="headerlink" href="#plot-pc-trajectories-upon-state-entry" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_average_pcs</span><span class="p">(</span><span class="n">arhmm_sem_order</span><span class="p">[</span><span class="mi">44</span><span class="p">],</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">train_posteriors</span><span class="p">)</span>
@@ -2526,7 +2551,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id6">
-<h3>Make “crowd” movies<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3>Make “crowd” movies<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">play</span><span class="p">(</span><span class="n">make_crowd_movie</span><span class="p">(</span><span class="n">arhmm_sem_order</span><span class="p">[</span><span class="mi">49</span><span class="p">],</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_posteriors</span><span class="p">))</span>
@@ -2536,7 +2561,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 <section id="id7">
-<h3>Download crowd movies for each state<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3>Download crowd movies for each state<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>I’ve commented this out because it takes about ten minutes. Please do it once though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2584,11 +2609,10 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="05_decoding.html"
@@ -2608,10 +2632,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -2619,6 +2640,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -2709,9 +2731,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -2735,8 +2758,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

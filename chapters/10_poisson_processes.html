@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Poisson Processes &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/10_poisson_processes';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/10_poisson_processes.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -393,10 +418,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="poisson-processes">
-<h1>Poisson Processes<a class="headerlink" href="#poisson-processes" title="Permalink to this heading">#</a></h1>
+<h1>Poisson Processes<a class="headerlink" href="#poisson-processes" title="Link to this heading">#</a></h1>
 <p>The preceding chapter discussed Poisson GLMs for neural spike counts. Changing notation slightly, we had,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -405,7 +430,7 @@ y_{i} \sim \mathrm{Po}(\lambda_i \Delta )
 <p>where <span class="math notranslate nohighlight">\(y_i \in \mathbb{N}_0\)</span> denotes the number of spikes in the <span class="math notranslate nohighlight">\(i\)</span>-th time bin, <span class="math notranslate nohighlight">\(\lambda_i \in \mathbb{R}_+\)</span> is the firing rate (in spikes/second), and <span class="math notranslate nohighlight">\(\Delta \in \mathbb{R}_+\)</span> is the bin width (in seconds).</p>
 <p>What happens if we take the bin width to zero? Then all but a finite number of bins will have zero counts, and we can instead represent the data as an unordered set of <strong>spike times</strong> <span class="math notranslate nohighlight">\(\{t_n\}_{n=1}^N \subset [0, T)\)</span>. Instead of a vector of Poisson-distributed spike counts, we can model the spike times as a realization of a <strong>Poisson process</strong>.</p>
 <section id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
+<h2>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h2>
 <p>A Poisson process is a <strong>stochastic process</strong> that generates sets of points, like the set of spike times above. It is defined by an intensity function or <strong>firing rate</strong>, <span class="math notranslate nohighlight">\(\lambda(t): [0, T) \mapsto \mathbb{R}_+\)</span>.</p>
 <p>Let <span class="math notranslate nohighlight">\(N(\mathcal{A}) = |\{n: t_n \in \mathcal{A}\}|\)</span> denote the number of points in the set <span class="math notranslate nohighlight">\(\mathcal{A} \subseteq [0,T)\)</span>. For example, an interval <span class="math notranslate nohighlight">\(\mathcal{A} = [a_0, a_1)\)</span>. Let <span class="math notranslate nohighlight">\(N(t)\)</span> be shorthand for <span class="math notranslate nohighlight">\(N([0,t))\)</span> that denotes the <strong>counting function</strong>, which specifies the number of points up to time <span class="math notranslate nohighlight">\(t\)</span>. Assume <span class="math notranslate nohighlight">\(N(0) = 0\)</span>.</p>
 <p>A Poisson process has two defining properties:</p>
@@ -423,7 +448,7 @@ y_{i} \sim \mathrm{Po}(\lambda_i \Delta )
 <p>A <strong>homogeneous</strong> Poisson process has a constant intensity function, <span class="math notranslate nohighlight">\(\lambda(t) \equiv \lambda\)</span>. Otherwise, the process is called <strong>inhomogeneous</strong>.</p>
 </section>
 <section id="sampling-a-poisson-process">
-<h2>Sampling a Poisson process<a class="headerlink" href="#sampling-a-poisson-process" title="Permalink to this heading">#</a></h2>
+<h2>Sampling a Poisson process<a class="headerlink" href="#sampling-a-poisson-process" title="Link to this heading">#</a></h2>
 <p>The two properties above imply a method for sampling a Poisson process. First, sample the total number of points from its Poisson distribution,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -437,7 +462,7 @@ t_n \overset{\text{iid}}{\sim} \frac{\lambda(t)}{\int_0^T \lambda(t) \, \mathrm{
 <p>to obtain the unordered set <span class="math notranslate nohighlight">\(\{t_n\}_{n=1}^N\)</span>.</p>
 </section>
 <section id="interval-distribution">
-<h2>Interval distribution<a class="headerlink" href="#interval-distribution" title="Permalink to this heading">#</a></h2>
+<h2>Interval distribution<a class="headerlink" href="#interval-distribution" title="Link to this heading">#</a></h2>
 <p>For a homogeneous Poisson process, the expected number of points is <span class="math notranslate nohighlight">\(\mathbb{E}[N] = \lambda T\)</span>, and the locations are independently sampled according to a uniform distribution over <span class="math notranslate nohighlight">\([0, T)\)</span>.  The <strong>intervals</strong> between points, <span class="math notranslate nohighlight">\(\delta_n = t_{(n)} - t_{(n-1)}\)</span>, where <span class="math notranslate nohighlight">\(t_{(n)}\)</span> is the <span class="math notranslate nohighlight">\(n\)</span>-th spike time in the <em>ordered</em> set, are <strong>exponential random variables</strong>,</p>
 <div class="math notranslate nohighlight">
 \[\delta_{n} \overset{\text{iid}}{\sim} \mathrm{Exp}(\lambda).\]</div>
@@ -454,7 +479,7 @@ t_n \overset{\text{iid}}{\sim} \frac{\lambda(t)}{\int_0^T \lambda(t) \, \mathrm{
 </div>
 </section>
 <section id="poisson-process-likelihood">
-<h2>Poisson process likelihood<a class="headerlink" href="#poisson-process-likelihood" title="Permalink to this heading">#</a></h2>
+<h2>Poisson process likelihood<a class="headerlink" href="#poisson-process-likelihood" title="Link to this heading">#</a></h2>
 <p>From the two-step sampling procedure above, we can derive the likelihood of a set of points under a Poisson process,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -491,7 +516,7 @@ p(\{t_n\}_{n=1}^N; \lambda)
 </div>
 </section>
 <section id="maximum-likelihood-estimation">
-<h2>Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h2>
+<h2>Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Link to this heading">#</a></h2>
 <p>In practice, we often want to estimate the intensity function from data. For example, we may assume the intensity function has a parametric form, <span class="math notranslate nohighlight">\(\lambda(t; \theta)\)</span>, with parameters <span class="math notranslate nohighlight">\(\theta\)</span>. We could estimate the parameters by maximum likelihood estimation, using the Poisson process likelihood above. Note that the likelihood is a concave function of <span class="math notranslate nohighlight">\(\lambda\)</span>, making it amenable to optimization.</p>
 <p>The challenge is the integrated intensity in the exponent. For many models, there is no closed-form solution for the integral. For temporal point processes like the ones considered in this chapter, this is simply a one-dimensional integral. We can approximate it using numerical quadrature rules, as long as we can evaluate <span class="math notranslate nohighlight">\(\lambda(t; \theta)\)</span> for any <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>Some classes of models do afford closed-form integration. For example, consider a model of the intensity as a weighted sum of basis functions,</p>
@@ -514,7 +539,7 @@ p(\{t_n\}_{n=1}^N; \lambda)
 <p>we obtain a piecewise-constant model for the intensity function. This brings us back to the discrete-time model for spike counts from the last chapter.</p>
 </section>
 <section id="limit-of-the-discrete-time-model">
-<h2>Limit of the discrete-time model<a class="headerlink" href="#limit-of-the-discrete-time-model" title="Permalink to this heading">#</a></h2>
+<h2>Limit of the discrete-time model<a class="headerlink" href="#limit-of-the-discrete-time-model" title="Link to this heading">#</a></h2>
 <p>We can arrive at a Poisson process by taking a limit of the discrete-time model for spike counts. Intuitively, think of discrete time model as a Poisson process with <strong>piecewise constant intensity</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -582,7 +607,7 @@ p(\{t_n\}_{n=1}^N; \lambda)
 </div>
 </section>
 <section id="renewal-processes">
-<h2>Renewal processes<a class="headerlink" href="#renewal-processes" title="Permalink to this heading">#</a></h2>
+<h2>Renewal processes<a class="headerlink" href="#renewal-processes" title="Link to this heading">#</a></h2>
 <p>Let’s return to the interval distribution above. As we saw, under a Poisson process the intervals are exponentially distributed. This isn’t a very realistic model for neural spike trains because neurons have refractory periods.</p>
 <p><strong>Renewal processes</strong> are a more general class of models that explicitly model the interval distribution. Again, let <span class="math notranslate nohighlight">\(\{\delta_n\}_{n=1}^N\)</span> denote the intervals between the points <span class="math notranslate nohighlight">\(\{t_n\}_{n=1}^N\)</span>. In a renewal process,</p>
 <div class="math notranslate nohighlight">
@@ -597,7 +622,7 @@ p(\{t_n\}_{n=1}^N; \lambda)
 </div>
 </section>
 <section id="conditional-intensity-functions">
-<h2>Conditional intensity functions<a class="headerlink" href="#conditional-intensity-functions" title="Permalink to this heading">#</a></h2>
+<h2>Conditional intensity functions<a class="headerlink" href="#conditional-intensity-functions" title="Link to this heading">#</a></h2>
 <p>So far we have treated the intensity as simply a function of time. Of course, the intensity could also be modeled as a function of external stimuli or covariates, <span class="math notranslate nohighlight">\(\mathbf{x}(t)\)</span>. For example, the stimulus could be incorporated into the basis function model described above.</p>
 <p>To incorporate direct interactions between the points themselves, we need to generalize our model via a <strong>conditional intensity function</strong>,</p>
 <div class="math notranslate nohighlight">
@@ -608,7 +633,7 @@ p(\{t_n\}_{n=1}^N; \lambda)
 <p>Given the history, the process behaves like a Poisson process. However, as soon as a new point occurs, the intensity function changes to account for it. Intuitively, this allows us to construct continuous time analogs of discrete time autoregressive models.</p>
 </section>
 <section id="hawkes-processes">
-<h2>Hawkes processes<a class="headerlink" href="#hawkes-processes" title="Permalink to this heading">#</a></h2>
+<h2>Hawkes processes<a class="headerlink" href="#hawkes-processes" title="Link to this heading">#</a></h2>
 <p>Perhaps the canonical example of a point process with conditional dependencies is the Hawkes process <span id="id1">[<a class="reference internal" href="99_references.html#id76" title="Alan G Hawkes. Spectra of some self-exciting and mutually exciting point processes. Biometrika, 58(1):83–90, 1971.">Hawkes, 1971</a>]</span>. It is defined by its conditional intensity function,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -628,7 +653,7 @@ f(s) = \mathrm{Exp}(s; \tau^{-1}) = \tau^{-1} e^{-s / \tau}.
 <p>When <span class="math notranslate nohighlight">\(w=0\)</span>, we recover the standard Poisson process with rate <span class="math notranslate nohighlight">\(\lambda_0\)</span>, but as <span class="math notranslate nohighlight">\(w\)</span> increases the self-excitation produces bursts of spikes and a larger stationary rate.</p>
 </section>
 <section id="multivariate-hawkes-processes">
-<h2>Multivariate Hawkes processes<a class="headerlink" href="#multivariate-hawkes-processes" title="Permalink to this heading">#</a></h2>
+<h2>Multivariate Hawkes processes<a class="headerlink" href="#multivariate-hawkes-processes" title="Link to this heading">#</a></h2>
 <p>Now let’s generalize the Hawkes process to multiple interacting point processes. Let <span class="math notranslate nohighlight">\(M\)</span> denote the number of processes — e.g., the number of neurons in a multi-neuronal spike train recording — and let <span class="math notranslate nohighlight">\(\lambda_m(t \mid \mathcal{H}_t)\)</span> denote the conditional intensity function for the <span class="math notranslate nohighlight">\(m\)</span>-th process. Let <span class="math notranslate nohighlight">\(\mathcal{H}_{t,m}\)</span> denote the history of events on process <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(\mathcal{H}_t = \{\mathcal{H}_{t,m}\}_{m=1}^M\)</span> denote the combined history of all processes.</p>
 <p>The multivariate Hawkes process has conditional intensities,</p>
 <div class="math notranslate nohighlight">
@@ -647,7 +672,7 @@ f(s) = \mathrm{Exp}(s; \tau^{-1}) = \tau^{-1} e^{-s / \tau}.
 </div>
 </section>
 <section id="maximum-likelihood-estimation-for-hawkes-processes">
-<h2>Maximum likelihood estimation for Hawkes processes<a class="headerlink" href="#maximum-likelihood-estimation-for-hawkes-processes" title="Permalink to this heading">#</a></h2>
+<h2>Maximum likelihood estimation for Hawkes processes<a class="headerlink" href="#maximum-likelihood-estimation-for-hawkes-processes" title="Link to this heading">#</a></h2>
 <p>The likelhood of a Hawkes process is the same as that of a Poisson process, but with the conditional intensity instead. Consider the univariate case (the multivariate Hawkes process follows the same form),</p>
 <div class="math notranslate nohighlight">
 \[
@@ -677,7 +702,7 @@ p(\{t_n\}_{n=1}^N; \theta) &amp;=
 <p>Maximum likelihood estimation boils down to a convex optimization problem: minize the negative log likelihood, which is convex and easy to evaluate, subject to nonnegativity constraints. This problem is straightforward to solve with CVXPy, for example.</p>
 </section>
 <section id="poisson-superposition-and-thinning">
-<h2>Poisson superposition and thinning<a class="headerlink" href="#poisson-superposition-and-thinning" title="Permalink to this heading">#</a></h2>
+<h2>Poisson superposition and thinning<a class="headerlink" href="#poisson-superposition-and-thinning" title="Link to this heading">#</a></h2>
 <p>Just like the sum of independent Poisson random variables, the <strong>superposition</strong> of two independent Poisson proesses is another Poisson process. If,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -711,7 +736,7 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
 \end{split}\]</div>
 </section>
 <section id="hawkes-processes-as-cascades-of-poisson-processes">
-<h2>Hawkes processes as cascades of Poisson processes<a class="headerlink" href="#hawkes-processes-as-cascades-of-poisson-processes" title="Permalink to this heading">#</a></h2>
+<h2>Hawkes processes as cascades of Poisson processes<a class="headerlink" href="#hawkes-processes-as-cascades-of-poisson-processes" title="Link to this heading">#</a></h2>
 <p>We can use Poisson superposition and thinning to reinterpret the Hawkes process as a cascade of Poisson processes. Note that the conditional intensity of a Hawkes process is the sum of non-negative intensity functions: a homogeneous background rate plus weighted impulse responses. An equivalent way to sample the Hawkes process is to sample points from independent Poisson processes for each term in the intensity function.</p>
 <ol class="arabic">
 <li><p>First, sample points from the background process,</p>
@@ -730,7 +755,7 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
 <p>Finally, we can use this perspective to formulate the Hawkes process as a latent variable model. Each point has a latent <strong>parent</strong> — either the background or a preceding poitn &amp;mdash. If we knew the parents, the Hawkes process would decompose into independent Poisson processes. We can leverage this formulation to do efficient Bayesian inference in Hawkes processes <span id="id2">[<a class="reference internal" href="99_references.html#id77" title="Scott Linderman and Ryan Adams. Discovering latent network structure in point process data. In International conference on machine learning, 1413–1421. PMLR, 2014.">Linderman and Adams, 2014</a>]</span>.</p>
 </section>
 <section id="nonlinear-hawkes-processes">
-<h2>Nonlinear Hawkes processes<a class="headerlink" href="#nonlinear-hawkes-processes" title="Permalink to this heading">#</a></h2>
+<h2>Nonlinear Hawkes processes<a class="headerlink" href="#nonlinear-hawkes-processes" title="Link to this heading">#</a></h2>
 <p>A limitation of Hawkes processes is that they are <strong>purely excitatory</strong>. If the weights were negative, the intensity function could be negative as well, and that would be an invalid point process.</p>
 <p>One way around this is via <strong>nonlinear Hawkes processes</strong>, where the intensity function is,</p>
 <div class="math notranslate nohighlight">
@@ -745,7 +770,7 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
 <p>Still, we can approximate the log likelihood with numerical quadrature methods, and in some cases we can use fancy augmentation schemes to perform Bayesian inference <span id="id3">[<a class="reference internal" href="99_references.html#id78" title="Feng Zhou, Zhidong Li, Xuhui Fan, Yang Wang, Arcot Sowmya, and Fang Chen. Scalable inference for nonparametric Hawkes process using Pó$ lya-gamma augmentation. arXiv preprint arXiv:1910.13052, 2019.">Zhou <em>et al.</em>, 2019</a>]</span>.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Point processes are stochastic processes that produce discrete sets of points.  They are fundamental tools for modeling neural spike trains, where the points are spike times.</p></li>
 <li><p>The Poisson process is the fundamental point process from which more complex models are constructed.</p></li>
@@ -783,11 +808,10 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="09_glm.html"
@@ -807,10 +831,7 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -818,6 +839,7 @@ z_n \sim \mathrm{Bern}\left( \frac{\lambda_1(t_n)}{\lambda_0(t_n) + \lambda_1(t_
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -861,9 +883,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -887,8 +910,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

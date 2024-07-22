@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Generalized Linear Models &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/09_glm';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/09_glm.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -391,13 +416,13 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="generalized-linear-models">
-<h1>Generalized Linear Models<a class="headerlink" href="#generalized-linear-models" title="Permalink to this heading">#</a></h1>
+<h1>Generalized Linear Models<a class="headerlink" href="#generalized-linear-models" title="Link to this heading">#</a></h1>
 <p>Now that we have a better sense for neural spike traints, let’s build probablistic models that predict neural responses to sensory stimuli or other covariates. These are called <strong>encoding models</strong>, and ideally, these models will recapitulate summary statistics of interest.</p>
 <section id="linear-nonlinear-poisson-lnp-models">
-<h2>Linear Nonlinear Poisson (LNP) models<a class="headerlink" href="#linear-nonlinear-poisson-lnp-models" title="Permalink to this heading">#</a></h2>
+<h2>Linear Nonlinear Poisson (LNP) models<a class="headerlink" href="#linear-nonlinear-poisson-lnp-models" title="Link to this heading">#</a></h2>
 <p>First, consider a single neuron. Let <span class="math notranslate nohighlight">\(y_{t} \in \mathbb{N}_0\)</span> denote the number of spikes it fires in the <span class="math notranslate nohighlight">\(t\)</span>-th time bin. (As before, assume time bins are length <span class="math notranslate nohighlight">\(\Delta\)</span>, typically 5-100 ms.) Let <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span> denote the covariates at time <span class="math notranslate nohighlight">\(t\)</span>. For example, the covariates may be features of a sensory stimulus at time bin <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>A common modeling assumption in neuroscience is that neural spike counts are <strong>conditionally Poisson</strong></p>
 <div class="math notranslate nohighlight">
@@ -419,7 +444,7 @@ y_t \sim \mathrm{Po}(f(\mathbf{w}^\top \boldsymbol{\phi}_t) \cdot \Delta)
 <p>Typical choices of rectifying nonlinearity are the exponential function, <span class="math notranslate nohighlight">\(f(a) = e^a\)</span>, and the softplus function, <span class="math notranslate nohighlight">\(f(a) = \log (1+e^a)\)</span>.</p>
 </section>
 <section id="incorporating-spike-history">
-<h2>Incorporating spike history<a class="headerlink" href="#incorporating-spike-history" title="Permalink to this heading">#</a></h2>
+<h2>Incorporating spike history<a class="headerlink" href="#incorporating-spike-history" title="Link to this heading">#</a></h2>
 <p>The model above treats the spike counts <span class="math notranslate nohighlight">\(y_t\)</span> and <span class="math notranslate nohighlight">\(y_{t'}\)</span> as <strong>conditionally independent</strong> given the stimulus. However, we know this assumption is invalid due to neurons’ refractory period: after a neuron spikes, it cannot spike for at least a few milliseconds. For small time bins, these dependencies matter.</p>
 <p>A simple way to address this model misspecification is to allow the firing rate to depend on both the stimulus and the <strong>spike history</strong>, <span class="math notranslate nohighlight">\(\lambda(\mathbf{x}_{1:t}, \mathbf{y}_{1:t-1})\)</span>. We can do so by including the spike history in the features,</p>
 <div class="math notranslate nohighlight">
@@ -433,7 +458,7 @@ y_t \sim \mathrm{Po}(f(\mathbf{w}^\top \boldsymbol{\phi}_t) \cdot \Delta)
 </div>
 </section>
 <section id="multi-neuronal-spike-train-models">
-<h2>Multi-neuronal spike train models<a class="headerlink" href="#multi-neuronal-spike-train-models" title="Permalink to this heading">#</a></h2>
+<h2>Multi-neuronal spike train models<a class="headerlink" href="#multi-neuronal-spike-train-models" title="Link to this heading">#</a></h2>
 <p>So far, we’ve considered models for a single neuron. In practice, we will often record from many neurons simultaneously, and we would like our models to capture correlations between neurons.</p>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{y}_t = (y_{t,1}, \ldots, y_{t,N})^\top \in \mathbb{N}_0^N\)</span> denote the vector of spike counts from <span class="math notranslate nohighlight">\(N\)</span> neurons in time bin <span class="math notranslate nohighlight">\(t\)</span>. We can generalize the LNP model above as,</p>
 <div class="math notranslate nohighlight">
@@ -450,7 +475,7 @@ y_{t,n} \sim \mathrm{Po}(f(\mathbf{w}_n^\top \boldsymbol{\phi}_t) \cdot \Delta)
 <p>The entries of <span class="math notranslate nohighlight">\(\mathbf{w}_n\)</span> associated with the features <span class="math notranslate nohighlight">\((y_{t-1,m}, \ldots, y_{t-L,m})^\top\)</span> can be thought of as <strong>coupling filters</strong>, which model how spikes on neuron <span class="math notranslate nohighlight">\(m\)</span> influence the future firing rate of neuron <span class="math notranslate nohighlight">\(n\)</span>.</p>
 </section>
 <section id="basis-function-encodings">
-<h2>Basis function encodings<a class="headerlink" href="#basis-function-encodings" title="Permalink to this heading">#</a></h2>
+<h2>Basis function encodings<a class="headerlink" href="#basis-function-encodings" title="Link to this heading">#</a></h2>
 <p>The model above has <span class="math notranslate nohighlight">\(\mathcal{O}(N^2 L)\)</span> weights for the coupling filters. For small bin sizes, <span class="math notranslate nohighlight">\(L\)</span> may need to include dozens of past time bins to capture all the pairwise interactions. However, these coupling filters are often approximately smooth functions of the time lag. One way to cut down on parameters and capture this smoothness is to use a <strong>basis function representation</strong>. For example, one of the features can be,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -463,11 +488,11 @@ y_{t,n} \sim \mathrm{Po}(f(\mathbf{w}_n^\top \boldsymbol{\phi}_t) \cdot \Delta)
 </div>
 </section>
 <section id="generalized-linear-models-glms">
-<h2>Generalized linear models (GLMs)<a class="headerlink" href="#generalized-linear-models-glms" title="Permalink to this heading">#</a></h2>
-<p>The model described above, with stimulus features, spike history terms, and basis function encodings, is what neuroscientists often call “the” generalized linear model (GLM), after <span id="id1">Pillow <em>et al.</em> [<a class="reference internal" href="99_references.html#id59" title="Jonathan W Pillow, Jonathon Shlens, Liam Paninski, Alexander Sher, Alan M Litke, EJ Chichilnisky, and Eero P Simoncelli. Spatio-temporal correlations and visual signalling in a complete neuronal population. Nature, 454(7207):995–999, 2008.">2008</a>]</span>. Of course, in statistics we know that this model is just one instance of a broad family of GLMs, which are characterized by linear projections of covariates, nonlinear link functions, and exponential family conditional distributions <span id="id2">[<a class="reference internal" href="99_references.html#id63" title="Peter McCullagh and John Nelder. Generalized linear models. Routledge, 1983.">McCullagh and Nelder, 1983</a>]</span>. In fact, we have already encountered one GLM in this course: the logistic regression model from <a class="reference internal" href="07_pose_tracking.html"><span class="doc std std-doc">Unit 1</span></a>.</p>
+<h2>Generalized linear models (GLMs)<a class="headerlink" href="#generalized-linear-models-glms" title="Link to this heading">#</a></h2>
+<p>The model described above, with stimulus features, spike history terms, and basis function encodings, is what neuroscientists often call “the” generalized linear model (GLM), after <span id="id1">Pillow <em>et al.</em> [<a class="reference internal" href="99_references.html#id59" title="Jonathan W Pillow, Jonathon Shlens, Liam Paninski, Alexander Sher, Alan M Litke, EJ Chichilnisky, and Eero P Simoncelli. Spatio-temporal correlations and visual signalling in a complete neuronal population. Nature, 454(7207):995–999, 2008.">2008</a>]</span>. Of course, in statistics we know that this model is just one instance of a broad family of GLMs, which are characterized by linear projections of covariates, nonlinear link functions, and exponential family conditional distributions <span id="id2">[<a class="reference internal" href="99_references.html#id63" title="Peter McCullagh and John Nelder. Generalized linear models. Routledge, 1983.">McCullagh and Nelder, 1983</a>]</span>. In fact, we have already encountered one GLM in this course: the logistic regression model from <a class="reference internal" href="07_pose_tracking.html"><span class="std std-doc">Unit 1</span></a>.</p>
 </section>
 <section id="maximum-likelihood-estimation-mle">
-<h2>Maximum likelihood estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this heading">#</a></h2>
+<h2>Maximum likelihood estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Link to this heading">#</a></h2>
 <p>As with logistic regression, the GLMs constructed above won’t have closed form solutions for the MLE. However, they will be amenable to the optimization methods discussed previously: (stochastic) gradient descent, Newton’s method, etc.</p>
 <p>Let’s follow the same recipe as before to compute the gradient of the negative log likelihood of a GLM with an exponential nonlinearity,</p>
 <div class="math notranslate nohighlight">
@@ -496,7 +521,7 @@ y_{t,n} \sim \mathrm{Po}(f(\mathbf{w}_n^\top \boldsymbol{\phi}_t) \cdot \Delta)
 <p>We can optimize the weights for each neuron separately. (And in parallel, if you like!)</p>
 </div>
 <section id="gradients-and-hessians">
-<h3>Gradients and Hessians<a class="headerlink" href="#gradients-and-hessians" title="Permalink to this heading">#</a></h3>
+<h3>Gradients and Hessians<a class="headerlink" href="#gradients-and-hessians" title="Link to this heading">#</a></h3>
 <p>Now take the gradient wrt the weights of neuron <span class="math notranslate nohighlight">\(n\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -517,7 +542,7 @@ y_{t,n} \sim \mathrm{Po}(f(\mathbf{w}_n^\top \boldsymbol{\phi}_t) \cdot \Delta)
 </section>
 </section>
 <section id="exponential-family-distributions">
-<h2>Exponential family distributions<a class="headerlink" href="#exponential-family-distributions" title="Permalink to this heading">#</a></h2>
+<h2>Exponential family distributions<a class="headerlink" href="#exponential-family-distributions" title="Link to this heading">#</a></h2>
 <p>The reason why the Poisson GLM and logistic regression had such nice mathematical forms is because they are both <strong>exponential family</strong> GLMs. Exponential family distributions have densities of the form,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -561,7 +586,7 @@ A(\theta) = \log \int h(y) \exp \left\{ \langle t(y), \theta \rangle \right\} \,
 </div>
 </section>
 <section id="exponential-family-glms">
-<h2>Exponential family GLMs<a class="headerlink" href="#exponential-family-glms" title="Permalink to this heading">#</a></h2>
+<h2>Exponential family GLMs<a class="headerlink" href="#exponential-family-glms" title="Link to this heading">#</a></h2>
 <p>An exponential family GLM is one in which the observation distribution is an exponential family and the natural parameter is a linear-nonlinear function of the features,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -603,7 +628,7 @@ A'(\theta) &amp;\triangleq \frac{\mathrm{d}}{\mathrm{d} \theta} A(\theta) \\
 <!-- For example, in the Poisson GLM described above, we modeled the Poisson mean as $\lambda = e^{\mathbf{w}^\top \boldsymbol{\phi}}$. (Assume a bin size of $\Delta = 1$ for simplicity.) To put this in exponential family form, we need the natural parameter  -->
 </section>
 <section id="gradients-for-canonical-exponential-family-glms">
-<h2>Gradients for canonical exponential family GLMs<a class="headerlink" href="#gradients-for-canonical-exponential-family-glms" title="Permalink to this heading">#</a></h2>
+<h2>Gradients for canonical exponential family GLMs<a class="headerlink" href="#gradients-for-canonical-exponential-family-glms" title="Link to this heading">#</a></h2>
 <p>Now consider the negative log likelihood in a canonical exponential family GLM,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -625,7 +650,7 @@ A'(\theta) &amp;\triangleq \frac{\mathrm{d}}{\mathrm{d} \theta} A(\theta) \\
 <p>Thus, we see that the simple form of the gradient — a sum of features weighted by the corresponding error — follows from a general property of exponential family GLMs.</p>
 </section>
 <section id="glms-in-neuroscience">
-<h2>GLMs in neuroscience<a class="headerlink" href="#glms-in-neuroscience" title="Permalink to this heading">#</a></h2>
+<h2>GLMs in neuroscience<a class="headerlink" href="#glms-in-neuroscience" title="Link to this heading">#</a></h2>
 <p>Generalized linear models are central tools in systems neuroscience. Work by <span id="id3">Paninski [<a class="reference internal" href="99_references.html#id64" title="Liam Paninski. Maximum likelihood estimation of cascade point-process neural encoding models. Network: Computation in Neural Systems, 15(4):243–262, 2004.">2004</a>]</span>, <span id="id4">Truccolo <em>et al.</em> [<a class="reference internal" href="99_references.html#id65" title="Wilson Truccolo, Uri T Eden, Matthew R Fellows, John P Donoghue, and Emery N Brown. A point process framework for relating neural spiking activity to spiking history, neural ensemble, and extrinsic covariate effects. Journal of neurophysiology, 93(2):1074–1089, 2005.">2005</a>]</span>, and <span id="id5">Pillow <em>et al.</em> [<a class="reference internal" href="99_references.html#id59" title="Jonathan W Pillow, Jonathon Shlens, Liam Paninski, Alexander Sher, Alan M Litke, EJ Chichilnisky, and Eero P Simoncelli. Spatio-temporal correlations and visual signalling in a complete neuronal population. Nature, 454(7207):995–999, 2008.">2008</a>]</span> laid the theoretical foundations for much of the experimental work that followed.</p>
 <ul class="simple">
 <li><p><span id="id6">Park <em>et al.</em> [<a class="reference internal" href="99_references.html#id66" title="Il Memming Park, Miriam LR Meister, Alexander C Huk, and Jonathan W Pillow. Encoding and decoding in parietal cortex during sensorimotor decision-making. Nature neuroscience, 17(10):1395–1403, 2014.">2014</a>]</span>, <span id="id7">Yates <em>et al.</em> [<a class="reference internal" href="99_references.html#id67" title="Jacob L Yates, Il Memming Park, Leor N Katz, Jonathan W Pillow, and Alexander C Huk. Functional dissection of signal and noise in MT and LIP during decision-making. Nature neuroscience, 20(9):1285–1292, 2017.">2017</a>]</span> applied GLMs to characterize heterogeneous responses in multi-neuronal spike train recordings from lateral intraparietal cortex (LIP) during decision making.</p></li>
@@ -661,11 +686,10 @@ A'(\theta) &amp;\triangleq \frac{\mathrm{d}}{\mathrm{d} \theta} A(\theta) \\
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="08_summary_stats.html"
@@ -685,10 +709,7 @@ A'(\theta) &amp;\triangleq \frac{\mathrm{d}}{\mathrm{d} \theta} A(\theta) \\
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -696,6 +717,7 @@ A'(\theta) &amp;\triangleq \frac{\mathrm{d}}{\mathrm{d} \theta} A(\theta) \\
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -737,9 +759,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -763,8 +786,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

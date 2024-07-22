@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 1: Spike Sorting &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/01_spike_sorting';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/01_spike_sorting.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -424,19 +449,19 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-1-spike-sorting">
-<h1>Lab 1: Spike Sorting<a class="headerlink" href="#lab-1-spike-sorting" title="Permalink to this heading">#</a></h1>
+<h1>Lab 1: Spike Sorting<a class="headerlink" href="#lab-1-spike-sorting" title="Link to this heading">#</a></h1>
 <p>This lab implements a convolutional matrix factorization model that is similar to <a class="reference external" href="https://github.com/MouseLand/Kilosort">Kilosort</a>, a state-of-the-art spike sorting package. We’ll use PyTorch to implement the key operations—convolutions and cross-correlations—on a GPU. We’ll test it on a small synthetic dataset first and then try it on a realistic dataset.</p>
 <section id="environment-setup">
-<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h2>
+<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%capture
-# Download some synthetic data for part 4 and solutions to check your code
-!wget -nc https://www.dropbox.com/s/sg3pmrqu7wafqb7/lab1_data.pt
-!wget -nc https://www.dropbox.com/s/8yal89r2ljr8ise/lab1_solutions.pt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="c1"># Download some synthetic data for part 4 and solutions to check your code</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">nc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">dropbox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">sg3pmrqu7wafqb7</span><span class="o">/</span><span class="n">lab1_data</span><span class="o">.</span><span class="n">pt</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">nc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">dropbox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="mi">8</span><span class="n">yal89r2ljr8ise</span><span class="o">/</span><span class="n">lab1_solutions</span><span class="o">.</span><span class="n">pt</span>
 </pre></div>
 </div>
 </div>
@@ -488,7 +513,7 @@ document.write(`
 </div>
 </section>
 <section id="helper-functions">
-<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Permalink to this heading">#</a></h2>
+<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Link to this heading">#</a></h2>
 <div class="cell tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -763,7 +788,7 @@ document.write(`
 </div>
 </section>
 <section id="part-1-convolution-and-cross-correlation-with-pytorch">
-<h2>Part 1: Convolution and cross-correlation with PyTorch<a class="headerlink" href="#part-1-convolution-and-cross-correlation-with-pytorch" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Convolution and cross-correlation with PyTorch<a class="headerlink" href="#part-1-convolution-and-cross-correlation-with-pytorch" title="Link to this heading">#</a></h2>
 <p>One of the main advantages of PyTorch over Numpy/Scipy is that it allows us to use hardware accelerators like GPUs. PyTorch tensors are stored on a specified device, and in the setup above you’ll see that we specified our device to be <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>, i.e. a GPU. Google Colab gives you free access to a GPU machine, as long as you select the GPU runtime. If you click the RAM/disk icon in the upper right, you should see that this session is a GPU session. If it’s not, go to “Runtime -&gt; Change Runtime Type” to select a GPU.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Tensor</span></code> objects have a few nice functions that will make your life easier in this lab. Suppose <code class="docutils literal notranslate"><span class="pre">data</span></code> is a <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>. Then,</p>
 <ul class="simple">
@@ -773,9 +798,9 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">data.reshape(1,</span> <span class="pre">1,</span> <span class="pre">-1)</span></code> vectorizes the data and reshapes it to have two leading dimensions, each of length 1.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data.sum()</span></code> sums the entries in the data.</p></li>
 </ul>
-<p>If this is your first time using PyTorch and you get stuck, you might want to go back to <a class="reference internal" href="00_pytorch_primer.html"><span class="doc std std-doc">Lab 0: PyTorch Primer</span></a>.</p>
+<p>If this is your first time using PyTorch and you get stuck, you might want to go back to <a class="reference internal" href="00_pytorch_primer.html"><span class="std std-doc">Lab 0: PyTorch Primer</span></a>.</p>
 <section id="problem-1a-perform-a-1d-convolution">
-<h3>Problem 1a: Perform a 1d convolution<a class="headerlink" href="#problem-1a-perform-a-1d-convolution" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a: Perform a 1d convolution<a class="headerlink" href="#problem-1a-perform-a-1d-convolution" title="Link to this heading">#</a></h3>
 <p>As a first step, we generate synthetic data with a single neuron and a single channel. Based on a template and a 1d array representing amplitudes for the single neuron, we simulate data as the convolution of these two arrays.</p>
 <p>You’ll use the <code class="docutils literal notranslate"><span class="pre">conv1d</span></code> function in the <code class="docutils literal notranslate"><span class="pre">torch.nn.functional</span></code> package. We’ve already imported that package with the shorthand name <code class="docutils literal notranslate"><span class="pre">F</span></code> so that you can call the function with <code class="docutils literal notranslate"><span class="pre">F.conv1d(...)</span></code>. Take a look at its documentation <a class="reference external" href="https://pytorch.org/docs/stable/nn.functional.html?highlight=conv1d#torch.nn.functional.conv1d">here</a>, as well as the corresponding documentation for the <code class="docutils literal notranslate"><span class="pre">torch.nn.Conv1d</span></code> object, which implements a convolutional layer for a neural network.</p>
 <p>Here’s an example,</p>
@@ -841,7 +866,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-1b-perform-a-1d-cross-correlation-in-pytorch">
-<h3>Problem 1b: Perform a 1d cross-correlation in PyTorch<a class="headerlink" href="#problem-1b-perform-a-1d-cross-correlation-in-pytorch" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Perform a 1d cross-correlation in PyTorch<a class="headerlink" href="#problem-1b-perform-a-1d-cross-correlation-in-pytorch" title="Link to this heading">#</a></h3>
 <p>Remember that the cross-correlation measures the similarity between the template and the actual data at every time window. In those time points where the data and the template coincide, we should obtain a high correlation indicating the presence of a spike. The peaks of the amplitude array and the cross-correlation array should match, as you see in the plot below.  The dotted line shows the cross-correlation of the data and the template, and we see that it peaks where there are spikes in the true underlying amplitude that generated the data.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">conv1d</span></code> to implement this <strong>cross-correlation</strong> and get the dotted line.</p>
 <div class="cell docutils container">
@@ -867,7 +892,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-1c-perform-a-1d-convolution-across-multiple-channels-at-once">
-<h3>Problem 1c: Perform a 1d convolution across multiple channels at once<a class="headerlink" href="#problem-1c-perform-a-1d-convolution-across-multiple-channels-at-once" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Perform a 1d convolution across multiple channels at once<a class="headerlink" href="#problem-1c-perform-a-1d-convolution-across-multiple-channels-at-once" title="Link to this heading">#</a></h3>
 <p>Similar to problem 1a, except that the template (and therefore the final synthetic data) has multiple <em>output</em> channels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -902,7 +927,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-1d-perform-a-1d-cross-correlation-across-multiple-channels-at-once">
-<h3>Problem 1d: Perform a 1d cross-correlation across multiple channels at once<a class="headerlink" href="#problem-1d-perform-a-1d-cross-correlation-across-multiple-channels-at-once" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1d: Perform a 1d cross-correlation across multiple channels at once<a class="headerlink" href="#problem-1d-perform-a-1d-cross-correlation-across-multiple-channels-at-once" title="Link to this heading">#</a></h3>
 <p>Same as Problem 1b except that the data and templates have multiple <em>input</em> channels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -927,7 +952,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-1e-convolving-multiple-neurons-spikes-and-templates">
-<h3>Problem 1e: Convolving multiple neurons’ spikes and templates<a class="headerlink" href="#problem-1e-convolving-multiple-neurons-spikes-and-templates" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1e: Convolving multiple neurons’ spikes and templates<a class="headerlink" href="#problem-1e-convolving-multiple-neurons-spikes-and-templates" title="Link to this heading">#</a></h3>
 <p>Similar to problem 1c, but here we have multiple neurons (input channels), each associated to a template with multiple (output) channels. The final simulated data is aggregated across neurons to simulate actual measurements where signals from multiple neurons are superimposed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -962,7 +987,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-1f-perform-a-1d-cross-correlation-across-multiple-channels-and-neurons-at-once">
-<h3>Problem 1f: Perform a 1d cross-correlation across multiple channels and neurons at once<a class="headerlink" href="#problem-1f-perform-a-1d-cross-correlation-across-multiple-channels-and-neurons-at-once" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1f: Perform a 1d cross-correlation across multiple channels and neurons at once<a class="headerlink" href="#problem-1f-perform-a-1d-cross-correlation-across-multiple-channels-and-neurons-at-once" title="Link to this heading">#</a></h3>
 <p>Same as Problem 1c but now we’re performing the cross-correlation with multiple neurons’ templates at once.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -989,10 +1014,10 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </section>
 </section>
 <section id="part-2-spike-sorting-by-deconvolution">
-<h2>Part 2: Spike sorting by deconvolution<a class="headerlink" href="#part-2-spike-sorting-by-deconvolution" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Spike sorting by deconvolution<a class="headerlink" href="#part-2-spike-sorting-by-deconvolution" title="Link to this heading">#</a></h2>
 <p>In this part of the lab you’ll use those cross-correlation and convolution operations to implement the spike sorting algorithm we discussed in class. We’ll work with a synthetic dataset, as above, but this time we’ll make it slightly larger.  (It’s still a lot smaller than the dataset we used in Lab 1 though!)</p>
 <section id="simulate-some-data">
-<h3>Simulate some data<a class="headerlink" href="#simulate-some-data" title="Permalink to this heading">#</a></h3>
+<h3>Simulate some data<a class="headerlink" href="#simulate-some-data" title="Link to this heading">#</a></h3>
 <p>No coding necessary here. We’re just simulating the data for you.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1037,7 +1062,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-2a-compute-the-log-likelihood">
-<h3>Problem 2a: Compute the log likelihood<a class="headerlink" href="#problem-2a-compute-the-log-likelihood" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a: Compute the log likelihood<a class="headerlink" href="#problem-2a-compute-the-log-likelihood" title="Link to this heading">#</a></h3>
 <p>One of the most awesome features of PyTorch is its <code class="docutils literal notranslate"><span class="pre">torch.distributions</span></code> package. See the docs <a class="reference external" href="https://pytorch.org/docs/stable/distributions.html">here</a>. It contains objects for many of our favorite distributions, and has convenient functions for computing log probabilities (with <code class="docutils literal notranslate"><span class="pre">d.log_prob()</span></code> where <code class="docutils literal notranslate"><span class="pre">d</span></code> is a <code class="docutils literal notranslate"><span class="pre">Distribution</span></code> object), sampling (<code class="docutils literal notranslate"><span class="pre">d.sample()</span></code>), computing the entropy (<code class="docutils literal notranslate"><span class="pre">d.entropy()</span></code>), etc. These functions broadcast as you’d expect (unlike <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>!), and they’re designed to work with automatic differentiation.  More on that another day…</p>
 <p>For now, you’ll use <code class="docutils literal notranslate"><span class="pre">dist.Normal</span></code> to compute the log likelihood of the data given the template and amplitudes, <span class="math notranslate nohighlight">\(\log p(\mathbf{X} \mid \mathbf{A}, \mathbf{W})\)</span>.  To do that, you’ll convolve the amplitudes and templates (recall Problem 1e) to get the mean value of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, then you’ll use the <code class="docutils literal notranslate"><span class="pre">log_prob</span></code> function to evaluate the likelihood of the data.</p>
 <div class="cell docutils container">
@@ -1069,7 +1094,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-2b-compute-the-residual">
-<h3>Problem 2b: Compute the residual<a class="headerlink" href="#problem-2b-compute-the-residual" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Compute the residual<a class="headerlink" href="#problem-2b-compute-the-residual" title="Link to this heading">#</a></h3>
 <p>Next, compute the residual for a specified neuron by subtracting the convolved amplitudes and templates for all the other neurons. Again, recall Problem 1e.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1098,7 +1123,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-2c-compute-the-score">
-<h3>Problem 2c: Compute the score<a class="headerlink" href="#problem-2c-compute-the-score" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c: Compute the score<a class="headerlink" href="#problem-2c-compute-the-score" title="Link to this heading">#</a></h3>
 <p>Let the “score” for neuron <span class="math notranslate nohighlight">\(k\)</span> be the cross-correlation of the residual and its template. Compute it using <code class="docutils literal notranslate"><span class="pre">conv1d</span></code>. Recall Problem 1d.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1124,7 +1149,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-2d-update-the-amplitudes-using-find-peaks">
-<h3>Problem 2d: Update the amplitudes using <code class="docutils literal notranslate"><span class="pre">find_peaks</span></code><a class="headerlink" href="#problem-2d-update-the-amplitudes-using-find-peaks" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d: Update the amplitudes using <code class="docutils literal notranslate"><span class="pre">find_peaks</span></code><a class="headerlink" href="#problem-2d-update-the-amplitudes-using-find-peaks" title="Link to this heading">#</a></h3>
 <p>Our next step is to update the amplitudes given the scores. We’ll use a simple heuristic as described in the course notes: use <code class="docutils literal notranslate"><span class="pre">find_peaks</span></code> to find peaks in the score that are separated by a distance of at least <span class="math notranslate nohighlight">\(D\)</span> samples and at least a height of <span class="math notranslate nohighlight">\(\sigma^2 \lambda\)</span>, where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation of the noise and <span class="math notranslate nohighlight">\(\lambda\)</span> is the amplitude rate hyperparameter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1165,7 +1190,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-2e-update-the-templates">
-<h3>Problem 2e: Update the templates<a class="headerlink" href="#problem-2e-update-the-templates" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2e: Update the templates<a class="headerlink" href="#problem-2e-update-the-templates" title="Link to this heading">#</a></h3>
 <p>Our last step is to update the template for a given neuron by projecting the <em>target</em> <span class="math notranslate nohighlight">\(\overline{\mathbf{R}} \in \mathbb{R}^{N \times D}\)</span>. The target is the sum of scaled residuals at the times of spikes in the amplitudes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1221,7 +1246,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="put-it-all-together">
-<h3>Put it all together<a class="headerlink" href="#put-it-all-together" title="Permalink to this heading">#</a></h3>
+<h3>Put it all together<a class="headerlink" href="#put-it-all-together" title="Link to this heading">#</a></h3>
 <p>That’s it! We’ve written a little function to perform coordinate ascent using your <code class="docutils literal notranslate"><span class="pre">_update_*</span></code> functions. It tracks the log likelihood at each iteration. (We’re ignoring the priors for now, but it would be easy to compute those in Problem 2a if you wanted to). It also uses some nice progress bars so you can see how fast (or slow?) your code runs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1272,7 +1297,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="fit-the-synthetic-data-and-plot-the-log-likelihoods">
-<h3>Fit the synthetic data and plot the log likelihoods<a class="headerlink" href="#fit-the-synthetic-data-and-plot-the-log-likelihoods" title="Permalink to this heading">#</a></h3>
+<h3>Fit the synthetic data and plot the log likelihoods<a class="headerlink" href="#fit-the-synthetic-data-and-plot-the-log-likelihoods" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make random templates and set amplitude to zero</span>
@@ -1332,7 +1357,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="find-a-permutation-of-the-inferred-neurons-that-best-matches-the-true-neurons">
-<h3>Find a permutation of the inferred neurons that best matches the true neurons<a class="headerlink" href="#find-a-permutation-of-the-inferred-neurons-that-best-matches-the-true-neurons" title="Permalink to this heading">#</a></h3>
+<h3>Find a permutation of the inferred neurons that best matches the true neurons<a class="headerlink" href="#find-a-permutation-of-the-inferred-neurons-that-best-matches-the-true-neurons" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the similarity (inner product) of the true and inferred templates</span>
@@ -1360,7 +1385,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="plot-the-true-and-inferred-templates">
-<h3>Plot the true and inferred templates<a class="headerlink" href="#plot-the-true-and-inferred-templates" title="Permalink to this heading">#</a></h3>
+<h3>Plot the true and inferred templates<a class="headerlink" href="#plot-the-true-and-inferred-templates" title="Link to this heading">#</a></h3>
 <p>They should line up pretty well.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1382,10 +1407,10 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </section>
 </section>
 <section id="part-3-now-do-it-more-efficiently">
-<h2>Part 3: Now do it more efficiently<a class="headerlink" href="#part-3-now-do-it-more-efficiently" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Now do it more efficiently<a class="headerlink" href="#part-3-now-do-it-more-efficiently" title="Link to this heading">#</a></h2>
 <p>Our code above was not optimized for efficiency. For example, we kept recomputing the residual, which incurred costly convolutions. Likewise, we naively cross-correlated the residual with the templates, without leveraging the fact that the templates are low rank. In this section you’ll go back and address these shortcomings.</p>
 <section id="problem-3a-write-helper-functions-to-up-down-date-the-residual">
-<h3>Problem 3a: Write helper functions to up/down-date the residual<a class="headerlink" href="#problem-3a-write-helper-functions-to-up-down-date-the-residual" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a: Write helper functions to up/down-date the residual<a class="headerlink" href="#problem-3a-write-helper-functions-to-up-down-date-the-residual" title="Link to this heading">#</a></h3>
 <p>Each iteration of <code class="docutils literal notranslate"><span class="pre">map_estimate</span></code> updates one neuron at a time. We can save a lot of computation by just adding and subtracting that neuron’s convolved template from the residual at the start and end of the iteration. Moreover, we can perform that convolution more efficiently by working directly with the factors of the template.</p>
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{W}_k = \mathbf{U}_k \tilde{\mathbf{V}}_k^\top\)</span> where <span class="math notranslate nohighlight">\(\tilde{\mathbf{V}}_k^\top = \mathrm{diag}(\mathbf{s}_k) \mathbf{V}_k^\top \in {R \times D}\)</span> denotes the weighted temporal factors of neuron <span class="math notranslate nohighlight">\(k\)</span>’s template. We can use this factorization to implement the convolution as,</p>
 <div class="math notranslate nohighlight">
@@ -1438,7 +1463,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-3b-update-the-amplitudes-using-a-fast-score-calculation">
-<h3>Problem 3b: Update the amplitudes using a fast score calculation<a class="headerlink" href="#problem-3b-update-the-amplitudes-using-a-fast-score-calculation" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3b: Update the amplitudes using a fast score calculation<a class="headerlink" href="#problem-3b-update-the-amplitudes-using-a-fast-score-calculation" title="Link to this heading">#</a></h3>
 <p>In the course notes, we showed that the score—the cross correlation of the residual and a template— can be computed more efficiently by projecting the residual on the spatial factors of the template and then convolving with the weighted temporal factors. In math,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1488,7 +1513,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="problem-3c-update-the-low-rank-factors-of-the-template">
-<h3>Problem 3c: Update the low rank factors of the template<a class="headerlink" href="#problem-3c-update-the-low-rank-factors-of-the-template" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3c: Update the low rank factors of the template<a class="headerlink" href="#problem-3c-update-the-low-rank-factors-of-the-template" title="Link to this heading">#</a></h3>
 <p>Finally, copy your answer from Problem 2e to update the templates, but this time just keep the template factors <span class="math notranslate nohighlight">\(\mathbf{U}_k\)</span> and <span class="math notranslate nohighlight">\(\tilde{\mathbf{V}}_k^\top\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1537,7 +1562,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="id1">
-<h3>Put it all together<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Put it all together<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Now we’ll write another function to perform MAP estimation using your new-and-improved code. We’ve got to do a little work to initialize the residuals and the templates, but it’s all pretty straightforward.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1618,7 +1643,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="run-it-on-the-synthetic-data">
-<h3>Run it on the synthetic data<a class="headerlink" href="#run-it-on-the-synthetic-data" title="Permalink to this heading">#</a></h3>
+<h3>Run it on the synthetic data<a class="headerlink" href="#run-it-on-the-synthetic-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make random templates and set amplitude to zero</span>
@@ -1665,11 +1690,11 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </section>
 </section>
 <section id="part-4-try-it-on-more-realistic-data">
-<h2>Part 4: Try it on more realistic data<a class="headerlink" href="#part-4-try-it-on-more-realistic-data" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Try it on more realistic data<a class="headerlink" href="#part-4-try-it-on-more-realistic-data" title="Link to this heading">#</a></h2>
 <p>Last but not least, let’s try it on some simulated data from eMouse — the software used to test Kilosort. This is a bit larger: 3.6x more samples and 2x more channels. We’ll also be fitting 10x more neurons. The fast code you wrote in Problem 3 will make a big difference!</p>
 </section>
 <section id="load-preprocessed-data">
-<h2>Load preprocessed data<a class="headerlink" href="#load-preprocessed-data" title="Permalink to this heading">#</a></h2>
+<h2>Load preprocessed data<a class="headerlink" href="#load-preprocessed-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set some constants</span>
@@ -1693,7 +1718,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </div>
 <section id="fit-the-model-using-the-fast-map-estimation-code-from-part-3">
-<h3>Fit the model using the fast MAP estimation code from Part 3<a class="headerlink" href="#fit-the-model-using-the-fast-map-estimation-code-from-part-3" title="Permalink to this heading">#</a></h3>
+<h3>Fit the model using the fast MAP estimation code from Part 3<a class="headerlink" href="#fit-the-model-using-the-fast-map-estimation-code-from-part-3" title="Link to this heading">#</a></h3>
 <p>This should still take about 4.5 minutes when initialized with random templates. You could also initialize with the results from Lab 1; in fact, this is what Kilosort v1 did. (The latest version has a slightly different approach.) If you dare, try running the “slow” code from Part 2. It should be about 20x slower, so you saved an hour by implementing Part 3!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1751,7 +1776,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="plot-the-inferred-templates">
-<h3>Plot the inferred templates<a class="headerlink" href="#plot-the-inferred-templates" title="Permalink to this heading">#</a></h3>
+<h3>Plot the inferred templates<a class="headerlink" href="#plot-the-inferred-templates" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot some templates (note, they&#39;re not ordered in any way)</span>
@@ -1765,7 +1790,7 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </div>
 </section>
 <section id="plot-the-data-with-inferred-spikes-overlaid">
-<h3>Plot the data with inferred spikes overlaid<a class="headerlink" href="#plot-the-data-with-inferred-spikes-overlaid" title="Permalink to this heading">#</a></h3>
+<h3>Plot the data with inferred spikes overlaid<a class="headerlink" href="#plot-the-data-with-inferred-spikes-overlaid" title="Link to this heading">#</a></h3>
 <p>This doesn’t show the ground truth, but you should see that the algorithm has picked up the major spikes in the voltage, and it has assigned similar spikes to the same neuron (colors).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1808,24 +1833,24 @@ x_{b,n,t} = \sum_{k = 1}^{K} \sum_{d=1}^D a_{b,k,t+d-1} w_{n,k,d}.
 </section>
 </section>
 <section id="part-5-short-answer">
-<h2>Part 5: Short Answer<a class="headerlink" href="#part-5-short-answer" title="Permalink to this heading">#</a></h2>
+<h2>Part 5: Short Answer<a class="headerlink" href="#part-5-short-answer" title="Link to this heading">#</a></h2>
 <section id="problem-5a">
-<h3>Problem 5a:<a class="headerlink" href="#problem-5a" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5a:<a class="headerlink" href="#problem-5a" title="Link to this heading">#</a></h3>
 <p>In practice, you would post-process the extracted spikes to reject unrealistic neurons and merge overlapping ones. How would you approach this problem?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5b">
-<h3>Problem 5b:<a class="headerlink" href="#problem-5b" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5b:<a class="headerlink" href="#problem-5b" title="Link to this heading">#</a></h3>
 <p>Over the course of a long recording session, the probe could drift up and down so that the channels activated by a neuron shift. How could you compensate for this slow drift in this model, or possibly try to correct for it during preprocessing?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5c">
-<h3>Problem 5c<a class="headerlink" href="#problem-5c" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5c<a class="headerlink" href="#problem-5c" title="Link to this heading">#</a></h3>
 <p>You may have noticed that we cheated in parts 2 and 3! We initialized our templates with the same random seed that was used to generate the synthetic data. What happens if you change that random seed? Can you come up with a heuristic to initialize the templates (without cheating and using the same random seed)?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5d">
-<h3>Problem 5d<a class="headerlink" href="#problem-5d" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5d<a class="headerlink" href="#problem-5d" title="Link to this heading">#</a></h3>
 <p>How would your amplitude updates change if we replaced the exponential prior with a truncated normal prior,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1864,11 +1889,10 @@ p(a_{k,t}) \propto \mathbb{I}[a_{k,t} \geq 0] \, \mathcal{N}(a_{k,t}; \mu, \nu^2
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="00_pytorch_primer.html"
@@ -1888,10 +1912,7 @@ p(a_{k,t}) \propto \mathbb{I}[a_{k,t} \geq 0] \, \mathcal{N}(a_{k,t}; \mu, \nu^2
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1899,6 +1920,7 @@ p(a_{k,t}) \propto \mathbb{I}[a_{k,t} \geq 0] \, \mathcal{N}(a_{k,t}; \mu, \nu^2
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1973,9 +1995,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1999,8 +2022,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

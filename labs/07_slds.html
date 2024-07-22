@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 7: Switching LDS &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/07_slds';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/07_slds.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -423,10 +448,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-7-switching-lds">
-<h1>Lab 7: Switching LDS<a class="headerlink" href="#lab-7-switching-lds" title="Permalink to this heading">#</a></h1>
+<h1>Lab 7: Switching LDS<a class="headerlink" href="#lab-7-switching-lds" title="Link to this heading">#</a></h1>
 <p><img alt="" src="https://els-jbs-prod-cdn.jbs.elsevierhealth.com/cms/attachment/09c7213d-d3ef-4c84-8321-07ab84a365af/fx1.jpg" /></p>
 <p>In this lab, we will implement a variational expectation maximization algorithm to fit a latent variable model with both discrete and continuous states. We’ll use a mean field approximation, which we’ll fit using coordinate ascent variational inference (CAVI). Then we’ll test it out on neural activity traces extracted from calcium imaging of the worm <em>C. elegans</em> by Kato et al (2015), in their paper on low dimensional dynamics of whole brain activity.</p>
 <p>We won’t implement variational EM for full-blown hierachical, recurrent, switching linear dynamical systems (Linderman et al, 2019). Instead, we’ll work on a simpler model without time dependencies, which reduces to a mixture of factor analysis models. Once we’ve done so, you’ll understand how the main fitting algorithms underlying <a class="reference external" href="https://github.com/lindermanlab/ssm">SSM</a> work under the hood!</p>
@@ -434,7 +459,7 @@ document.write(`
 <p>Kato, Saul, Harris S. Kaplan, Tina Schrödel, Susanne Skora, Theodore H. Lindsay, Eviatar Yemini, Shawn Lockery, and Manuel Zimmer. 2015. “Global Brain Dynamics Embed the Motor Command Sequence of Caenorhabditis Elegans.” Cell 163 (3): 656–69.</p>
 <p>Linderman, Scott W., Annika L. A. Nichols, David M. Blei, Manuel Zimmer, and Liam Paninski. 2019. “Hierarchical Recurrent State Space Models Reveal Discrete and Continuous Dynamics of Neural Activity in C. Elegans.” bioRxiv.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -683,7 +708,7 @@ document.write(`
 </div>
 </section>
 <section id="part-0-build-the-generative-model">
-<h2>Part 0: Build the generative model<a class="headerlink" href="#part-0-build-the-generative-model" title="Permalink to this heading">#</a></h2>
+<h2>Part 0: Build the generative model<a class="headerlink" href="#part-0-build-the-generative-model" title="Link to this heading">#</a></h2>
 <p>To start, we’ll consider a model that has both discrete and continuous latent variables, just like a switching linear dynamical system, but we’ll get rid of the time dependencies. Let <span class="math notranslate nohighlight">\(z_t \in \{1,\ldots, K\}\)</span> denote a discrete latent state, <span class="math notranslate nohighlight">\(x_t \in \mathbb{R}^D\)</span> denote a continuous latent state, and <span class="math notranslate nohighlight">\(y_t \in \mathbb{R}^N\)</span> denote an observed data point. The model is,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -703,8 +728,8 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 </ul>
 <p>This is called a <strong>mixture of factor analyzers</strong> since each <span class="math notranslate nohighlight">\(p(y, x \mid z, \Theta)\)</span> is a factor analysis model. We also recognize it as an analogue of the switching linear dynamical system without any temporal dependencies.</p>
 <section id="make-a-linear-regression-distribution-object">
-<h3>Make a Linear Regression Distribution object<a class="headerlink" href="#make-a-linear-regression-distribution-object" title="Permalink to this heading">#</a></h3>
-<p>We’ll be using PyTorch Distributions for this lab. PyTorch doesn’t include conditional distributions like <span class="math notranslate nohighlight">\(p(y \mid x)\)</span>, so we’ve written a lightweight object to encapsulate the parameters of the linear Gaussian observation model as well. We call it an <code class="docutils literal notranslate"><span class="pre">IndependentLinearRegression</span></code> because the observation covariance <span class="math notranslate nohighlight">\(R\)</span> is a diagonal matrix, which implies independent noise across each output dimension.  This is similar to what you wrote in <a class="reference internal" href="06_arhmm.html"><span class="doc std std-doc">Lab 6</span></a>.</p>
+<h3>Make a Linear Regression Distribution object<a class="headerlink" href="#make-a-linear-regression-distribution-object" title="Link to this heading">#</a></h3>
+<p>We’ll be using PyTorch Distributions for this lab. PyTorch doesn’t include conditional distributions like <span class="math notranslate nohighlight">\(p(y \mid x)\)</span>, so we’ve written a lightweight object to encapsulate the parameters of the linear Gaussian observation model as well. We call it an <code class="docutils literal notranslate"><span class="pre">IndependentLinearRegression</span></code> because the observation covariance <span class="math notranslate nohighlight">\(R\)</span> is a diagonal matrix, which implies independent noise across each output dimension.  This is similar to what you wrote in <a class="reference internal" href="06_arhmm.html"><span class="std std-doc">Lab 6</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IndependentLinearRegression</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -764,7 +789,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 </div>
 </section>
 <section id="make-a-mixture-of-factor-analyzers-object">
-<h3>Make a mixture of factor analyzers object<a class="headerlink" href="#make-a-mixture-of-factor-analyzers-object" title="Permalink to this heading">#</a></h3>
+<h3>Make a mixture of factor analyzers object<a class="headerlink" href="#make-a-mixture-of-factor-analyzers-object" title="Link to this heading">#</a></h3>
 <p>To get you started, we’ve written a <code class="docutils literal notranslate"><span class="pre">MixtureOfFactorAnalyzers</span></code> object that encapsulates the generative model. It’s built out of <code class="docutils literal notranslate"><span class="pre">torch.distributions.Distribution</span></code> objects, which represent the distributions in the generative model. You’re already familiar with the <code class="docutils literal notranslate"><span class="pre">MultivariateNormal</span></code> distribution object, which we will use to represent both <span class="math notranslate nohighlight">\(p(x \mid z)\)</span>. We also use the <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> distribution object to represent <span class="math notranslate nohighlight">\(p(z)\)</span>. We’ll take advantage of the distribution objects’ broadcasting capability to combine all the conditional distributions <span class="math notranslate nohighlight">\(p(x \mid z=k)\)</span> into one object by using a batch of means and covariances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -875,7 +900,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 </div>
 </section>
 <section id="sample-data-from-the-generative-model">
-<h3>Sample data from the generative model<a class="headerlink" href="#sample-data-from-the-generative-model" title="Permalink to this heading">#</a></h3>
+<h3>Sample data from the generative model<a class="headerlink" href="#sample-data-from-the-generative-model" title="Link to this heading">#</a></h3>
 <p>Now we will sample small training and testing datasets from an MFA model with random parameters. We plot the data in two ways: as points in the continuous latent space color coded by discrete label, and then as points in the data space. Don’t be fooled by the ordering of the second plot: the samples are arbitrarily ordered, but we’ve permuted their order to see how different states give rise to better see the distribution corresponding to each discrete state.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -906,7 +931,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 </section>
 </section>
 <section id="part-1-coordinate-ascent-variational-inference-cavi">
-<h2>Part 1: Coordinate Ascent Variational Inference (CAVI)<a class="headerlink" href="#part-1-coordinate-ascent-variational-inference-cavi" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Coordinate Ascent Variational Inference (CAVI)<a class="headerlink" href="#part-1-coordinate-ascent-variational-inference-cavi" title="Link to this heading">#</a></h2>
 <p>First, we’ll implement coordinate ascent variational inference (CAVI) for the mixture of factor analyzers model. We’ll use a mean field posterior approximation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -916,7 +941,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 \]</div>
 <p>such that <span class="math notranslate nohighlight">\(\mathrm{KL}\big( q(z)q(x) \, \| \, p(z, x \mid y, \Theta) \big)\)</span> is minimized. In class, we showed how to minimize the KL via coordinate ascent, iteratively optimizing <span class="math notranslate nohighlight">\(q(z)\)</span> and <span class="math notranslate nohighlight">\(q(x)\)</span>, holding the other fixed. Here we will implement that algorithm.</p>
 <section id="problem-1a-math-derive-the-expected-log-likelihood">
-<h3>Problem 1a [Math]: Derive the expected log likelihood<a class="headerlink" href="#problem-1a-math-derive-the-expected-log-likelihood" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a [Math]: Derive the expected log likelihood<a class="headerlink" href="#problem-1a-math-derive-the-expected-log-likelihood" title="Link to this heading">#</a></h3>
 <p>In class we derived the coordinate update for the discrete state factors,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -947,7 +972,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-1b-implement-the-discrete-state-update">
-<h3>Problem 1b: Implement the discrete state update<a class="headerlink" href="#problem-1b-implement-the-discrete-state-update" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Implement the discrete state update<a class="headerlink" href="#problem-1b-implement-the-discrete-state-update" title="Link to this heading">#</a></h3>
 <p>We will use <code class="docutils literal notranslate"><span class="pre">torch.distributions.Distribution</span></code> objects to represent the  approximate posterior distributions as well. We will use <code class="docutils literal notranslate"><span class="pre">MultivariateNormal</span></code> to represent <span class="math notranslate nohighlight">\(q(x)\)</span> and <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> to represent <span class="math notranslate nohighlight">\(q(z)\)</span>. We’ll take advantage of the distribution objects’ broadcasting capability to represent the variational posteriors for all time steps at once.</p>
 <p><em>Implement a CAVI update for the discrete states posterior that takes in the model and the continuous state posterior <code class="docutils literal notranslate"><span class="pre">q_x</span></code> and outputs the optimal <code class="docutils literal notranslate"><span class="pre">q_z</span></code>.</em></p>
 <div class="cell docutils container">
@@ -1000,7 +1025,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 </section>
 <section id="problem-1c-implement-the-continuous-state-update">
-<h3>Problem 1c: Implement the continuous state update<a class="headerlink" href="#problem-1c-implement-the-continuous-state-update" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Implement the continuous state update<a class="headerlink" href="#problem-1c-implement-the-continuous-state-update" title="Link to this heading">#</a></h3>
 <p>In class we showed that the optimal continuous state posterior, holding the discrete posterior fixed, was a Gaussian distribution <span class="math notranslate nohighlight">\(q(x_t) = \mathcal{N}(\tilde{\mu}_t, \tilde{\Sigma}_t)\)</span> with</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1066,7 +1091,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 </section>
 <section id="problem-1d-short-answer-intuition-for-the-continuous-updates">
-<h3>Problem 1d [Short Answer]: Intuition for the continuous updates<a class="headerlink" href="#problem-1d-short-answer-intuition-for-the-continuous-updates" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1d [Short Answer]: Intuition for the continuous updates<a class="headerlink" href="#problem-1d-short-answer-intuition-for-the-continuous-updates" title="Link to this heading">#</a></h3>
 <p>Consider setting the discrete posterior <span class="math notranslate nohighlight">\(q(z)\)</span> to be uniform over the <span class="math notranslate nohighlight">\(K\)</span> states and then performing one update of the continuous states. The plot below shows the true values of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> as color coded dots in 2D, and then it shows the means of the continuous state posterior <span class="math notranslate nohighlight">\(q(x)\)</span> found using one step of CAVI. We see that the means of the continuous state posterior are all pulled toward the center. Why would you expect that to happen?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
@@ -1093,7 +1118,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 </section>
 <section id="problem-1e-math-derive-the-evidence-lower-bound">
-<h3>Problem 1e [Math]: Derive the evidence lower bound<a class="headerlink" href="#problem-1e-math-derive-the-evidence-lower-bound" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1e [Math]: Derive the evidence lower bound<a class="headerlink" href="#problem-1e-math-derive-the-evidence-lower-bound" title="Link to this heading">#</a></h3>
 <p>We will use the ELBO to track the convergence of our CAVI algorithm. In class we wrote the ELBO as,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1123,7 +1148,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-1f-implement-the-elbo">
-<h3>Problem 1f: Implement the ELBO<a class="headerlink" href="#problem-1f-implement-the-elbo" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1f: Implement the ELBO<a class="headerlink" href="#problem-1f-implement-the-elbo" title="Link to this heading">#</a></h3>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">IndependentLinearRegression.log_prob</span></code> function and the <code class="docutils literal notranslate"><span class="pre">torch.distributions.kl_divergence</span></code> function imported at the top of the notebook to implement the ELBO calculation. Remember that the log probabilities and KL divergence functions broadcast nicely.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1177,7 +1202,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 </section>
 <section id="problem-1g-math-derive-the-exact-marginal-likelihood">
-<h3>Problem 1g [Math]: Derive the exact marginal likelihood<a class="headerlink" href="#problem-1g-math-derive-the-exact-marginal-likelihood" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1g [Math]: Derive the exact marginal likelihood<a class="headerlink" href="#problem-1g-math-derive-the-exact-marginal-likelihood" title="Link to this heading">#</a></h3>
 <p>In this simple model, we can actually compute the marginal likelihood exactly. This gives us a way of seeing how tight the ELBO actually is. (Remember, the ELBO is a lower bound on the marginal likelihood!)</p>
 <p>To compute the marginal likelihood, we need two key facts about Gaussian random variables:</p>
 <div class="math notranslate nohighlight">
@@ -1207,7 +1232,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p><em>Your answer here</em></p>
 </section>
 <section id="implement-the-exact-marginal-likelihood">
-<h3>Implement the exact marginal likelihood<a class="headerlink" href="#implement-the-exact-marginal-likelihood" title="Permalink to this heading">#</a></h3>
+<h3>Implement the exact marginal likelihood<a class="headerlink" href="#implement-the-exact-marginal-likelihood" title="Link to this heading">#</a></h3>
 <p>The code below implements the exact marginal likelihood according to the formula above using PyTorch’s <code class="docutils literal notranslate"><span class="pre">LowRankMultivariateNormal</span></code> distribution. Note: this distribution takes in the square root of <span class="math notranslate nohighlight">\(C Q_k C^\top\)</span>, which is <span class="math notranslate nohighlight">\(C Q_k^{1/2}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1242,7 +1267,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 </section>
 <section id="run-cavi">
-<h3>Run CAVI<a class="headerlink" href="#run-cavi" title="Permalink to this heading">#</a></h3>
+<h3>Run CAVI<a class="headerlink" href="#run-cavi" title="Link to this heading">#</a></h3>
 <p>That’s all we need for CAVI! The code below simply alternates between updating <span class="math notranslate nohighlight">\(q(z)\)</span> and <span class="math notranslate nohighlight">\(q(x)\)</span>. After each iteration, we compute the ELBO.We allow the user to pass in an initial posterior approximation (though only <span class="math notranslate nohighlight">\(q(z)\)</span> is used since <span class="math notranslate nohighlight">\(q(x)\)</span> is immediately updated).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1286,7 +1311,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 </section>
 <section id="re-examine-the-continuous-state-posterior-after-cavi">
-<h3>Re-examine the continuous state posterior after CAVI<a class="headerlink" href="#re-examine-the-continuous-state-posterior-after-cavi" title="Permalink to this heading">#</a></h3>
+<h3>Re-examine the continuous state posterior after CAVI<a class="headerlink" href="#re-examine-the-continuous-state-posterior-after-cavi" title="Link to this heading">#</a></h3>
 <p>Now let’s make the same plot from Problem 1d again. We should see that the continuous means are pulled toward their true values. Remember, these are inferences! The CAVI algorithm only sees the data <span class="math notranslate nohighlight">\(y\)</span> and the model parameters <span class="math notranslate nohighlight">\(\Theta\)</span>. After a few iterations (really, after about 2 iterations), it converges to a posterior approximation in which the mean of continuous latent states, <span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_t)}[x_t]\)</span>, are close to their true values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,10 +1326,10 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </section>
 </section>
 <section id="part-2-variational-em-in-a-mixture-of-factor-analysis-models">
-<h2>Part 2: Variational EM in a mixture of factor analysis models<a class="headerlink" href="#part-2-variational-em-in-a-mixture-of-factor-analysis-models" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Variational EM in a mixture of factor analysis models<a class="headerlink" href="#part-2-variational-em-in-a-mixture-of-factor-analysis-models" title="Link to this heading">#</a></h2>
 <p>The CAVI algorithm we implemented in Part 1 will form the E step for variational EM. To complete the algorithm, we just need to compute the expected sufficient statistics under the variational posterior and use them to implement the M-step. Last week, in Lab 7, we derived the expected sufficient statistics needed to update the multivariate normal distribution and the weights of the linear regression. In this part, you’ll write similar functions to compute the expected sufficient statistics using the variational posterior.</p>
 <section id="problem-2a-compute-the-expected-sufficient-statistics">
-<h3>Problem 2a: Compute the expected sufficient statistics<a class="headerlink" href="#problem-2a-compute-the-expected-sufficient-statistics" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a: Compute the expected sufficient statistics<a class="headerlink" href="#problem-2a-compute-the-expected-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>The sufficient statistics of the model are (with zero-indexing for Python friendliness),</p>
 <ol class="arabic simple" start="0">
 <li><p><span class="math notranslate nohighlight">\(\sum_{t=1}^T \mathbb{I}[z_t=k]\)</span> for <span class="math notranslate nohighlight">\(k = 1, \ldots, K\)</span></p></li>
@@ -1383,7 +1408,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 </section>
 <section id="problem-2b-implement-the-m-step-for-the-parameters-of-p-z-mid-theta">
-<h3>Problem 2b: Implement the M-step for the parameters of <span class="math notranslate nohighlight">\(p(z \mid \Theta)\)</span><a class="headerlink" href="#problem-2b-implement-the-m-step-for-the-parameters-of-p-z-mid-theta" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Implement the M-step for the parameters of <span class="math notranslate nohighlight">\(p(z \mid \Theta)\)</span><a class="headerlink" href="#problem-2b-implement-the-m-step-for-the-parameters-of-p-z-mid-theta" title="Link to this heading">#</a></h3>
 <p>Write a function to update the prior distribution on discrete states, <span class="math notranslate nohighlight">\(p(z \mid \Theta)\)</span>, using the expected sufficient statistics. This is part of the M-step for variational EM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1413,7 +1438,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 </section>
 <section id="problem-2c-implement-the-m-step-for-parameters-of-p-x-mid-z-theta">
-<h3>Problem 2c: Implement the M-step for parameters of <span class="math notranslate nohighlight">\(p(x \mid z, \Theta)\)</span><a class="headerlink" href="#problem-2c-implement-the-m-step-for-parameters-of-p-x-mid-z-theta" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c: Implement the M-step for parameters of <span class="math notranslate nohighlight">\(p(x \mid z, \Theta)\)</span><a class="headerlink" href="#problem-2c-implement-the-m-step-for-parameters-of-p-x-mid-z-theta" title="Link to this heading">#</a></h3>
 <p>Perform an M-step on the parameters of <span class="math notranslate nohighlight">\(p(x \mid z, \Theta)\)</span> using the expected sufficient statistics. As before, add a little to the diagonal of the covariance to ensure positive definiteness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1445,7 +1470,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 </section>
 <section id="problem-2d-implement-the-m-step-for-parameters-of-p-y-mid-x-theta">
-<h3>Problem 2d: Implement the M-step for parameters of <span class="math notranslate nohighlight">\(p(y \mid x, \Theta)\)</span><a class="headerlink" href="#problem-2d-implement-the-m-step-for-parameters-of-p-y-mid-x-theta" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d: Implement the M-step for parameters of <span class="math notranslate nohighlight">\(p(y \mid x, \Theta)\)</span><a class="headerlink" href="#problem-2d-implement-the-m-step-for-parameters-of-p-y-mid-x-theta" title="Link to this heading">#</a></h3>
 <p>Following Lab 7, let <span class="math notranslate nohighlight">\(\phi_t = (x_t, 1)\)</span> denote the covariates that go into the linear model for data point <span class="math notranslate nohighlight">\(y_t\)</span>. Specifically,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1516,7 +1541,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="put-it-all-together">
-<h3>Put it all together<a class="headerlink" href="#put-it-all-together" title="Permalink to this heading">#</a></h3>
+<h3>Put it all together<a class="headerlink" href="#put-it-all-together" title="Link to this heading">#</a></h3>
 <p>From here it’s smooth sailing! We just iterate between the variational E step, which involves running CAVI for some number of iterations, and then performing an M step using expected sufficient statistics. We’ll track the ELBO throughout to monitor convergence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1566,13 +1591,13 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="problem-2e-short-answer-interpret-the-results">
-<h3>Problem 2e [Short Answer]: Interpret the results<a class="headerlink" href="#problem-2e-short-answer-interpret-the-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2e [Short Answer]: Interpret the results<a class="headerlink" href="#problem-2e-short-answer-interpret-the-results" title="Link to this heading">#</a></h3>
 <p>One perhaps counterintuitive aspect of the output is that the ELBO of the fitted model actually exceeds the marginal likeliood of the true model. How can that happen?</p>
 <p><em>Answer below this line</em></p>
 </section>
 <hr class="docutils" />
 <section id="problem-2f-cross-validation">
-<h3>Problem 2f: Cross validation<a class="headerlink" href="#problem-2f-cross-validation" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2f: Cross validation<a class="headerlink" href="#problem-2f-cross-validation" title="Link to this heading">#</a></h3>
 <p>Fit the MFA model with variational EM for <span class="math notranslate nohighlight">\(D=1,\ldots, 5\)</span> (inclusive), keeping the number of discrete states fixed to <span class="math notranslate nohighlight">\(K=7\)</span>. For each model, evaluate the evidence lower bound on the test data, using ten steps of CAVI to approximate the posterior. Then compute the exact marginal likelihood using the true model and compare.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1638,26 +1663,26 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="problem-2g-short-answer-interpret-the-results">
-<h3>Problem 2g [Short answer]: Interpret the results<a class="headerlink" href="#problem-2g-short-answer-interpret-the-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2g [Short answer]: Interpret the results<a class="headerlink" href="#problem-2g-short-answer-interpret-the-results" title="Link to this heading">#</a></h3>
 <p>Would you be surprised to see the fitted models achieve higher ELBOs on test data than the marginal likelihod of the true model? Can you think of any potential concerns with using the ELBO for model comparison; e.g. for selecting the latent state dimension <span class="math notranslate nohighlight">\(D\)</span>?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="part-3-apply-it-to-real-data">
-<h2>Part 3: Apply it to real data<a class="headerlink" href="#part-3-apply-it-to-real-data" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Apply it to real data<a class="headerlink" href="#part-3-apply-it-to-real-data" title="Link to this heading">#</a></h2>
 <p>Finally, we’ll apply the mixture of factor analyzers to calcium imaging data from immobilized worms studied by Kato et al (2015). They also segmented the time series into discrete states based on the neural activity and gave each state a name, using their knowledge of how different neurons correlate with different types of behavior. We’ll try to recapitulate some of their results using the MFA model to infer discrete states.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%%capture
-!wget -nc https://www.dropbox.com/s/qnjslekm11pyuju/kato2015.zip
-!unzip -n kato2015.zip 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">nc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">dropbox</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="n">qnjslekm11pyuju</span><span class="o">/</span><span class="n">kato2015</span><span class="o">.</span><span class="n">zip</span>
+<span class="err">!</span><span class="n">unzip</span> <span class="o">-</span><span class="n">n</span> <span class="n">kato2015</span><span class="o">.</span><span class="n">zip</span> 
 </pre></div>
 </div>
 </div>
 </div>
 <section id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
 <p>The data is stored in a dictionary with a few extra keys for the neuron names and the given discrete state labels and human-interpretable state names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1680,7 +1705,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="perform-pca">
-<h3>Perform PCA<a class="headerlink" href="#perform-pca" title="Permalink to this heading">#</a></h3>
+<h3>Perform PCA<a class="headerlink" href="#perform-pca" title="Link to this heading">#</a></h3>
 <p>We’ll use the principal components for visualization as well as for finding a permutation of the neurons that puts similar neurons, as measured by their loading on the first principal component, near to one another.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1694,7 +1719,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="plot-the-data">
-<h3>Plot the data<a class="headerlink" href="#plot-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Plot the data<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h3>
 <p>We plot the time series of neural activity on top of the color-coded discrete states given by Kato et al. You should see that the different discrete states correspond to different levels of neural activity across the population of neurons.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1725,7 +1750,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="plot-the-pca-trajectories">
-<h3>Plot the PCA trajectories<a class="headerlink" href="#plot-the-pca-trajectories" title="Permalink to this heading">#</a></h3>
+<h3>Plot the PCA trajectories<a class="headerlink" href="#plot-the-pca-trajectories" title="Link to this heading">#</a></h3>
 <p>We can also visualize the population activity as a trajectory through PCA space. Here we plot the trajectory in planes spanned by pairs of principal components. We color code the trajectory based on the given discrete states.</p>
 <p><strong>Note</strong>: We smoothed the trajectories a bit to make the visualization nicer.</p>
 <p><strong>Note</strong>: These differ from the figures in Kato et al (2015) in that they used PCA on the first order differences in neural activity (akin to the “spikes” in the calcium trace, even though <em>C elegans</em> doesn’t fire action potentials). We found that the first order differences didn’t cluster as nicely with the MFA model, so we are working with the calcium traces directly.</p>
@@ -1759,13 +1784,13 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="problem-3a-short-answer-interpret-the-pca-trajectories">
-<h3>Problem 3a [Short Answer]: Interpret the PCA trajectories<a class="headerlink" href="#problem-3a-short-answer-interpret-the-pca-trajectories" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a [Short Answer]: Interpret the PCA trajectories<a class="headerlink" href="#problem-3a-short-answer-interpret-the-pca-trajectories" title="Link to this heading">#</a></h3>
 <p>What can you say about the cycle of neural activity in this worm given the PCA trajectories and the state labels provided by Kato et al (2015)?</p>
 <p><em>Answer below this line</em></p>
 </section>
 <hr class="docutils" />
 <section id="fit-the-mixture-of-factor-analyzers">
-<h3>Fit the mixture of factor analyzers<a class="headerlink" href="#fit-the-mixture-of-factor-analyzers" title="Permalink to this heading">#</a></h3>
+<h3>Fit the mixture of factor analyzers<a class="headerlink" href="#fit-the-mixture-of-factor-analyzers" title="Link to this heading">#</a></h3>
 <p>Now fit the model. We’ll give it twice as many states as Kato et al (2015) did. This often helps avoid some local optima where states are unused. We’ll use ten dimensional continuous latents, as they do in the paper.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1790,7 +1815,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="compute-the-overlap-between-the-given-and-inferred-discrete-states">
-<h3>Compute the overlap between the given and inferred discrete states<a class="headerlink" href="#compute-the-overlap-between-the-given-and-inferred-discrete-states" title="Permalink to this heading">#</a></h3>
+<h3>Compute the overlap between the given and inferred discrete states<a class="headerlink" href="#compute-the-overlap-between-the-given-and-inferred-discrete-states" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the most likely state segmentation</span>
@@ -1828,7 +1853,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="plot-the-inferred-segmentation-and-the-given-state-labels">
-<h3>Plot the inferred segmentation and the given state labels<a class="headerlink" href="#plot-the-inferred-segmentation-and-the-given-state-labels" title="Permalink to this heading">#</a></h3>
+<h3>Plot the inferred segmentation and the given state labels<a class="headerlink" href="#plot-the-inferred-segmentation-and-the-given-state-labels" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> 
@@ -1893,7 +1918,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="bonus-problem-3b-compare-and-contrast">
-<h3>Bonus: Problem 3b: Compare and contrast<a class="headerlink" href="#bonus-problem-3b-compare-and-contrast" title="Permalink to this heading">#</a></h3>
+<h3>Bonus: Problem 3b: Compare and contrast<a class="headerlink" href="#bonus-problem-3b-compare-and-contrast" title="Link to this heading">#</a></h3>
 <p>We fit the model with twice as many discrete states as Kato et al (2015) reported. Split this time series into training and test sets and then sweep over <span class="math notranslate nohighlight">\(K\)</span> to choose the number of discrete states by cross validation.</p>
 <p><em>Write your analysis code in the cell below and describe your results in words below this line</em></p>
 <hr class="docutils" />
@@ -1911,7 +1936,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </section>
 <section id="bonus-problem-3c-assessing-variability-across-initializations">
-<h3>Bonus: Problem 3c: Assessing variability across initializations<a class="headerlink" href="#bonus-problem-3c-assessing-variability-across-initializations" title="Permalink to this heading">#</a></h3>
+<h3>Bonus: Problem 3c: Assessing variability across initializations<a class="headerlink" href="#bonus-problem-3c-assessing-variability-across-initializations" title="Link to this heading">#</a></h3>
 <p>The estimated parameters and the inferred posterior depend on the random intialization of the model. How much does that affect our results? To compare the segmentations across model fits, make a <span class="math notranslate nohighlight">\(T \times T\)</span> matrix that shows how often the most likely discrete state at time <span class="math notranslate nohighlight">\(t\)</span> is the same as that at time <span class="math notranslate nohighlight">\(t'\)</span>.  I.e. let <span class="math notranslate nohighlight">\(\hat{z}_t^{(i)} = \mathrm{argmax}_k q(z_{t}^{(i)}=k)\)</span>, where the superscript <span class="math notranslate nohighlight">\((i)\)</span> denotes inferred posterior from the <span class="math notranslate nohighlight">\(i\)</span>-th model fit. Make a matrix whose entries are the average of the indicator <span class="math notranslate nohighlight">\(\mathbb{I}[\hat{z}_t^{(i)} = \hat{z}_{t'}^{(i)}]\)</span> taken over multiple fits of the MFA model with different random initializations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1928,7 +1953,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </section>
 </section>
 <section id="part-4-switching-linear-dynamical-systems-slds">
-<h2>Part 4: Switching Linear Dynamical Systems (SLDS)<a class="headerlink" href="#part-4-switching-linear-dynamical-systems-slds" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Switching Linear Dynamical Systems (SLDS)<a class="headerlink" href="#part-4-switching-linear-dynamical-systems-slds" title="Link to this heading">#</a></h2>
 <p>If you’re interested in digging deeper and fitting models that explicitly incorporate temporal dependencies, check out the <a class="reference external" href="https://github.com/lindermanlab/ssm">SSM</a> package! To get you started, here’s some code to start fitting SLDS to this dataset.</p>
 <p>Note that by default SSM uses a Laplace approximation for the continuous state posterior, which it fits with Newton’s method. Likewise, it uses a Monte Carlo approximation for the M-step, which works with non-Gaussian observation models. For the special case of Gaussian observations, we could find the exact posterior update for <span class="math notranslate nohighlight">\(q(x_{1:T})\)</span> and exact M-steps, as described in class. That would be a bit faster than the code below, but this is still fast enough for our purposes.</p>
 <p>For more information, check out the <a class="reference external" href="https://lindermanlab.github.io/ssm-docs/">demo notebooks</a>!</p>
@@ -2013,11 +2038,10 @@ Successfully installed ssm-0.0.1
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="06_arhmm.html"
@@ -2037,10 +2061,7 @@ Successfully installed ssm-0.0.1
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -2048,6 +2069,7 @@ Successfully installed ssm-0.0.1
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -2121,9 +2143,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -2147,8 +2170,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

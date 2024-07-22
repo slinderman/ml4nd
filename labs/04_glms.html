@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Lab 4: Generalized Linear Models &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/04_glms';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,6 +139,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -139,10 +150,22 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -216,14 +239,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -248,14 +271,14 @@ const thebe_selector_output = ".output, .cell_output"
       
       <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/04_glms.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onColab"
+   title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../_static/images/logo_colab.png">
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
   </span>
 <span class="btn__text-container">Colab</span>
 </a>
@@ -329,26 +352,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -429,15 +454,15 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab-4-generalized-linear-models">
-<h1>Lab 4: Generalized Linear Models<a class="headerlink" href="#lab-4-generalized-linear-models" title="Permalink to this heading">#</a></h1>
+<h1>Lab 4: Generalized Linear Models<a class="headerlink" href="#lab-4-generalized-linear-models" title="Link to this heading">#</a></h1>
 <p>In this lab, you’ll build generalized linear models (GLMs) and convolutional neural network (CNN) models of retinal ganglion cell (RGC) responses to visual stimuli. You’ll use PyTorch to implement the models and fit them to a dataset  kindly provided by the <a class="reference external" href="https://baccuslab.stanford.edu/">Baccus Lab</a> (Stanford University), which they studied in the “Deep Retina” paper <a class="reference external" href="https://arxiv.org/abs/1702.01825">(McIntosh et al, 2016)</a>.</p>
 <p><strong>References:</strong></p>
 <p>McIntosh, Lane T., Niru Maheswaranathan, Aran Nayebi, Surya Ganguli, and Stephen A. Baccus. “Deep Learning Models of the Retinal Response to Natural Scenes.” Advances in Neural Information Processing (NeurIPS), 2017.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -464,7 +489,7 @@ document.write(`
 </div>
 </div>
 <section id="helper-functions-for-plotting">
-<h3>Helper functions for plotting<a class="headerlink" href="#helper-functions-for-plotting" title="Permalink to this heading">#</a></h3>
+<h3>Helper functions for plotting<a class="headerlink" href="#helper-functions-for-plotting" title="Link to this heading">#</a></h3>
 <div class="cell tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -620,7 +645,7 @@ document.write(`
 </div>
 </section>
 <section id="helper-function-to-train-a-pytorch-model">
-<h3>Helper function to train a Pytorch model.<a class="headerlink" href="#helper-function-to-train-a-pytorch-model" title="Permalink to this heading">#</a></h3>
+<h3>Helper function to train a Pytorch model.<a class="headerlink" href="#helper-function-to-train-a-pytorch-model" title="Link to this heading">#</a></h3>
 <p>We’ve slightly modified the <code class="docutils literal notranslate"><span class="pre">train_model</span></code> function from the previous lab. This version keeps track of the model with the best validation loss over the course of the training epochs.</p>
 <div class="cell tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -734,7 +759,7 @@ document.write(`
 </div>
 </section>
 <section id="load-the-data">
-<h3>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h3>
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
 <p>Load the data from the HDF5 file.</p>
 <ul class="simple">
 <li><p>Each file contains a <code class="docutils literal notranslate"><span class="pre">train</span></code> and <code class="docutils literal notranslate"><span class="pre">test</span></code> group.</p></li>
@@ -786,10 +811,10 @@ document.write(`
 </section>
 </section>
 <section id="part-1-plot-the-data">
-<h2>Part 1: Plot the data<a class="headerlink" href="#part-1-plot-the-data" title="Permalink to this heading">#</a></h2>
+<h2>Part 1: Plot the data<a class="headerlink" href="#part-1-plot-the-data" title="Link to this heading">#</a></h2>
 <p>Always visualize your data first!</p>
 <section id="problem-1a-plot-a-slice-of-the-spike-train">
-<h3>Problem 1a: Plot a slice of the spike train<a class="headerlink" href="#problem-1a-plot-a-slice-of-the-spike-train" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1a: Plot a slice of the spike train<a class="headerlink" href="#problem-1a-plot-a-slice-of-the-spike-train" title="Link to this heading">#</a></h3>
 <p>Write a function to <code class="docutils literal notranslate"><span class="pre">imshow</span></code> a slice of the data.
 Add a colorbar and label your axes!</p>
 <div class="cell docutils container">
@@ -821,7 +846,7 @@ Add a colorbar and label your axes!</p>
 </div>
 </section>
 <section id="problem-1b-compute-the-baseline-firing-rate-for-each-neuron">
-<h3>Problem 1b: Compute the baseline firing rate for each neuron<a class="headerlink" href="#problem-1b-compute-the-baseline-firing-rate-for-each-neuron" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1b: Compute the baseline firing rate for each neuron<a class="headerlink" href="#problem-1b-compute-the-baseline-firing-rate-for-each-neuron" title="Link to this heading">#</a></h3>
 <p>Print the mean firing rate for each neuron (on the training data) in spikes per second.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -852,7 +877,7 @@ Add a colorbar and label your axes!</p>
 </div>
 </section>
 <section id="plot-a-few-frames-of-the-stimulus">
-<h3>Plot a few frames of the stimulus<a class="headerlink" href="#plot-a-few-frames-of-the-stimulus" title="Permalink to this heading">#</a></h3>
+<h3>Plot a few frames of the stimulus<a class="headerlink" href="#plot-a-few-frames-of-the-stimulus" title="Link to this heading">#</a></h3>
 <p>Plot the 0th, 10th, 20th, and 30th frames of stimulus in grayscale.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -880,7 +905,7 @@ Add a colorbar and label your axes!</p>
 </div>
 </section>
 <section id="problem-1c-compute-and-plot-the-spike-triggered-average">
-<h3>Problem 1c: Compute and plot the spike triggered average<a class="headerlink" href="#problem-1c-compute-and-plot-the-spike-triggered-average" title="Permalink to this heading">#</a></h3>
+<h3>Problem 1c: Compute and plot the spike triggered average<a class="headerlink" href="#problem-1c-compute-and-plot-the-spike-triggered-average" title="Link to this heading">#</a></h3>
 <p>The spike triggered average for neuron <span class="math notranslate nohighlight">\(n\)</span> is the average stimulus in the lead-up to a spike by that neuron.</p>
 <p>Formally, let <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{D \times P_H \times P_W}\)</span> denote the STA for neuron <span class="math notranslate nohighlight">\(n\)</span>. It’s defined as,</p>
 <div class="math notranslate nohighlight">
@@ -937,7 +962,7 @@ A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &g
 </div>
 </section>
 <section id="finally-create-pytorch-datasets-containing-the-stimuli-and-the-spikes">
-<h3>Finally, create PyTorch Datasets containing the stimuli and the spikes.<a class="headerlink" href="#finally-create-pytorch-datasets-containing-the-stimuli-and-the-spikes" title="Permalink to this heading">#</a></h3>
+<h3>Finally, create PyTorch Datasets containing the stimuli and the spikes.<a class="headerlink" href="#finally-create-pytorch-datasets-containing-the-stimuli-and-the-spikes" title="Link to this heading">#</a></h3>
 <p>Before moving onto the modeling sections, we’ll split the training stimulus and spikes into batches of length 1000 frames (10 seconds of data). Then we’ll randomly assign 20% of the batches to a validation dataset. We’ve written a simple dataset to get the training and validation batches. For stability, we normalize the stimulus to be binary rather than 0 or 128, as in the raw data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -984,7 +1009,7 @@ A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &g
 </section>
 </section>
 <section id="part-2-fit-a-linear-nonlinear-poisson-lnp-model">
-<h2>Part 2: Fit a linear-nonlinear Poisson (LNP) model<a class="headerlink" href="#part-2-fit-a-linear-nonlinear-poisson-lnp-model" title="Permalink to this heading">#</a></h2>
+<h2>Part 2: Fit a linear-nonlinear Poisson (LNP) model<a class="headerlink" href="#part-2-fit-a-linear-nonlinear-poisson-lnp-model" title="Link to this heading">#</a></h2>
 <center>
 <img src=https://github.com/slinderman/stats320/raw/main/assets/lnp.png width=500>
 </center>
@@ -1031,7 +1056,7 @@ a_{t,n} = [\tilde{\mathbf{x}}_n \star \mathbf{v}_n]_t
 <p>where <span class="math notranslate nohighlight">\(f(a) = e^a\)</span>.</p>
 <p>Summing across samples in <span class="math notranslate nohighlight">\(t\)</span> leads to the full likelihood for estimating the parameters for a given neuron. We can do this simultaneously across all neurons by summing over <span class="math notranslate nohighlight">\(n\)</span> too, as gradient descent will independently update each neuron’s parameters.</p>
 <section id="problem-2a-implement-the-model">
-<h3>Problem 2a: Implement the model<a class="headerlink" href="#problem-2a-implement-the-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2a: Implement the model<a class="headerlink" href="#problem-2a-implement-the-model" title="Link to this heading">#</a></h3>
 <p>Let’s start by implementing the GLM model as a class that inherits from <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>. The  <code class="docutils literal notranslate"><span class="pre">forward</span></code> method returns the mean spike count for each time bin
 given the stimulus. In the loss function below (Problem 2b), we’ll pass this output to the mean of a Poisson distribution.</p>
 <p><strong>Notes:</strong></p>
@@ -1108,7 +1133,7 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </div>
 </section>
 <section id="problem-2b-implement-the-poisson-loss">
-<h3>Problem 2b: Implement the Poisson loss<a class="headerlink" href="#problem-2b-implement-the-poisson-loss" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2b: Implement the Poisson loss<a class="headerlink" href="#problem-2b-implement-the-poisson-loss" title="Link to this heading">#</a></h3>
 <p>Compute the average negative log likelihood of the spikes (taking the mean over neurons and frames) given the expected spike counts (<code class="docutils literal notranslate"><span class="pre">rates</span></code>) ouput by the model.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1142,7 +1167,7 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </div>
 </section>
 <section id="problem-2c-add-ell-2-weight-regularization">
-<h3>Problem 2c: Add <span class="math notranslate nohighlight">\(\ell_2\)</span> weight regularization<a class="headerlink" href="#problem-2c-add-ell-2-weight-regularization" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2c: Add <span class="math notranslate nohighlight">\(\ell_2\)</span> weight regularization<a class="headerlink" href="#problem-2c-add-ell-2-weight-regularization" title="Link to this heading">#</a></h3>
 <p>To the Poisson loss above, we’ll add a regularization penalty on the squared <span class="math notranslate nohighlight">\(\ell_2\)</span> norm of the weights,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1173,7 +1198,7 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </div>
 </section>
 <section id="fit-the-lnp-model">
-<h3>Fit the LNP model<a class="headerlink" href="#fit-the-lnp-model" title="Permalink to this heading">#</a></h3>
+<h3>Fit the LNP model<a class="headerlink" href="#fit-the-lnp-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct an LNP model with random initial weights.</span>
@@ -1199,7 +1224,7 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </div>
 </section>
 <section id="plot-the-results">
-<h3>Plot the results<a class="headerlink" href="#plot-the-results" title="Permalink to this heading">#</a></h3>
+<h3>Plot the results<a class="headerlink" href="#plot-the-results" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the training and validation curves</span>
@@ -1238,14 +1263,14 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </div>
 </section>
 <section id="problem-2d-short-answer-interpret-the-results">
-<h3>Problem 2d: [Short Answer] Interpret the results<a class="headerlink" href="#problem-2d-short-answer-interpret-the-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 2d: [Short Answer] Interpret the results<a class="headerlink" href="#problem-2d-short-answer-interpret-the-results" title="Link to this heading">#</a></h3>
 <p>How do the spatiotemporal filters relate to the STA from Problem 1c? Are they mathematically related?</p>
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="part-3-fit-a-glm-with-inter-neuron-couplings">
-<h2>Part 3: Fit a GLM with inter-neuron couplings<a class="headerlink" href="#part-3-fit-a-glm-with-inter-neuron-couplings" title="Permalink to this heading">#</a></h2>
+<h2>Part 3: Fit a GLM with inter-neuron couplings<a class="headerlink" href="#part-3-fit-a-glm-with-inter-neuron-couplings" title="Link to this heading">#</a></h2>
 <center>
 <img src=https://github.com/slinderman/stats320/raw/main/assets/glm.png width=300>
 </center>
@@ -1262,7 +1287,7 @@ a_{t,n}
 <p><strong>Note:</strong> as above, the <code class="docutils literal notranslate"><span class="pre">coupling_conv</span></code> will have a bias by default. Get rid of it. You don’t need it since there’s already a bias in the <code class="docutils literal notranslate"><span class="pre">temporal_conv</span></code>.</p>
 <p><strong>IMPORTANT:</strong> Make sure your output only depends on spike counts up to but <em>not including</em> time <span class="math notranslate nohighlight">\(t\)</span>!!</p>
 <section id="problem-3a-implement-the-coupled-model">
-<h3>Problem 3a: Implement the coupled model<a class="headerlink" href="#problem-3a-implement-the-coupled-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3a: Implement the coupled model<a class="headerlink" href="#problem-3a-implement-the-coupled-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GLM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -1317,7 +1342,7 @@ a_{t,n}
 </div>
 </section>
 <section id="problem-3b-implement-a-regularizer-for-the-coupled-glm-weights">
-<h3>Problem 3b: Implement a regularizer for the coupled GLM weights<a class="headerlink" href="#problem-3b-implement-a-regularizer-for-the-coupled-glm-weights" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3b: Implement a regularizer for the coupled GLM weights<a class="headerlink" href="#problem-3b-implement-a-regularizer-for-the-coupled-glm-weights" title="Link to this heading">#</a></h3>
 <p>Put an <span class="math notranslate nohighlight">\(\ell_2\)</span> penalty on the weights of the <code class="docutils literal notranslate"><span class="pre">spatial_conv</span></code>, <code class="docutils literal notranslate"><span class="pre">temporal_conv</span></code>, and <code class="docutils literal notranslate"><span class="pre">coupling_conv</span></code>. No need to regularize the bias. Scale the regularization by <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1341,7 +1366,7 @@ a_{t,n}
 </div>
 </section>
 <section id="fit-the-glm-model-with-couplings-between-neurons">
-<h3>Fit the GLM model with couplings between neurons.<a class="headerlink" href="#fit-the-glm-model-with-couplings-between-neurons" title="Permalink to this heading">#</a></h3>
+<h3>Fit the GLM model with couplings between neurons.<a class="headerlink" href="#fit-the-glm-model-with-couplings-between-neurons" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct a coupled GLM model with random initial weights.</span>
@@ -1367,7 +1392,7 @@ a_{t,n}
 </div>
 </section>
 <section id="id1">
-<h3>Plot the results<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Plot the results<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the training and validation curves</span>
@@ -1416,20 +1441,20 @@ a_{t,n}
 </div>
 </section>
 <section id="problem-3c-short-answer-interpret-the-results">
-<h3>Problem 3c: [Short Answer] Interpret the results<a class="headerlink" href="#problem-3c-short-answer-interpret-the-results" title="Permalink to this heading">#</a></h3>
+<h3>Problem 3c: [Short Answer] Interpret the results<a class="headerlink" href="#problem-3c-short-answer-interpret-the-results" title="Link to this heading">#</a></h3>
 <p>Did adding the coupling weights change the spatiotemporal stimulus filters in any perceptible way? Do you see any interesting structure in the coupling weights? What other regularization strategies could you have applied to the coupling weights?</p>
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="part-4-convolutional-neural-network-model">
-<h2>Part 4: Convolutional neural network model<a class="headerlink" href="#part-4-convolutional-neural-network-model" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Convolutional neural network model<a class="headerlink" href="#part-4-convolutional-neural-network-model" title="Link to this heading">#</a></h2>
 <center>
 <img src=https://github.com/slinderman/stats320/raw/main/assets/cnn.png width=500>
 </center>
 <small><it>Image credit: McIntosh et al (NeurIPS, 2016).</it></small>
 <p>Finally, we’ll implement a convolutional neural network like the one proposed in McIntosh et al (2016). (See above.) We’ll make some slight modifications though, so that the model doesn’t take so long to fit.</p>
 <section id="problem-4a-implement-the-convolutional-model">
-<h3>Problem 4a: Implement the convolutional model<a class="headerlink" href="#problem-4a-implement-the-convolutional-model" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4a: Implement the convolutional model<a class="headerlink" href="#problem-4a-implement-the-convolutional-model" title="Link to this heading">#</a></h3>
 <p>Implement the following model:</p>
 <ol class="arabic">
 <li><p><strong>Apply a rank-1 spatiotemporal filter to the video:</strong></p>
@@ -1515,7 +1540,7 @@ a_{t,n}
 </div>
 </section>
 <section id="problem-4b-regularize-the-weights">
-<h3>Problem 4b: Regularize the weights<a class="headerlink" href="#problem-4b-regularize-the-weights" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4b: Regularize the weights<a class="headerlink" href="#problem-4b-regularize-the-weights" title="Link to this heading">#</a></h3>
 <p>Put an <span class="math notranslate nohighlight">\(\ell_2\)</span> penalty on the weights of <code class="docutils literal notranslate"><span class="pre">spatial_conv</span></code>, <code class="docutils literal notranslate"><span class="pre">temporal_conv</span></code>, <code class="docutils literal notranslate"><span class="pre">layer2</span></code>, and <code class="docutils literal notranslate"><span class="pre">layer3</span></code>. Scale the regularize by <span class="math notranslate nohighlight">\(\alpha\)</span>, as in the preceding sections. No need to regularize the biases. We found that a smaller value of <span class="math notranslate nohighlight">\(\alpha\)</span> was helpful, so here we default to <code class="docutils literal notranslate"><span class="pre">1e-5</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1540,7 +1565,7 @@ a_{t,n}
 </div>
 </section>
 <section id="fit-the-cnn-model">
-<h3>Fit the CNN model<a class="headerlink" href="#fit-the-cnn-model" title="Permalink to this heading">#</a></h3>
+<h3>Fit the CNN model<a class="headerlink" href="#fit-the-cnn-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1564,7 +1589,7 @@ a_{t,n}
 </div>
 </section>
 <section id="id2">
-<h3>Plot the results<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>Plot the results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the training and validation curves</span>
@@ -1593,7 +1618,7 @@ a_{t,n}
 </div>
 </section>
 <section id="plot-the-subunit-weights-for-the-cnn">
-<h3>Plot the subunit weights for the CNN<a class="headerlink" href="#plot-the-subunit-weights-for-the-cnn" title="Permalink to this heading">#</a></h3>
+<h3>Plot the subunit weights for the CNN<a class="headerlink" href="#plot-the-subunit-weights-for-the-cnn" title="Link to this heading">#</a></h3>
 <p>First we’ll plot the spatiotemporal filters of the first layer of subunits.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1607,7 +1632,7 @@ a_{t,n}
 </div>
 </section>
 <section id="plot-the-spatial-weights-for-the-second-layer-of-subunits">
-<h3>Plot the spatial weights for the second layer of subunits.<a class="headerlink" href="#plot-the-spatial-weights-for-the-second-layer-of-subunits" title="Permalink to this heading">#</a></h3>
+<h3>Plot the spatial weights for the second layer of subunits.<a class="headerlink" href="#plot-the-spatial-weights-for-the-second-layer-of-subunits" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_cnn_subunits2</span><span class="p">(</span><span class="n">cnn</span><span class="p">)</span>
@@ -1620,7 +1645,7 @@ a_{t,n}
 </div>
 </section>
 <section id="problem-4c-predict-test-firing-rates">
-<h3>Problem 4c: Predict test firing rates<a class="headerlink" href="#problem-4c-predict-test-firing-rates" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4c: Predict test firing rates<a class="headerlink" href="#problem-4c-predict-test-firing-rates" title="Link to this heading">#</a></h3>
 <p>Finally, take the fitted models from Parts 2-4 and evaluate them on test data.</p>
 <p>The test data consists of <em>expected</em> spike counts rather than spike counts. That’s because they showed the same visual stimulus many times and computed the average response.  If our models are working well, they should output a similar firing rate in response to that same visual stimulus.</p>
 <p><strong>Note:</strong> technically the coupled GLM from Part 3 expects preceding spikes as input, but here we’ll give it the rates as input instead. (We don’t have test spikes to feed in.)</p>
@@ -1653,7 +1678,7 @@ a_{t,n}
 </div>
 </section>
 <section id="problem-4d-model-comparison">
-<h3>Problem 4d: Model comparison<a class="headerlink" href="#problem-4d-model-comparison" title="Permalink to this heading">#</a></h3>
+<h3>Problem 4d: Model comparison<a class="headerlink" href="#problem-4d-model-comparison" title="Link to this heading">#</a></h3>
 <p>Make a bar plot of the mean squared error between the true and predicted rates for each model. As a baseline, compute the mean squared error of a constant-rate model with rate equal to the expected spike count under the training data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1685,36 +1710,36 @@ a_{t,n}
 </section>
 </section>
 <section id="part-5-discussion">
-<h2>Part 5: Discussion<a class="headerlink" href="#part-5-discussion" title="Permalink to this heading">#</a></h2>
+<h2>Part 5: Discussion<a class="headerlink" href="#part-5-discussion" title="Link to this heading">#</a></h2>
 <p>You’ve now developed and fit three encoding models for these retinal ganglion cell responses, and hopefully you’ve developed some intuition for how these models work! Let’s end by discussing some of the decisions that go into building and checking these models.</p>
 <section id="problem-5a">
-<h3>Problem 5a<a class="headerlink" href="#problem-5a" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5a<a class="headerlink" href="#problem-5a" title="Link to this heading">#</a></h3>
 <p>All three models were fit with a Poisson loss, which has unit dispersion. What is overdispersion of count data? Is this an issue here?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5b">
-<h3>Problem 5b<a class="headerlink" href="#problem-5b" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5b<a class="headerlink" href="#problem-5b" title="Link to this heading">#</a></h3>
 <p>The CNN was loosely motivated as an approximation to the layers of photoreceptors, bipolar cells, etc. that precede retinal ganglion cells. Of course, the actual circuitry is more complicated. What could you imagine adding to this model to make it more realistic?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5c">
-<h3>Problem 5c<a class="headerlink" href="#problem-5c" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5c<a class="headerlink" href="#problem-5c" title="Link to this heading">#</a></h3>
 <p>In our hands, the CNN outperformed the LNP and GLM. Though it’s tempting to just say the CNN is a more flexible model, notice that the CNN does not have coupling filters and it compresses the input substantially before the final read-out layer. Given the results above, what follow-up experiments would you do to further understand the root of these performance differences?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5d">
-<h3>Problem 5d<a class="headerlink" href="#problem-5d" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5d<a class="headerlink" href="#problem-5d" title="Link to this heading">#</a></h3>
 <p>We didn’t ask you to do a thorough hyperparameter search. If you were to do one, what are the key parameters you would vary to try to improve model performance?</p>
 <p><em>Your answer here</em></p>
 </section>
 <section id="problem-5e">
-<h3>Problem 5e<a class="headerlink" href="#problem-5e" title="Permalink to this heading">#</a></h3>
+<h3>Problem 5e<a class="headerlink" href="#problem-5e" title="Link to this heading">#</a></h3>
 <p>We fit all of these models to RGC responses to a binary white noise stimulus. Would you expect your results to change if the cells had been shown a movie with natural scenes instead?</p>
 <p><em>Your answer here</em></p>
 </section>
 </section>
 <section id="author-contributions">
-<h2>Author contributions<a class="headerlink" href="#author-contributions" title="Permalink to this heading">#</a></h2>
+<h2>Author contributions<a class="headerlink" href="#author-contributions" title="Link to this heading">#</a></h2>
 <p>Write a short paragraph describing how each team member contributed to this assignment.</p>
 <p><em>Your answer here</em></p>
 </section>
@@ -1745,11 +1770,10 @@ a_{t,n}
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="03_pose_tracking.html"
@@ -1769,10 +1793,7 @@ a_{t,n}
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1780,6 +1801,7 @@ a_{t,n}
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1859,9 +1881,10 @@ By Scott Linderman
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1885,8 +1908,8 @@ By Scott Linderman
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

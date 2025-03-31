@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 6: Autoregressive HMMs &#8212; Machine Learning Methods for Neural Data Analysis</title>
+    <title>Autoregressive HMMs &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
   
   
@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -57,13 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"mba": "\\boldsymbol{a}", "mbb": "\\boldsymbol{b}", "mbc": "\\boldsymbol{c}", "mbd": "\\boldsymbol{d}", "mbe": "\\boldsymbol{e}", "mbf": "\\boldsymbol{f}", "mbg": "\\boldsymbol{g}", "mbh": "\\boldsymbol{h}", "mbi": "\\boldsymbol{i}", "mbj": "\\boldsymbol{j}", "mbk": "\\boldsymbol{k}", "mbl": "\\boldsymbol{l}", "mbm": "\\boldsymbol{m}", "mbn": "\\boldsymbol{n}", "mbo": "\\boldsymbol{o}", "mbp": "\\boldsymbol{p}", "mbq": "\\boldsymbol{q}", "mbr": "\\boldsymbol{r}", "mbs": "\\boldsymbol{s}", "mbt": "\\boldsymbol{t}", "mbu": "\\boldsymbol{u}", "mbv": "\\boldsymbol{v}", "mbw": "\\boldsymbol{w}", "mbx": "\\boldsymbol{x}", "mby": "\\boldsymbol{y}", "mbz": "\\boldsymbol{z}", "mbA": "\\boldsymbol{A}", "mbB": "\\boldsymbol{B}", "mbC": "\\boldsymbol{C}", "mbD": "\\boldsymbol{D}", "mbE": "\\boldsymbol{E}", "mbF": "\\boldsymbol{F}", "mbG": "\\boldsymbol{G}", "mbH": "\\boldsymbol{H}", "mbI": "\\boldsymbol{I}", "mbJ": "\\boldsymbol{J}", "mbK": "\\boldsymbol{K}", "mbL": "\\boldsymbol{L}", "mbM": "\\boldsymbol{M}", "mbN": "\\boldsymbol{N}", "mbO": "\\boldsymbol{O}", "mbP": "\\boldsymbol{P}", "mbQ": "\\boldsymbol{Q}", "mbR": "\\boldsymbol{R}", "mbS": "\\boldsymbol{S}", "mbT": "\\boldsymbol{T}", "mbU": "\\boldsymbol{U}", "mbV": "\\boldsymbol{V}", "mbW": "\\boldsymbol{W}", "mbX": "\\boldsymbol{X}", "mbY": "\\boldsymbol{Y}", "mbZ": "\\boldsymbol{Z}", "bbA": "\\mathbb{A}", "bbB": "\\mathbb{B}", "bbC": "\\mathbb{C}", "bbD": "\\mathbb{D}", "bbE": "\\mathbb{E}", "bbG": "\\mathbb{G}", "bbH": "\\mathbb{H}", "bbI": "\\mathbb{I}", "bbJ": "\\mathbb{J}", "bbK": "\\mathbb{K}", "bbL": "\\mathbb{L}", "bbM": "\\mathbb{M}", "bbN": "\\mathbb{N}", "bbO": "\\mathbb{O}", "bbP": "\\mathbb{P}", "bbQ": "\\mathbb{Q}", "bbR": "\\mathbb{R}", "bbS": "\\mathbb{S}", "bbT": "\\mathbb{T}", "bbU": "\\mathbb{U}", "bbV": "\\mathbb{V}", "bbW": "\\mathbb{W}", "bbX": "\\mathbb{X}", "bbY": "\\mathbb{Y}", "bbZ": "\\mathbb{Z}", "cA": "\\mathcal{A}", "cB": "\\mathcal{B}", "cC": "\\mathcal{C}", "cD": "\\mathcal{D}", "cE": "\\mathcal{E}", "cG": "\\mathcal{G}", "cH": "\\mathcal{H}", "cI": "\\mathcal{I}", "cJ": "\\mathcal{J}", "cK": "\\mathcal{K}", "cL": "\\mathcal{L}", "cM": "\\mathcal{M}", "cN": "\\mathcal{N}", "cO": "\\mathcal{O}", "cP": "\\mathcal{P}", "cQ": "\\mathcal{Q}", "cR": "\\mathcal{R}", "cS": "\\mathcal{S}", "cT": "\\mathcal{T}", "cU": "\\mathcal{U}", "cV": "\\mathcal{V}", "cW": "\\mathcal{W}", "cX": "\\mathcal{X}", "cY": "\\mathcal{Y}", "cZ": "\\mathcal{Z}", "mbalpha": "\\boldsymbol{\\alpha}", "mbbeta": "\\boldsymbol{\\beta}", "mbgamma": "\\boldsymbol{\\gamma}", "mbdelta": "\\boldsymbol{\\delta}", "mbepsilon": "\\boldsymbol{\\epsilon}", "mbchi": "\\boldsymbol{\\chi}", "mbeta": "\\boldsymbol{\\eta}", "mbiota": "\\boldsymbol{\\iota}", "mbkappa": "\\boldsymbol{\\kappa}", "mblambda": "\\boldsymbol{\\lambda}", "mbmu": "\\boldsymbol{\\mu}", "mbnu": "\\boldsymbol{\\nu}", "mbomega": "\\boldsymbol{\\omega}", "mbtheta": "\\boldsymbol{\\theta}", "mbphi": "\\boldsymbol{\\phi}", "mbpi": "\\boldsymbol{\\pi}", "mbpsi": "\\boldsymbol{\\psi}", "mbrho": "\\boldsymbol{\\rho}", "mbsigma": "\\boldsymbol{\\sigma}", "mbtau": "\\boldsymbol{\\tau}", "mbupsilon": "\\boldsymbol{\\upsilon}", "mbxi": "\\boldsymbol{\\xi}", "mbzeta": "\\boldsymbol{\\zeta}", "mbvarepsilon": "\\boldsymbol{\\varepsilon}", "mbvarphi": "\\boldsymbol{\\varphi}", "mbvartheta": "\\boldsymbol{\\vartheta}", "mbvarrho": "\\boldsymbol{\\varrho}", "mbDelta": "\\boldsymbol{\\Delta}", "mbGamma": "\\boldsymbol{\\Gamma}", "mbLambda": "\\boldsymbol{\\Lambda}", "mbOmega": "\\boldsymbol{\\Omega}", "mbPhi": "\\boldsymbol{\\Phi}", "mbPsi": "\\boldsymbol{\\Psi}", "mbPi": "\\boldsymbol{\\Pi}", "mbSigma": "\\boldsymbol{\\Sigma}", "mbTheta": "\\boldsymbol{\\Theta}", "mbUpsilon": "\\boldsymbol{\\Upsilon}", "mbXi": "\\boldsymbol{\\Xi}", "mbzero": "\\boldsymbol{0}", "mbone": "\\boldsymbol{1}", "iid": ["\\stackrel{\\text{iid}}{#1}", 1], "ind": ["\\stackrel{\\text{ind}}{#1}", 1], "dif": "\\mathop{}\\!\\mathrm{d}", "diag": "\\textrm{diag}", "supp": "\\textrm{supp}", "Tr": "\\textrm{Tr}", "E": "\\mathbb{E}", "Var": "\\textrm{Var}", "Cov": "\\textrm{Cov}", "reals": "\\mathbb{R}", "naturals": "\\mathbb{N}", "KL": ["D_{\\textrm{KL}}\\left(#1\\;\\|\\;#2\\right)", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/06_arhmm';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lab 7: Switching LDS" href="07_slds.html" />
-    <link rel="prev" title="Lab 5: Bayesian Decoding" href="05_decoding.html" />
+    <link rel="next" title="Switching LDS" href="07_slds.html" />
+    <link rel="prev" title="Bayesian Decoding" href="05_decoding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,19 +175,7 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">Lab 0: PyTorch Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01_spike_sorting.html">Lab 1: Spike Sorting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Lab 2: Calcium Deconvolution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Lab 3: Markerless Pose Tracking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Lab 4: Generalized Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Lab 5: Bayesian Decoding</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 6: Autoregressive HMMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07_slds.html">Lab 7: Switching LDS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Lab 8: Sequential VAEs</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../chapters/02_probabilistic_modeling.html">Probabilistic Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/03_neurobio.html">Basic Neurobiology</a></li>
@@ -211,6 +199,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/12_mixtures_em.html">Mixture Models and the EM Algorithm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/13_hmms.html">Hidden Markov Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/16_poldrack_fmri_analysis.html">fMRI Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">PyTorch Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01b_spike_sorting_deconv.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Calcium Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Markerless Pose Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Bayesian Decoding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Autoregressive HMMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_slds.html">Switching LDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Sequential Variational Autoencoders</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +384,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 6: Autoregressive HMMs</h1>
+    <h1>Autoregressive HMMs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -467,8 +467,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-6-autoregressive-hmms">
-<h1>Lab 6: Autoregressive HMMs<a class="headerlink" href="#lab-6-autoregressive-hmms" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="autoregressive-hmms">
+<h1>Autoregressive HMMs<a class="headerlink" href="#autoregressive-hmms" title="Link to this heading">#</a></h1>
 <p><img alt="" src="https://ars.els-cdn.com/content/image/1-s2.0-S0896627315010375-gr1.jpg" /></p>
 <p>In this lab we’ll develop hidden Markov models, specifically Gaussian and autoregressive hidden Markov models, to analyze depth videos of freely behaving mice. We’ll implement, from scratch, the model developed by Wiltschko et al (2015) and extended in Markowitz et al (2018). Figure 1 of Wiltschko et al is reproduced above.</p>
 <p><strong>References</strong></p>
@@ -488,17 +488,17 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, import necessary libraries.</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">get_cmap</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">trange</span>
-<span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
-<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_cmap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">NWBHDF5IO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.distributions</span> <span class="kn">import</span> <span class="n">MultivariateNormal</span><span class="p">,</span> <span class="n">Normal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultivariateNormal</span><span class="p">,</span> <span class="n">Normal</span>
 
 <span class="c1"># Specify that we want our tensors on the GPU and in float32</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
@@ -519,11 +519,11 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Helper functions</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
-<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
 
@@ -539,7 +539,7 @@ document.write(`
                             <span class="s2">&quot;pink&quot;</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">combine</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">Tb</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">Tb</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">b</span>
     <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Tb</span><span class="p">,</span> <span class="n">b</span>
@@ -554,7 +554,7 @@ document.write(`
 <span class="s2"> Your browser does not support the video tag.</span>
 <span class="s2">&lt;/video&gt;&quot;&quot;&quot;</span>
 
-<span class="k">def</span> <span class="nf">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
     <span class="c1"># todo: todocument</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s1">&#39;_encoded_video&#39;</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.mp4&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -564,11 +564,11 @@ document.write(`
 
     <span class="k">return</span> <span class="n">_VIDEO_TAG</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">_encoded_video</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">_display_animation</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_display_animation</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">_fig</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">speedup</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fig_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">speedup</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fig_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
          <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="c1"># First set up the figure, the axis, and the plot element we want to animate</span>
     <span class="n">T</span><span class="p">,</span> <span class="n">Py</span><span class="p">,</span> <span class="n">Px</span> <span class="o">=</span> <span class="n">movie</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
@@ -584,7 +584,7 @@ document.write(`
                     <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
         <span class="n">im</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">movie</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">speedup</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">show_time</span><span class="p">:</span>
             <span class="n">tx</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;t=</span><span class="si">{:.3f}</span><span class="s2">s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">speedup</span> <span class="o">/</span> <span class="n">fps</span><span class="p">))</span>
@@ -608,7 +608,7 @@ document.write(`
         <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">plot_data_and_states</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_data_and_states</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span>
                          <span class="n">spc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">slc</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span>
                          <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">times</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">][</span><span class="n">slc</span><span class="p">]</span>
@@ -640,7 +640,7 @@ document.write(`
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">extract_syllable_slices</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_syllable_slices</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
                             <span class="n">posteriors</span><span class="p">,</span>
                             <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
                             <span class="n">num_instances</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
@@ -701,7 +701,7 @@ document.write(`
     <span class="k">return</span> <span class="n">slices</span>
 
 
-<span class="k">def</span> <span class="nf">make_crowd_movie</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_crowd_movie</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
                      <span class="n">dataset</span><span class="p">,</span>
                      <span class="n">posteriors</span><span class="p">,</span>
                      <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
@@ -813,7 +813,7 @@ document.write(`
 
     <span class="k">return</span> <span class="n">crowd_movie</span>
 
-<span class="k">def</span> <span class="nf">plot_average_pcs</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_average_pcs</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
                      <span class="n">dataset</span><span class="p">,</span>
                      <span class="n">posteriors</span><span class="p">,</span>
                      <span class="n">spc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
@@ -1116,7 +1116,7 @@ document.write(`
 <p>The Datta lab has already computed the principal components and included them in the NWB. We’ll extract them, along with other relevant information like the centroid position and heading angle of the mouse, which we’ll use for making “crowd” movies below. Finally, they also included labels from MoSeq, an autoregressive (AR) HMM. You’ll build an ARHMM in Part 3 of the lab and infer similar discrete latent state sequences yourself!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_dataset</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">load_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">num_pcs</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1191,7 +1191,7 @@ subsequent modeling, but it will make it easier for us
 to visualize the time series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardize_pcs</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize_pcs</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mean</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">std</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">all_pcs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;raw_pcs&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">])</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">all_pcs</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1236,12 +1236,12 @@ to visualize the time series.</p>
 <h3>Helper functions to create random parameters<a class="headerlink" href="#helper-functions-to-create-random-parameters" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">stickiness</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">stickiness</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">stickiness</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span>
     <span class="n">P</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">stickiness</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_states</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">num_states</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">P</span>
 
-<span class="k">def</span> <span class="nf">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                 <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_states</span>
@@ -1264,7 +1264,7 @@ to visualize the time series.</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward_pass</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward_pass</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform the (normalized) forward pass of the HMM.</span>
 
@@ -1297,7 +1297,7 @@ to visualize the time series.</p>
 <p>Compare outputs of your function to Dynamax outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_forward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_forward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Call your code</span>
@@ -1306,7 +1306,7 @@ to visualize the time series.</p>
     <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">alphas</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
 
     <span class="c1"># Compare to Dynamax implementation.</span>
-    <span class="kn">from</span> <span class="nn">dynamax.hidden_markov_model</span> <span class="kn">import</span> <span class="n">hmm_filter</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">dynamax.hidden_markov_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">hmm_filter</span>
     <span class="n">pi_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
     <span class="n">P_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">log_likes_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">log_likes</span><span class="p">)</span>
@@ -1328,7 +1328,7 @@ to visualize the time series.</p>
 <p>Recursively compute the backward messages <span class="math notranslate nohighlight">\(\beta_t\)</span>. Again, normalize to avoid underflow, and be careful when you exponentiate the log likelihoods. The same trick of subtracting the max before exponentiating will work here too.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">backward_pass</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">backward_pass</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform the (normalized) backward pass of the HMM.</span>
 
@@ -1357,7 +1357,7 @@ to visualize the time series.</p>
 <p>Compare outputs of your function to Dynamax outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_backward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_backward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Call your code</span>
@@ -1366,7 +1366,7 @@ to visualize the time series.</p>
     <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">betas</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
 
     <span class="c1"># Compare to Dynamax implementation.</span>
-    <span class="kn">from</span> <span class="nn">dynamax.hidden_markov_model</span> <span class="kn">import</span> <span class="n">hmm_backward_filter</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">dynamax.hidden_markov_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">hmm_backward_filter</span>
     <span class="n">P_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">log_likes_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">log_likes</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">backward_pred_probs</span>  <span class="o">=</span> <span class="n">hmm_backward_filter</span><span class="p">(</span><span class="n">P_np</span><span class="p">,</span> <span class="n">log_likes_np</span><span class="p">)</span>
@@ -1385,7 +1385,7 @@ to visualize the time series.</p>
 <p>Compute the posterior marginal probabilities. We call these the <code class="docutils literal notranslate"><span class="pre">expected_states</span></code> because <span class="math notranslate nohighlight">\(q(z_t = k) = \mathbb{E}_{q(z)}[\mathbb{I}[z_t = k]]\)</span>. To copmute them, combine the forward messages, backward messages, and the likelihoods, then normalize. Again, be careful when exponentiating the likelihoods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">E_step</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">E_step</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fun the forward and backward passes and then combine to compute the</span>
 <span class="sd">    posterior probabilities q(z_t=k).</span>
@@ -1419,14 +1419,14 @@ to visualize the time series.</p>
 <p>Compare your outputs to Dynamax.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_E_step</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_E_step</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Run your code</span>
     <span class="n">posterior</span> <span class="o">=</span> <span class="n">E_step</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">)</span>
 
     <span class="c1"># Run Dynamax code</span>
-    <span class="kn">from</span> <span class="nn">dynamax.hidden_markov_model</span> <span class="kn">import</span> <span class="n">hmm_two_filter_smoother</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">dynamax.hidden_markov_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">hmm_two_filter_smoother</span>
     <span class="n">pi_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
     <span class="n">P_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">log_likes_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">log_likes</span><span class="p">)</span>
@@ -1465,7 +1465,7 @@ to visualize the time series.</p>
 <p>Finally, we’ll initialize the HMM with a random posterior distribution. That way our first M step will yield reasonable parameters estimates from a random weighted combination of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initialize_posteriors</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">initialize_posteriors</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">posteriors</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
@@ -1496,11 +1496,11 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 <p>Most important, <code class="docutils literal notranslate"><span class="pre">M_step</span></code> solves for the optimal parameters given the expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{N}_k, \overline{\mathbf{t}}_{k,1}, \overline{\mathbf{t}}_{k,2}\)</span>, which are passed in as a tuple. The new parameters are written to the class variables <code class="docutils literal notranslate"><span class="pre">self.means</span></code> and <code class="docutils literal notranslate"><span class="pre">self.covs</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GaussianObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GaussianObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for a collection of Gaussian observation parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a collection of observation parameters for a Gaussian HMM</span>
 <span class="sd">        with `num_states` (i.e. K) discrete states and `data_dim` (i.e. D)</span>
@@ -1512,7 +1512,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
         <span class="bp">self</span><span class="o">.</span><span class="n">covs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">data_dim</span><span class="p">),</span> <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the sufficient statistics of the Gaussian distribution for each</span>
 <span class="sd">        data dictionary in the dataset. This modifies the dataset in place.</span>
@@ -1532,7 +1532,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
                                   <span class="n">x</span><span class="p">,</span>                                   <span class="c1"># x_t</span>
                                   <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ti,tj-&gt;tij&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>    <span class="c1"># x_t x_t^T</span>
 
-    <span class="k">def</span> <span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the matrix of log likelihoods of data for each state.</span>
 <span class="sd">        (I like to use torch.distributions for this, though it requires</span>
@@ -1558,7 +1558,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
         <span class="c1">###</span>
         <span class="k">return</span> <span class="n">log_likes</span>
 
-    <span class="k">def</span> <span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the Gaussian parameters give the expected sufficient statistics.</span>
 
@@ -1586,7 +1586,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_gaussian</span><span class="p">(</span><span class="n">data_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_gaussian</span><span class="p">(</span><span class="n">data_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">data1</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">))</span>
     <span class="n">data2</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">))</span>
@@ -1642,7 +1642,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_expected_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_expected_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute a tuple of normalized sufficient statistics, taking a weighted sum</span>
 <span class="sd">    of the posterior expected states and the sufficient statistics, then</span>
@@ -1668,7 +1668,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 
     <span class="c1"># Helper function to compute expected counts and sufficient statistics</span>
     <span class="c1"># for a single time series and corresponding posterior.</span>
-    <span class="k">def</span> <span class="nf">_compute_expected_suff_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_expected_suff_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
         <span class="c1"># Hint: einsum might be useful</span>
@@ -1686,7 +1686,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
             <span class="n">combined_T</span><span class="p">,</span> <span class="n">combined_stats</span><span class="p">,</span> <span class="n">this_T</span><span class="p">,</span> <span class="n">these_stats</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">combined_stats</span>
 
-<span class="k">def</span> <span class="nf">test_expec_suff_stats</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_expec_suff_stats</span><span class="p">():</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">data_dim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -1723,7 +1723,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 <h3>Problem 2c: Write a function to fit an HMM with EM<a class="headerlink" href="#problem-2c-write-a-function-to-fit-an-hmm-with-em" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_hmm</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_hmm</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
             <span class="n">test_dataset</span><span class="p">,</span>
             <span class="n">initial_dist</span><span class="p">,</span>
             <span class="n">transition_matrix</span><span class="p">,</span>
@@ -2064,11 +2064,11 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <h3>Problem 3c: Implement an Linear Regression Observations object<a class="headerlink" href="#problem-3c-implement-an-linear-regression-observations-object" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearRegressionObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LinearRegressionObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for a collection of Gaussian observation parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span> <span class="n">covariate_dim</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span> <span class="n">covariate_dim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a collection of observation parameters for an HMM whose</span>
 <span class="sd">        observation distributions are linear regressions. The HMM has</span>
@@ -2085,7 +2085,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="bp">self</span><span class="o">.</span><span class="n">covs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">data_dim</span><span class="p">),</span> <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the sufficient statistics of the linear regression for each</span>
 <span class="sd">        data dictionary in the dataset. This modifies the dataset in place.</span>
@@ -2106,7 +2106,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="c1">#</span>
         <span class="c1">###</span>
 
-    <span class="k">def</span> <span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the matrix of log likelihoods of data for each state.</span>
 <span class="sd">        (I like to use torch.distributions for this, though it requires</span>
@@ -2130,7 +2130,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="c1">###</span>
         <span class="k">return</span> <span class="n">log_likes</span>
 
-    <span class="k">def</span> <span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the linear regression parameters given the expected</span>
 <span class="sd">        sufficient statistics.</span>
@@ -2162,7 +2162,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <h3>Problem 3d: Precompute the covariates for an autoregressive model<a class="headerlink" href="#problem-3d-precompute-the-covariates-for-an-autoregressive-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">precompute_ar_covariates</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">precompute_ar_covariates</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span>
                              <span class="n">num_lags</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                              <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
@@ -2408,7 +2408,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <h3>Bonus Problem 4a: Adapt your EM code to run stochastic EM instead<a class="headerlink" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_hmm_stoch_em</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_hmm_stoch_em</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
                      <span class="n">test_dataset</span><span class="p">,</span>
                      <span class="n">initial_dist</span><span class="p">,</span>
                      <span class="n">transition_matrix</span><span class="p">,</span>
@@ -2670,7 +2670,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 5: Bayesian Decoding</p>
+        <p class="prev-next-title">Bayesian Decoding</p>
       </div>
     </a>
     <a class="right-next"
@@ -2678,7 +2678,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 7: Switching LDS</p>
+        <p class="prev-next-title">Switching LDS</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2784,7 +2784,7 @@ By Scott Linderman
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2025.
       <br/>
     
   </p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 7: Switching LDS &#8212; Machine Learning Methods for Neural Data Analysis</title>
+    <title>Switching LDS &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
   
   
@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -57,13 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"mba": "\\boldsymbol{a}", "mbb": "\\boldsymbol{b}", "mbc": "\\boldsymbol{c}", "mbd": "\\boldsymbol{d}", "mbe": "\\boldsymbol{e}", "mbf": "\\boldsymbol{f}", "mbg": "\\boldsymbol{g}", "mbh": "\\boldsymbol{h}", "mbi": "\\boldsymbol{i}", "mbj": "\\boldsymbol{j}", "mbk": "\\boldsymbol{k}", "mbl": "\\boldsymbol{l}", "mbm": "\\boldsymbol{m}", "mbn": "\\boldsymbol{n}", "mbo": "\\boldsymbol{o}", "mbp": "\\boldsymbol{p}", "mbq": "\\boldsymbol{q}", "mbr": "\\boldsymbol{r}", "mbs": "\\boldsymbol{s}", "mbt": "\\boldsymbol{t}", "mbu": "\\boldsymbol{u}", "mbv": "\\boldsymbol{v}", "mbw": "\\boldsymbol{w}", "mbx": "\\boldsymbol{x}", "mby": "\\boldsymbol{y}", "mbz": "\\boldsymbol{z}", "mbA": "\\boldsymbol{A}", "mbB": "\\boldsymbol{B}", "mbC": "\\boldsymbol{C}", "mbD": "\\boldsymbol{D}", "mbE": "\\boldsymbol{E}", "mbF": "\\boldsymbol{F}", "mbG": "\\boldsymbol{G}", "mbH": "\\boldsymbol{H}", "mbI": "\\boldsymbol{I}", "mbJ": "\\boldsymbol{J}", "mbK": "\\boldsymbol{K}", "mbL": "\\boldsymbol{L}", "mbM": "\\boldsymbol{M}", "mbN": "\\boldsymbol{N}", "mbO": "\\boldsymbol{O}", "mbP": "\\boldsymbol{P}", "mbQ": "\\boldsymbol{Q}", "mbR": "\\boldsymbol{R}", "mbS": "\\boldsymbol{S}", "mbT": "\\boldsymbol{T}", "mbU": "\\boldsymbol{U}", "mbV": "\\boldsymbol{V}", "mbW": "\\boldsymbol{W}", "mbX": "\\boldsymbol{X}", "mbY": "\\boldsymbol{Y}", "mbZ": "\\boldsymbol{Z}", "bbA": "\\mathbb{A}", "bbB": "\\mathbb{B}", "bbC": "\\mathbb{C}", "bbD": "\\mathbb{D}", "bbE": "\\mathbb{E}", "bbG": "\\mathbb{G}", "bbH": "\\mathbb{H}", "bbI": "\\mathbb{I}", "bbJ": "\\mathbb{J}", "bbK": "\\mathbb{K}", "bbL": "\\mathbb{L}", "bbM": "\\mathbb{M}", "bbN": "\\mathbb{N}", "bbO": "\\mathbb{O}", "bbP": "\\mathbb{P}", "bbQ": "\\mathbb{Q}", "bbR": "\\mathbb{R}", "bbS": "\\mathbb{S}", "bbT": "\\mathbb{T}", "bbU": "\\mathbb{U}", "bbV": "\\mathbb{V}", "bbW": "\\mathbb{W}", "bbX": "\\mathbb{X}", "bbY": "\\mathbb{Y}", "bbZ": "\\mathbb{Z}", "cA": "\\mathcal{A}", "cB": "\\mathcal{B}", "cC": "\\mathcal{C}", "cD": "\\mathcal{D}", "cE": "\\mathcal{E}", "cG": "\\mathcal{G}", "cH": "\\mathcal{H}", "cI": "\\mathcal{I}", "cJ": "\\mathcal{J}", "cK": "\\mathcal{K}", "cL": "\\mathcal{L}", "cM": "\\mathcal{M}", "cN": "\\mathcal{N}", "cO": "\\mathcal{O}", "cP": "\\mathcal{P}", "cQ": "\\mathcal{Q}", "cR": "\\mathcal{R}", "cS": "\\mathcal{S}", "cT": "\\mathcal{T}", "cU": "\\mathcal{U}", "cV": "\\mathcal{V}", "cW": "\\mathcal{W}", "cX": "\\mathcal{X}", "cY": "\\mathcal{Y}", "cZ": "\\mathcal{Z}", "mbalpha": "\\boldsymbol{\\alpha}", "mbbeta": "\\boldsymbol{\\beta}", "mbgamma": "\\boldsymbol{\\gamma}", "mbdelta": "\\boldsymbol{\\delta}", "mbepsilon": "\\boldsymbol{\\epsilon}", "mbchi": "\\boldsymbol{\\chi}", "mbeta": "\\boldsymbol{\\eta}", "mbiota": "\\boldsymbol{\\iota}", "mbkappa": "\\boldsymbol{\\kappa}", "mblambda": "\\boldsymbol{\\lambda}", "mbmu": "\\boldsymbol{\\mu}", "mbnu": "\\boldsymbol{\\nu}", "mbomega": "\\boldsymbol{\\omega}", "mbtheta": "\\boldsymbol{\\theta}", "mbphi": "\\boldsymbol{\\phi}", "mbpi": "\\boldsymbol{\\pi}", "mbpsi": "\\boldsymbol{\\psi}", "mbrho": "\\boldsymbol{\\rho}", "mbsigma": "\\boldsymbol{\\sigma}", "mbtau": "\\boldsymbol{\\tau}", "mbupsilon": "\\boldsymbol{\\upsilon}", "mbxi": "\\boldsymbol{\\xi}", "mbzeta": "\\boldsymbol{\\zeta}", "mbvarepsilon": "\\boldsymbol{\\varepsilon}", "mbvarphi": "\\boldsymbol{\\varphi}", "mbvartheta": "\\boldsymbol{\\vartheta}", "mbvarrho": "\\boldsymbol{\\varrho}", "mbDelta": "\\boldsymbol{\\Delta}", "mbGamma": "\\boldsymbol{\\Gamma}", "mbLambda": "\\boldsymbol{\\Lambda}", "mbOmega": "\\boldsymbol{\\Omega}", "mbPhi": "\\boldsymbol{\\Phi}", "mbPsi": "\\boldsymbol{\\Psi}", "mbPi": "\\boldsymbol{\\Pi}", "mbSigma": "\\boldsymbol{\\Sigma}", "mbTheta": "\\boldsymbol{\\Theta}", "mbUpsilon": "\\boldsymbol{\\Upsilon}", "mbXi": "\\boldsymbol{\\Xi}", "mbzero": "\\boldsymbol{0}", "mbone": "\\boldsymbol{1}", "iid": ["\\stackrel{\\text{iid}}{#1}", 1], "ind": ["\\stackrel{\\text{ind}}{#1}", 1], "dif": "\\mathop{}\\!\\mathrm{d}", "diag": "\\textrm{diag}", "supp": "\\textrm{supp}", "Tr": "\\textrm{Tr}", "E": "\\mathbb{E}", "Var": "\\textrm{Var}", "Cov": "\\textrm{Cov}", "reals": "\\mathbb{R}", "naturals": "\\mathbb{N}", "KL": ["D_{\\textrm{KL}}\\left(#1\\;\\|\\;#2\\right)", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/07_slds';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lab 8: Sequential VAEs" href="08_lfads.html" />
-    <link rel="prev" title="Lab 6: Autoregressive HMMs" href="06_arhmm.html" />
+    <link rel="next" title="Sequential Variational Autoencoders" href="08_lfads.html" />
+    <link rel="prev" title="Autoregressive HMMs" href="06_arhmm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,19 +175,7 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">Lab 0: PyTorch Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01_spike_sorting.html">Lab 1: Spike Sorting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Lab 2: Calcium Deconvolution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Lab 3: Markerless Pose Tracking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Lab 4: Generalized Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Lab 5: Bayesian Decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Lab 6: Autoregressive HMMs</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 7: Switching LDS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Lab 8: Sequential VAEs</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../chapters/02_probabilistic_modeling.html">Probabilistic Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/03_neurobio.html">Basic Neurobiology</a></li>
@@ -211,6 +199,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/12_mixtures_em.html">Mixture Models and the EM Algorithm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/13_hmms.html">Hidden Markov Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/16_poldrack_fmri_analysis.html">fMRI Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">PyTorch Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01b_spike_sorting_deconv.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Calcium Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Markerless Pose Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Bayesian Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Autoregressive HMMs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Switching LDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Sequential Variational Autoencoders</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +384,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 7: Switching LDS</h1>
+    <h1>Switching LDS</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -450,8 +450,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-7-switching-lds">
-<h1>Lab 7: Switching LDS<a class="headerlink" href="#lab-7-switching-lds" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="switching-lds">
+<h1>Switching LDS<a class="headerlink" href="#switching-lds" title="Link to this heading">#</a></h1>
 <p><img alt="" src="https://els-jbs-prod-cdn.jbs.elsevierhealth.com/cms/attachment/09c7213d-d3ef-4c84-8321-07ab84a365af/fx1.jpg" /></p>
 <p>In this lab, we will implement a variational expectation maximization algorithm to fit a latent variable model with both discrete and continuous states. We’ll use a mean field approximation, which we’ll fit using coordinate ascent variational inference (CAVI). Then we’ll test it out on neural activity traces extracted from calcium imaging of the worm <em>C. elegans</em> by Kato et al (2015), in their paper on low dimensional dynamics of whole brain activity.</p>
 <p>We won’t implement variational EM for full-blown hierachical, recurrent, switching linear dynamical systems (Linderman et al, 2019). Instead, we’ll work on a simpler model without time dependencies, which reduces to a mixture of factor analysis models. Once we’ve done so, you’ll understand how the main fitting algorithms underlying <a class="reference external" href="https://github.com/lindermanlab/ssm">SSM</a> work under the hood!</p>
@@ -462,18 +462,18 @@ document.write(`
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">trange</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">interp1d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter1d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
 
 <span class="c1"># PyTorch </span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.distributions</span> <span class="kn">import</span> <span class="n">Categorical</span><span class="p">,</span> <span class="n">MultivariateNormal</span><span class="p">,</span> <span class="n">Normal</span><span class="p">,</span> \
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Categorical</span><span class="p">,</span> <span class="n">MultivariateNormal</span><span class="p">,</span> <span class="n">Normal</span><span class="p">,</span> \
     <span class="n">LowRankMultivariateNormal</span><span class="p">,</span> <span class="n">kl_divergence</span>
 
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
@@ -495,8 +495,8 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Helper Functions (run this cell!)</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">onp</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">onp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
 
 <span class="n">kato_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TS20140715e_lite-1_punc-31_NLS3_2eggs_56um_1mMTet_basal_1080s.mat&quot;</span><span class="p">,</span>
               <span class="s2">&quot;TS20140715f_lite-1_punc-31_NLS3_3eggs_56um_1mMTet_basal_1080s.mat&quot;</span><span class="p">,</span>
@@ -519,23 +519,23 @@ document.write(`
                             <span class="s2">&quot;green&quot;</span><span class="p">,</span>        <span class="c1"># sustained reversal</span>
                             <span class="s2">&quot;greyish&quot;</span><span class="p">])</span>     <span class="c1"># no state</span>
 
-<span class="k">def</span> <span class="nf">load_kato_labels</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_kato_labels</span><span class="p">():</span>
     <span class="n">zimmer_state_labels</span> <span class="o">=</span> \
         <span class="n">loadmat</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="n">kato_dir</span><span class="p">,</span>
             <span class="s2">&quot;sevenStateColoring.mat&quot;</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">zimmer_state_labels</span>
 
-<span class="k">def</span> <span class="nf">load_kato_key</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_kato_key</span><span class="p">():</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">load_kato_labels</span><span class="p">()</span>
     <span class="n">key</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;sevenStateColoring&quot;</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">key</span>
 
 
-<span class="k">def</span> <span class="nf">_get_neuron_names</span><span class="p">(</span><span class="n">neuron_ids_1</span><span class="p">,</span> <span class="n">neuron_ids_2</span><span class="p">,</span> <span class="n">worm_name</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_neuron_names</span><span class="p">(</span><span class="n">neuron_ids_1</span><span class="p">,</span> <span class="n">neuron_ids_2</span><span class="p">,</span> <span class="n">worm_name</span><span class="p">):</span>
     <span class="c1"># Remove the neurons that are not uniquely identified</span>
-    <span class="k">def</span> <span class="nf">check_label</span><span class="p">(</span><span class="n">neuron_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_label</span><span class="p">(</span><span class="n">neuron_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">neuron_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">neuron_name</span> <span class="o">==</span> <span class="s2">&quot;---&quot;</span><span class="p">:</span>
@@ -564,7 +564,7 @@ document.write(`
     <span class="k">return</span> <span class="n">final_neuron_names</span>
 
 
-<span class="k">def</span> <span class="nf">load_kato</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">sample_rate</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;unnamed&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_kato</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">sample_rate</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;unnamed&quot;</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kato_dir</span><span class="p">,</span> <span class="n">kato_files</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
     <span class="n">zimmer_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
@@ -587,7 +587,7 @@ document.write(`
     <span class="n">t_start</span> <span class="o">=</span> <span class="n">t_smpl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">t_stop</span> <span class="o">=</span> <span class="n">t_smpl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">tt</span> <span class="o">=</span> <span class="n">onp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t_start</span><span class="p">,</span> <span class="n">t_stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">sample_rate</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">interp_data</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interp_data</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">):</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">t_smpl</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
         <span class="c1"># return np.interp(tt, t_smpl, xx, axis=0)</span>
@@ -622,7 +622,7 @@ document.write(`
                 <span class="n">fps</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">gradient_cmap</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gradient_cmap</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">nsteps</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># Make a colormap that interpolates between a set of colors</span>
     <span class="n">ncolors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">bounds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -647,13 +647,13 @@ document.write(`
     <span class="k">return</span> <span class="n">cmap</span>
 
 
-<span class="k">def</span> <span class="nf">states_to_changepoints</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">states_to_changepoints</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">z</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">onp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">onp</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">onp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">onp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">z</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
 
 
-<span class="k">def</span> <span class="nf">plot_2d_continuous_states</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_2d_continuous_states</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> 
                               <span class="n">colors</span><span class="o">=</span><span class="n">palette</span><span class="p">,</span>
                               <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                               <span class="n">inds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
@@ -676,7 +676,7 @@ document.write(`
 <span class="n">cmap</span> <span class="o">=</span> <span class="n">gradient_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">plot_elbos</span><span class="p">(</span><span class="n">avg_elbos</span><span class="p">,</span> <span class="n">marginal_ll</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_elbos</span><span class="p">(</span><span class="n">avg_elbos</span><span class="p">,</span> <span class="n">marginal_ll</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">marginal_ll</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">marginal_ll</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">avg_elbos</span><span class="p">),</span> 
@@ -732,12 +732,12 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 <p>We’ll be using PyTorch Distributions for this lab. PyTorch doesn’t include conditional distributions like <span class="math notranslate nohighlight">\(p(y \mid x)\)</span>, so we’ve written a lightweight object to encapsulate the parameters of the linear Gaussian observation model as well. We call it an <code class="docutils literal notranslate"><span class="pre">IndependentLinearRegression</span></code> because the observation covariance <span class="math notranslate nohighlight">\(R\)</span> is a diagonal matrix, which implies independent noise across each output dimension.  This is similar to what you wrote in <a class="reference internal" href="06_arhmm.html"><span class="std std-doc">Lab 6</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IndependentLinearRegression</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">IndependentLinearRegression</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An object that encapsulates the weights and covariance of a linear </span>
 <span class="sd">    regression. It has an interface similar to that of PyTorch Distributions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">diag_covariance</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">diag_covariance</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -752,7 +752,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">diag_covariance</span> <span class="o">=</span> <span class="n">diag_covariance</span>
 
-    <span class="k">def</span> <span class="nf">log_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">covariates</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">covariates</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the log probability of the data given the covariates using the </span>
 <span class="sd">        model parameters. Note that this function&#39;s signature is slightly </span>
@@ -775,7 +775,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
         <span class="c1">###</span>
         <span class="k">return</span> <span class="n">lp</span>
 
-    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">covariates</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">covariates</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sample data points given covariates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -793,8 +793,8 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 <p>To get you started, we’ve written a <code class="docutils literal notranslate"><span class="pre">MixtureOfFactorAnalyzers</span></code> object that encapsulates the generative model. It’s built out of <code class="docutils literal notranslate"><span class="pre">torch.distributions.Distribution</span></code> objects, which represent the distributions in the generative model. You’re already familiar with the <code class="docutils literal notranslate"><span class="pre">MultivariateNormal</span></code> distribution object, which we will use to represent both <span class="math notranslate nohighlight">\(p(x \mid z)\)</span>. We also use the <code class="docutils literal notranslate"><span class="pre">Categorical</span></code> distribution object to represent <span class="math notranslate nohighlight">\(p(z)\)</span>. We’ll take advantage of the distribution objects’ broadcasting capability to combine all the conditional distributions <span class="math notranslate nohighlight">\(p(x \mid z=k)\)</span> into one object by using a batch of means and covariances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MixtureOfFactorAnalyzers</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MixtureOfFactorAnalyzers</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span> <span class="o">=</span> <span class="n">num_states</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span> <span class="o">=</span> <span class="n">latent_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_dim</span> <span class="o">=</span> <span class="n">data_dim</span>
@@ -817,43 +817,43 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
     <span class="c1"># Write property to get the parameters from the underlying objects</span>
     <span class="c1"># These variable names correspond to the math above.</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_z</span><span class="o">.</span><span class="n">probs</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">log_pi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_pi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_z</span><span class="o">.</span><span class="n">logits</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">bs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_x</span><span class="o">.</span><span class="n">mean</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Qs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Qs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_x</span><span class="o">.</span><span class="n">covariance_matrix</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Js</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Js</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_x</span><span class="o">.</span><span class="n">precision_matrix</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">hs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># linear natural paramter h = Q^{-1} b = J b</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;kij,kj-&gt;ki&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Js</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_y</span><span class="o">.</span><span class="n">weights</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_y</span><span class="o">.</span><span class="n">bias</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">R_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">R_diag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_y</span><span class="o">.</span><span class="n">diag_covariance</span>
 
-    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,)):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,)):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Draw a sample of the latent variables and data under the MFA model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -865,7 +865,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
         <span class="c1">###</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">spc</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">spc</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
         <span class="c1"># Unpack the arguments</span>
         <span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
         <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_states</span>
@@ -977,7 +977,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p><em>Implement a CAVI update for the discrete states posterior that takes in the model and the continuous state posterior <code class="docutils literal notranslate"><span class="pre">q_x</span></code> and outputs the optimal <code class="docutils literal notranslate"><span class="pre">q_z</span></code>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cavi_update_q_z</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">q_x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cavi_update_q_z</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">q_x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the optimal discrete state posterior given the generative model</span>
 <span class="sd">    and the variational posterior on the continuous states.</span>
 
@@ -1011,7 +1011,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_1b</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_1b</span><span class="p">():</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">q_x</span> <span class="o">=</span> <span class="n">MultivariateNormal</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_data</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">),</span>
                              <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">num_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -1041,7 +1041,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p><em>Implement a CAVI update for the continuous states posterior that takes in <code class="docutils literal notranslate"><span class="pre">p_x</span></code>, <code class="docutils literal notranslate"><span class="pre">p_y</span></code>, and <code class="docutils literal notranslate"><span class="pre">q_z</span></code> and outputs the optimal <code class="docutils literal notranslate"><span class="pre">q_x</span></code>.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cavi_update_q_x</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">q_z</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cavi_update_q_x</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">q_z</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the optimal discrete state posterior given the generative model</span>
 <span class="sd">    and the variational posterior on the continuous states.</span>
 
@@ -1074,7 +1074,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_1c</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_1c</span><span class="p">():</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">q_z</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_data</span><span class="p">,</span> <span class="n">num_states</span><span class="p">))</span>
     <span class="n">q_x</span> <span class="o">=</span> <span class="n">cavi_update_q_x</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">q_z</span><span class="p">)</span>
@@ -1097,7 +1097,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p><em>Your answer here</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data_and_q_x</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">q_x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_data_and_q_x</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">q_x</span><span class="p">):</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">num_states</span><span class="p">):</span>
@@ -1152,7 +1152,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 <p>Use the <code class="docutils literal notranslate"><span class="pre">IndependentLinearRegression.log_prob</span></code> function and the <code class="docutils literal notranslate"><span class="pre">torch.distributions.kl_divergence</span></code> function imported at the top of the notebook to implement the ELBO calculation. Remember that the log probabilities and KL divergence functions broadcast nicely.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">elbo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">variational_posterior</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">elbo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">variational_posterior</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the optimal discrete state posterior given the generative model</span>
 <span class="sd">    and the variational posterior on the continuous states.</span>
 
@@ -1189,7 +1189,7 @@ p(z, x \mid y, \Theta) \approx \prod_{t=1}^T q(z_t) \, q(x_t)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_1f</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_1f</span><span class="p">():</span>
     <span class="n">q_z</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_data</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">num_states</span><span class="p">))</span>
     <span class="n">q_x</span> <span class="o">=</span> <span class="n">cavi_update_q_x</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">q_z</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">elbo</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">q_z</span><span class="p">,</span> <span class="n">q_x</span><span class="p">))</span> <span class="o">/</span> <span class="n">num_data</span><span class="p">,</span>
@@ -1236,7 +1236,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p>The code below implements the exact marginal likelihood according to the formula above using PyTorch’s <code class="docutils literal notranslate"><span class="pre">LowRankMultivariateNormal</span></code> distribution. Note: this distribution takes in the square root of <span class="math notranslate nohighlight">\(C Q_k C^\top\)</span>, which is <span class="math notranslate nohighlight">\(C Q_k^{1/2}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exact_marginal_lkhd</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">exact_marginal_lkhd</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the exact marginal likelihood. </span>
 <span class="sd">    Normalize by the number of datapoints.</span>
@@ -1271,7 +1271,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p>That’s all we need for CAVI! The code below simply alternates between updating <span class="math notranslate nohighlight">\(q(z)\)</span> and <span class="math notranslate nohighlight">\(q(x)\)</span>. After each iteration, we compute the ELBO.We allow the user to pass in an initial posterior approximation (though only <span class="math notranslate nohighlight">\(q(z)\)</span> is used since <span class="math notranslate nohighlight">\(q(x)\)</span> is immediately updated).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cavi</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">initial_posterior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cavi</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">initial_posterior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
 
     <span class="c1"># Initialize the discrete state posterior to uniform</span>
@@ -1347,7 +1347,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p><strong>Note:</strong> Statistics 3 and 1 are redundant, as are 4 and 2. We’ve split them out anyway, as they are used separately in updating the parameters of <code class="docutils literal notranslate"><span class="pre">p_x</span></code> and <code class="docutils literal notranslate"><span class="pre">p_y</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_expected_suffstats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_expected_suffstats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the expected sufficient statistics of the data </span>
 <span class="sd">    under the variational posterior</span>
@@ -1381,7 +1381,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_2a</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_2a</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This test only checks the shapes, not the values!&quot;</span><span class="p">)</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="n">compute_expected_suffstats</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="p">(</span><span class="n">q_z</span><span class="p">,</span> <span class="n">q_x</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
@@ -1412,7 +1412,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p>Write a function to update the prior distribution on discrete states, <span class="math notranslate nohighlight">\(p(z \mid \Theta)\)</span>, using the expected sufficient statistics. This is part of the M-step for variational EM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_p_z</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_p_z</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the parameters $\pi$ of the $p(z \mid \Theta)$ and pack them into </span>
 <span class="sd">    a new Categorical distribution object.</span>
@@ -1442,7 +1442,7 @@ p(y_t \mid z_t, \Theta) &amp;= \mathcal{N}(C b_{z_t} + d, C Q_{z_t} C^\top + R).
 <p>Perform an M-step on the parameters of <span class="math notranslate nohighlight">\(p(x \mid z, \Theta)\)</span> using the expected sufficient statistics. As before, add a little to the diagonal of the covariance to ensure positive definiteness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_p_x</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_p_x</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the parameters $\{b_k, Q_k\}$ of the $p(x \mid z, \Theta)$ and pack </span>
 <span class="sd">    them into a new MultivariateNormal distribution object.</span>
@@ -1506,7 +1506,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 <p>Since we are assuming a diagonal covariance matrix, we only need <span class="math notranslate nohighlight">\(y_{tn}^2\)</span> instead of the full outer product <span class="math notranslate nohighlight">\(y_t y_t^\top\)</span>.  As before, add a bit to the diagonal to ensure positive definiteness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_p_y</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_p_y</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the linear regression parameters given the expected </span>
 <span class="sd">    sufficient statistics.</span>
@@ -1545,7 +1545,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 <p>From here it’s smooth sailing! We just iterate between the variational E step, which involves running CAVI for some number of iterations, and then performing an M step using expected sufficient statistics. We’ll track the ELBO throughout to monitor convergence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">m_step</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">m_step</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">posterior</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform an M-step to update the model parameters given the data and the </span>
 <span class="sd">    posterior from the variational E step.</span>
@@ -1556,7 +1556,7 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
     <span class="n">model</span><span class="o">.</span><span class="n">p_y</span> <span class="o">=</span> <span class="n">update_p_y</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">variational_em</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_cavi_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">variational_em</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_cavi_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit the model parameters via variational EM.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1961,11 +1961,11 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">ssm</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">ssm</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/lindermanlab/ssm.git@master#egg<span class="o">=</span>ssm
 
-<span class="kn">from</span> <span class="nn">ssm</span> <span class="kn">import</span> <span class="n">SLDS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ssm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SLDS</span>
 <span class="n">slds</span> <span class="o">=</span> <span class="n">SLDS</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">)</span>
 <span class="n">elbos</span><span class="p">,</span> <span class="n">posterior</span> <span class="o">=</span> <span class="n">slds</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">from_t</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]),</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
@@ -2049,7 +2049,7 @@ Successfully installed ssm-0.0.1
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 6: Autoregressive HMMs</p>
+        <p class="prev-next-title">Autoregressive HMMs</p>
       </div>
     </a>
     <a class="right-next"
@@ -2057,7 +2057,7 @@ Successfully installed ssm-0.0.1
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 8: Sequential VAEs</p>
+        <p class="prev-next-title">Sequential Variational Autoencoders</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2146,7 +2146,7 @@ By Scott Linderman
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2025.
       <br/>
     
   </p>

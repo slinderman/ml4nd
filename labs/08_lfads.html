@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 8: Sequential VAEs &#8212; Machine Learning Methods for Neural Data Analysis</title>
+    <title>Sequential Variational Autoencoders &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
   
   
@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -57,13 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"mba": "\\boldsymbol{a}", "mbb": "\\boldsymbol{b}", "mbc": "\\boldsymbol{c}", "mbd": "\\boldsymbol{d}", "mbe": "\\boldsymbol{e}", "mbf": "\\boldsymbol{f}", "mbg": "\\boldsymbol{g}", "mbh": "\\boldsymbol{h}", "mbi": "\\boldsymbol{i}", "mbj": "\\boldsymbol{j}", "mbk": "\\boldsymbol{k}", "mbl": "\\boldsymbol{l}", "mbm": "\\boldsymbol{m}", "mbn": "\\boldsymbol{n}", "mbo": "\\boldsymbol{o}", "mbp": "\\boldsymbol{p}", "mbq": "\\boldsymbol{q}", "mbr": "\\boldsymbol{r}", "mbs": "\\boldsymbol{s}", "mbt": "\\boldsymbol{t}", "mbu": "\\boldsymbol{u}", "mbv": "\\boldsymbol{v}", "mbw": "\\boldsymbol{w}", "mbx": "\\boldsymbol{x}", "mby": "\\boldsymbol{y}", "mbz": "\\boldsymbol{z}", "mbA": "\\boldsymbol{A}", "mbB": "\\boldsymbol{B}", "mbC": "\\boldsymbol{C}", "mbD": "\\boldsymbol{D}", "mbE": "\\boldsymbol{E}", "mbF": "\\boldsymbol{F}", "mbG": "\\boldsymbol{G}", "mbH": "\\boldsymbol{H}", "mbI": "\\boldsymbol{I}", "mbJ": "\\boldsymbol{J}", "mbK": "\\boldsymbol{K}", "mbL": "\\boldsymbol{L}", "mbM": "\\boldsymbol{M}", "mbN": "\\boldsymbol{N}", "mbO": "\\boldsymbol{O}", "mbP": "\\boldsymbol{P}", "mbQ": "\\boldsymbol{Q}", "mbR": "\\boldsymbol{R}", "mbS": "\\boldsymbol{S}", "mbT": "\\boldsymbol{T}", "mbU": "\\boldsymbol{U}", "mbV": "\\boldsymbol{V}", "mbW": "\\boldsymbol{W}", "mbX": "\\boldsymbol{X}", "mbY": "\\boldsymbol{Y}", "mbZ": "\\boldsymbol{Z}", "bbA": "\\mathbb{A}", "bbB": "\\mathbb{B}", "bbC": "\\mathbb{C}", "bbD": "\\mathbb{D}", "bbE": "\\mathbb{E}", "bbG": "\\mathbb{G}", "bbH": "\\mathbb{H}", "bbI": "\\mathbb{I}", "bbJ": "\\mathbb{J}", "bbK": "\\mathbb{K}", "bbL": "\\mathbb{L}", "bbM": "\\mathbb{M}", "bbN": "\\mathbb{N}", "bbO": "\\mathbb{O}", "bbP": "\\mathbb{P}", "bbQ": "\\mathbb{Q}", "bbR": "\\mathbb{R}", "bbS": "\\mathbb{S}", "bbT": "\\mathbb{T}", "bbU": "\\mathbb{U}", "bbV": "\\mathbb{V}", "bbW": "\\mathbb{W}", "bbX": "\\mathbb{X}", "bbY": "\\mathbb{Y}", "bbZ": "\\mathbb{Z}", "cA": "\\mathcal{A}", "cB": "\\mathcal{B}", "cC": "\\mathcal{C}", "cD": "\\mathcal{D}", "cE": "\\mathcal{E}", "cG": "\\mathcal{G}", "cH": "\\mathcal{H}", "cI": "\\mathcal{I}", "cJ": "\\mathcal{J}", "cK": "\\mathcal{K}", "cL": "\\mathcal{L}", "cM": "\\mathcal{M}", "cN": "\\mathcal{N}", "cO": "\\mathcal{O}", "cP": "\\mathcal{P}", "cQ": "\\mathcal{Q}", "cR": "\\mathcal{R}", "cS": "\\mathcal{S}", "cT": "\\mathcal{T}", "cU": "\\mathcal{U}", "cV": "\\mathcal{V}", "cW": "\\mathcal{W}", "cX": "\\mathcal{X}", "cY": "\\mathcal{Y}", "cZ": "\\mathcal{Z}", "mbalpha": "\\boldsymbol{\\alpha}", "mbbeta": "\\boldsymbol{\\beta}", "mbgamma": "\\boldsymbol{\\gamma}", "mbdelta": "\\boldsymbol{\\delta}", "mbepsilon": "\\boldsymbol{\\epsilon}", "mbchi": "\\boldsymbol{\\chi}", "mbeta": "\\boldsymbol{\\eta}", "mbiota": "\\boldsymbol{\\iota}", "mbkappa": "\\boldsymbol{\\kappa}", "mblambda": "\\boldsymbol{\\lambda}", "mbmu": "\\boldsymbol{\\mu}", "mbnu": "\\boldsymbol{\\nu}", "mbomega": "\\boldsymbol{\\omega}", "mbtheta": "\\boldsymbol{\\theta}", "mbphi": "\\boldsymbol{\\phi}", "mbpi": "\\boldsymbol{\\pi}", "mbpsi": "\\boldsymbol{\\psi}", "mbrho": "\\boldsymbol{\\rho}", "mbsigma": "\\boldsymbol{\\sigma}", "mbtau": "\\boldsymbol{\\tau}", "mbupsilon": "\\boldsymbol{\\upsilon}", "mbxi": "\\boldsymbol{\\xi}", "mbzeta": "\\boldsymbol{\\zeta}", "mbvarepsilon": "\\boldsymbol{\\varepsilon}", "mbvarphi": "\\boldsymbol{\\varphi}", "mbvartheta": "\\boldsymbol{\\vartheta}", "mbvarrho": "\\boldsymbol{\\varrho}", "mbDelta": "\\boldsymbol{\\Delta}", "mbGamma": "\\boldsymbol{\\Gamma}", "mbLambda": "\\boldsymbol{\\Lambda}", "mbOmega": "\\boldsymbol{\\Omega}", "mbPhi": "\\boldsymbol{\\Phi}", "mbPsi": "\\boldsymbol{\\Psi}", "mbPi": "\\boldsymbol{\\Pi}", "mbSigma": "\\boldsymbol{\\Sigma}", "mbTheta": "\\boldsymbol{\\Theta}", "mbUpsilon": "\\boldsymbol{\\Upsilon}", "mbXi": "\\boldsymbol{\\Xi}", "mbzero": "\\boldsymbol{0}", "mbone": "\\boldsymbol{1}", "iid": ["\\stackrel{\\text{iid}}{#1}", 1], "ind": ["\\stackrel{\\text{ind}}{#1}", 1], "dif": "\\mathop{}\\!\\mathrm{d}", "diag": "\\textrm{diag}", "supp": "\\textrm{supp}", "Tr": "\\textrm{Tr}", "E": "\\mathbb{E}", "Var": "\\textrm{Var}", "Cov": "\\textrm{Cov}", "reals": "\\mathbb{R}", "naturals": "\\mathbb{N}", "KL": ["D_{\\textrm{KL}}\\left(#1\\;\\|\\;#2\\right)", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/08_lfads';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Probabilistic Modeling" href="../chapters/02_probabilistic_modeling.html" />
-    <link rel="prev" title="Lab 7: Switching LDS" href="07_slds.html" />
+    <link rel="next" title="References" href="../chapters/99_references.html" />
+    <link rel="prev" title="Switching LDS" href="07_slds.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,19 +175,7 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">Lab 0: PyTorch Primer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01_spike_sorting.html">Lab 1: Spike Sorting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Lab 2: Calcium Deconvolution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Lab 3: Markerless Pose Tracking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Lab 4: Generalized Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Lab 5: Bayesian Decoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Lab 6: Autoregressive HMMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07_slds.html">Lab 7: Switching LDS</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 8: Sequential VAEs</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../chapters/02_probabilistic_modeling.html">Probabilistic Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/03_neurobio.html">Basic Neurobiology</a></li>
@@ -211,6 +199,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../chapters/12_mixtures_em.html">Mixture Models and the EM Algorithm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/13_hmms.html">Hidden Markov Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../chapters/16_poldrack_fmri_analysis.html">fMRI Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">PyTorch Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01b_spike_sorting_deconv.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Calcium Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Markerless Pose Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Bayesian Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Autoregressive HMMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_slds.html">Switching LDS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sequential Variational Autoencoders</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +384,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 8: Sequential VAEs</h1>
+    <h1>Sequential Variational Autoencoders</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,8 +422,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-8-sequential-vaes">
-<h1>Lab 8: Sequential VAEs<a class="headerlink" href="#lab-8-sequential-vaes" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="sequential-variational-autoencoders">
+<h1>Sequential Variational Autoencoders<a class="headerlink" href="#sequential-variational-autoencoders" title="Link to this heading">#</a></h1>
 <p>In this lab we will build a very simple version of of <a class="reference external" href="https://www.nature.com/articles/s41592-018-0109-9"><strong>LFADS: Latent Factor Analysis for Dynamical Systems</strong></a> (Pandarinath et al, 2018). LFADS is a popular technique for for modeling neural spike train data, finding low-dimensional factors of variation, and studying their nonlinear dynamics.</p>
 <p>Technically, LFADS is a sequential variational autoencoder (VAE). Like all VAEs, it consists of two parts:</p>
 <ol class="arabic simple">
@@ -439,16 +439,16 @@ document.write(`
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">trange</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
-<span class="kn">from</span> <span class="nn">torch.distributions</span> <span class="kn">import</span> <span class="n">Normal</span><span class="p">,</span> <span class="n">Poisson</span><span class="p">,</span> <span class="n">Uniform</span><span class="p">,</span> <span class="n">kl_divergence</span>
-<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normal</span><span class="p">,</span> <span class="n">Poisson</span><span class="p">,</span> <span class="n">Uniform</span><span class="p">,</span> <span class="n">kl_divergence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="kn">import</span> <span class="n">lr_scheduler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
 </pre></div>
 </div>
 </div>
@@ -476,7 +476,7 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 <span class="c1"># rate1 = 1.4142 * 2 * torch.pi / 20.0</span>
 <span class="n">rate1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rate0</span>
 
-<span class="k">def</span> <span class="nf">sample_trial</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_trial</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span>
                  <span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                  <span class="n">rate0</span><span class="o">=</span><span class="n">rate0</span><span class="p">,</span>
                  <span class="n">rate1</span><span class="o">=</span><span class="n">rate1</span><span class="p">,</span>
@@ -500,10 +500,10 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">OscillatorDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">OscillatorDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A dataset of randomly generated trials.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_trials</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_neurons</span> <span class="o">=</span> <span class="n">num_neurons</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_timesteps</span> <span class="o">=</span> <span class="n">num_timesteps</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_trials</span> <span class="o">=</span> <span class="n">num_trials</span>
@@ -523,10 +523,10 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
         <span class="n">all_trials</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample_trial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">all_inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_states</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_spikes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">all_trials</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_trials</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">all_inputs</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
                     <span class="n">states</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">all_states</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
                     <span class="n">spikes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">all_spikes</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
@@ -675,8 +675,8 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
 <p><span class="math notranslate nohighlight">\(^*\)</span> Technically, just the states from the last layer of the GRU.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LFADSGenerator</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LFADSGenerator</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                  <span class="n">num_neurons</span><span class="p">,</span>
                  <span class="n">input_size</span><span class="p">,</span>
                  <span class="n">num_timesteps</span><span class="p">,</span>
@@ -689,7 +689,7 @@ y_{n,t} &amp;\sim \mathrm{Po}(f(\mathbf{w}_n^\top \mathbf{x}_t + b_n)) \\
         <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">)</span>
         
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_state</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_state</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        initial_state: (num_layers, num_batches, hidden_size) initial state</span>
 <span class="sd">        inputs: (num_timesteps, num_batches, input_size) tensor of inputs</span>
@@ -748,8 +748,8 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 <p>The encoder <strong>amortizes</strong> the inference computation by learning an RNN with weights <span class="math notranslate nohighlight">\(\phi\)</span> that can take in a spike train <span class="math notranslate nohighlight">\(\mathbf{y}_{1:T}\)</span> and produce approximate posterior parameters <span class="math notranslate nohighlight">\(\tilde{\boldsymbol{\mu}}_{0:T}\)</span> and <span class="math notranslate nohighlight">\(\tilde{\boldsymbol{\Sigma}}_{0:T}\)</span>, It does so via a <strong>bidirectional</strong> RNN: it runs a GRU both forward and backward over the data to produce an combined RNN state, which it then maps to parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LFADSEncoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LFADSEncoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                  <span class="n">num_neurons</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                  <span class="n">input_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
@@ -780,7 +780,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
         <span class="bp">self</span><span class="o">.</span><span class="n">W_input_mean</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">enc_hidden_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">W_input_std</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">enc_hidden_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        spikes: (num_timesteps, num_batches, num_neurons) tensor of inputs</span>
 <span class="sd">        returns: </span>
@@ -803,7 +803,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
         <span class="n">init_std</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_init_std</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 
         <span class="c1"># We need to reshape the intial mean and std into the desired shape</span>
-        <span class="k">def</span> <span class="nf">_reshape</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_reshape</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">num_batches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_num_layers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_hidden_size</span><span class="p">)</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">x</span>
@@ -851,10 +851,10 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 <p><strong>Note:</strong> It’s important to use <code class="docutils literal notranslate"><span class="pre">rsample</span></code> to sample the variational posteriors using the <strong>reparameterization trick</strong>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LFADS</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LFADS</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;LFADS is a sequential VAE with a generative model and an encoder.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">num_neurons</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                  <span class="n">input_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
@@ -886,7 +886,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
                                     <span class="n">enc_hidden_size</span><span class="p">,</span>
                                     <span class="n">enc_num_layers</span><span class="p">)</span>
         
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the encoder to get a posterior distribution,</span>
 <span class="sd">        then sample the posterior and pass it through the </span>
 <span class="sd">        generator to reconstruct the spikes.</span>
@@ -921,7 +921,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 \end{split}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">elbo</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">elbo</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
     <span class="n">p_y</span><span class="p">,</span> <span class="n">q_x0</span><span class="p">,</span> <span class="n">q_u</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span>
     <span class="n">L</span> <span class="o">=</span> <span class="n">p_y</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="n">L</span> <span class="o">-=</span> <span class="n">kl_divergence</span><span class="p">(</span><span class="n">q_x0</span><span class="p">,</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -929,7 +929,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
     <span class="k">return</span> <span class="n">L</span>
 
 
-<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">minibatch</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">minibatch</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the average negative elbo. </span>
 <span class="sd">    Make sure model and data are on the GPU.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -966,7 +966,7 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
 <p>First, we’ve written a simple function to fit the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
                 <span class="n">dataloader</span><span class="p">,</span> 
                 <span class="n">objective</span><span class="p">,</span>
                 <span class="n">num_epochs</span><span class="p">,</span> 
@@ -1236,15 +1236,15 @@ q(\mathbf{u}_t) &amp;= \mathcal{N}(\tilde{\boldsymbol{\mu}}_t, \tilde{\boldsymbo
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 7: Switching LDS</p>
+        <p class="prev-next-title">Switching LDS</p>
       </div>
     </a>
     <a class="right-next"
-       href="../chapters/02_probabilistic_modeling.html"
+       href="../chapters/99_references.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Probabilistic Modeling</p>
+        <p class="prev-next-title">References</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1305,7 +1305,7 @@ By Scott Linderman
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2025.
       <br/>
     
   </p>

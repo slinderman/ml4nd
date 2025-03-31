@@ -2,17 +2,6 @@ format: jb-book
 root: index
 
 parts:
-  - caption: Labs
-    chapters:
-    - file: labs/00_pytorch_primer.ipynb
-    - file: labs/01_spike_sorting.ipynb
-    - file: labs/02_calcium_imaging.ipynb
-    - file: labs/03_pose_tracking.ipynb
-    - file: labs/04_glms.ipynb
-    - file: labs/05_decoding.ipynb
-    - file: labs/06_arhmm.ipynb
-    - file: labs/07_slds.ipynb
-    - file: labs/08_lfads.ipynb
 
   - caption: Foundations
     chapters:
@@ -38,6 +27,18 @@ parts:
     - file: chapters/12_mixtures_em.ipynb
     - file: chapters/13_hmms.md
     - file: chapters/16_poldrack_fmri_analysis.ipynb
+
+  - caption: Labs
+    chapters:
+    - file: labs/00_pytorch_primer.ipynb
+    - file: labs/01b_spike_sorting_deconv.ipynb
+    - file: labs/02_calcium_imaging.ipynb
+    - file: labs/03_pose_tracking.ipynb
+    - file: labs/04_glms.ipynb
+    - file: labs/05_decoding.ipynb
+    - file: labs/06_arhmm.ipynb
+    - file: labs/07_slds.ipynb
+    - file: labs/08_lfads.ipynb
 
   - caption: References
     chapters:

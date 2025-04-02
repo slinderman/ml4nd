@@ -1,0 +1,852 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spike Sorting by Clustering &#8212; Machine Learning Methods for Neural Data Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"mba": "\\boldsymbol{a}", "mbb": "\\boldsymbol{b}", "mbc": "\\boldsymbol{c}", "mbd": "\\boldsymbol{d}", "mbe": "\\boldsymbol{e}", "mbf": "\\boldsymbol{f}", "mbg": "\\boldsymbol{g}", "mbh": "\\boldsymbol{h}", "mbi": "\\boldsymbol{i}", "mbj": "\\boldsymbol{j}", "mbk": "\\boldsymbol{k}", "mbl": "\\boldsymbol{l}", "mbm": "\\boldsymbol{m}", "mbn": "\\boldsymbol{n}", "mbo": "\\boldsymbol{o}", "mbp": "\\boldsymbol{p}", "mbq": "\\boldsymbol{q}", "mbr": "\\boldsymbol{r}", "mbs": "\\boldsymbol{s}", "mbt": "\\boldsymbol{t}", "mbu": "\\boldsymbol{u}", "mbv": "\\boldsymbol{v}", "mbw": "\\boldsymbol{w}", "mbx": "\\boldsymbol{x}", "mby": "\\boldsymbol{y}", "mbz": "\\boldsymbol{z}", "mbA": "\\boldsymbol{A}", "mbB": "\\boldsymbol{B}", "mbC": "\\boldsymbol{C}", "mbD": "\\boldsymbol{D}", "mbE": "\\boldsymbol{E}", "mbF": "\\boldsymbol{F}", "mbG": "\\boldsymbol{G}", "mbH": "\\boldsymbol{H}", "mbI": "\\boldsymbol{I}", "mbJ": "\\boldsymbol{J}", "mbK": "\\boldsymbol{K}", "mbL": "\\boldsymbol{L}", "mbM": "\\boldsymbol{M}", "mbN": "\\boldsymbol{N}", "mbO": "\\boldsymbol{O}", "mbP": "\\boldsymbol{P}", "mbQ": "\\boldsymbol{Q}", "mbR": "\\boldsymbol{R}", "mbS": "\\boldsymbol{S}", "mbT": "\\boldsymbol{T}", "mbU": "\\boldsymbol{U}", "mbV": "\\boldsymbol{V}", "mbW": "\\boldsymbol{W}", "mbX": "\\boldsymbol{X}", "mbY": "\\boldsymbol{Y}", "mbZ": "\\boldsymbol{Z}", "bbA": "\\mathbb{A}", "bbB": "\\mathbb{B}", "bbC": "\\mathbb{C}", "bbD": "\\mathbb{D}", "bbE": "\\mathbb{E}", "bbG": "\\mathbb{G}", "bbH": "\\mathbb{H}", "bbI": "\\mathbb{I}", "bbJ": "\\mathbb{J}", "bbK": "\\mathbb{K}", "bbL": "\\mathbb{L}", "bbM": "\\mathbb{M}", "bbN": "\\mathbb{N}", "bbO": "\\mathbb{O}", "bbP": "\\mathbb{P}", "bbQ": "\\mathbb{Q}", "bbR": "\\mathbb{R}", "bbS": "\\mathbb{S}", "bbT": "\\mathbb{T}", "bbU": "\\mathbb{U}", "bbV": "\\mathbb{V}", "bbW": "\\mathbb{W}", "bbX": "\\mathbb{X}", "bbY": "\\mathbb{Y}", "bbZ": "\\mathbb{Z}", "cA": "\\mathcal{A}", "cB": "\\mathcal{B}", "cC": "\\mathcal{C}", "cD": "\\mathcal{D}", "cE": "\\mathcal{E}", "cG": "\\mathcal{G}", "cH": "\\mathcal{H}", "cI": "\\mathcal{I}", "cJ": "\\mathcal{J}", "cK": "\\mathcal{K}", "cL": "\\mathcal{L}", "cM": "\\mathcal{M}", "cN": "\\mathcal{N}", "cO": "\\mathcal{O}", "cP": "\\mathcal{P}", "cQ": "\\mathcal{Q}", "cR": "\\mathcal{R}", "cS": "\\mathcal{S}", "cT": "\\mathcal{T}", "cU": "\\mathcal{U}", "cV": "\\mathcal{V}", "cW": "\\mathcal{W}", "cX": "\\mathcal{X}", "cY": "\\mathcal{Y}", "cZ": "\\mathcal{Z}", "mbalpha": "\\boldsymbol{\\alpha}", "mbbeta": "\\boldsymbol{\\beta}", "mbgamma": "\\boldsymbol{\\gamma}", "mbdelta": "\\boldsymbol{\\delta}", "mbepsilon": "\\boldsymbol{\\epsilon}", "mbchi": "\\boldsymbol{\\chi}", "mbeta": "\\boldsymbol{\\eta}", "mbiota": "\\boldsymbol{\\iota}", "mbkappa": "\\boldsymbol{\\kappa}", "mblambda": "\\boldsymbol{\\lambda}", "mbmu": "\\boldsymbol{\\mu}", "mbnu": "\\boldsymbol{\\nu}", "mbomega": "\\boldsymbol{\\omega}", "mbtheta": "\\boldsymbol{\\theta}", "mbphi": "\\boldsymbol{\\phi}", "mbpi": "\\boldsymbol{\\pi}", "mbpsi": "\\boldsymbol{\\psi}", "mbrho": "\\boldsymbol{\\rho}", "mbsigma": "\\boldsymbol{\\sigma}", "mbtau": "\\boldsymbol{\\tau}", "mbupsilon": "\\boldsymbol{\\upsilon}", "mbxi": "\\boldsymbol{\\xi}", "mbzeta": "\\boldsymbol{\\zeta}", "mbvarepsilon": "\\boldsymbol{\\varepsilon}", "mbvarphi": "\\boldsymbol{\\varphi}", "mbvartheta": "\\boldsymbol{\\vartheta}", "mbvarrho": "\\boldsymbol{\\varrho}", "mbDelta": "\\boldsymbol{\\Delta}", "mbGamma": "\\boldsymbol{\\Gamma}", "mbLambda": "\\boldsymbol{\\Lambda}", "mbOmega": "\\boldsymbol{\\Omega}", "mbPhi": "\\boldsymbol{\\Phi}", "mbPsi": "\\boldsymbol{\\Psi}", "mbPi": "\\boldsymbol{\\Pi}", "mbSigma": "\\boldsymbol{\\Sigma}", "mbTheta": "\\boldsymbol{\\Theta}", "mbUpsilon": "\\boldsymbol{\\Upsilon}", "mbXi": "\\boldsymbol{\\Xi}", "mbzero": "\\boldsymbol{0}", "mbone": "\\boldsymbol{1}", "iid": ["\\stackrel{\\text{iid}}{#1}", 1], "ind": ["\\stackrel{\\text{ind}}{#1}", 1], "dif": "\\mathop{}\\!\\mathrm{d}", "diag": "\\textrm{diag}", "supp": "\\textrm{supp}", "Tr": "\\textrm{Tr}", "E": "\\mathbb{E}", "Var": "\\textrm{Var}", "Cov": "\\textrm{Cov}", "reals": "\\mathbb{R}", "naturals": "\\mathbb{N}", "KL": ["D_{\\textrm{KL}}\\left(#1\\;\\|\\;#2\\right)", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/04a_spike_sorting_clustering';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spike Sorting by Matrix Factorization" href="04b_simple_spike_sorting.html" />
+    <link rel="prev" title="Basic Neurobiology" href="03_neurobio.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="02_probabilistic_modeling.html">Probabilistic Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_neurobio.html">Basic Neurobiology</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit I: Signal Extraction</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spike Sorting by Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04b_simple_spike_sorting.html">Spike Sorting by Matrix Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_deconv_spike_sorting.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_calcium_imaging.html">Demixing Calcium Imaging Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_pose_tracking.html">Markerless Pose Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit II: Encoding &amp; Decoding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_summary_stats.html">Summary Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_glm.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_poisson_processes.html">Poisson Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_decoding.html">Decoding Models</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit III: Unsupervised Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="12_mixtures_em.html">Mixture Models and the EM Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_hmms.html">Hidden Markov Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_poldrack_fmri_analysis.html">fMRI Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../labs/00_pytorch_primer.html">PyTorch Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/01a_spike_sorting.html">Spike Sorting by Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/01b_spike_sorting_deconv.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/02_calcium_imaging.html">Calcium Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/03_pose_tracking.html">Markerless Pose Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/04_glms.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/05_decoding.html">Bayesian Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/06_arhmm.html">Autoregressive HMMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/07_slds.html">Switching LDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/08_lfads.html">Sequential Variational Autoencoders</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="99_references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/chapters/04a_spike_sorting_clustering.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/04a_spike_sorting_clustering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spike Sorting by Clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-down-the-problem">Breaking down the problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bandpass-filtering">Bandpass filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whitening-the-signal">Whitening the signal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-spikes">Detecting spikes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-spikes">Clustering spikes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-assumptions">Modeling assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gaussian-distribution">The Gaussian distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-likelihood">The Likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution-on-spike-assignments">Prior distribution on spike assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution-on-templates-and-neuron-probabilities">Prior distribution on templates and neuron probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-joint-probability">The joint probability</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-assignments">Updating the assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-waveforms">Updating the waveforms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-the-neuron-probabilities">Optimizing the neuron probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-convergence">Tracking convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-considerations">Other considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spike-sorting-by-clustering">
+<h1>Spike Sorting by Clustering<a class="headerlink" href="#spike-sorting-by-clustering" title="Link to this heading">#</a></h1>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/Einevoll2012.jpg"><img alt="../_images/Einevoll2012.jpg" src="../_images/Einevoll2012.jpg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">An overview of the spike sorting problem and a solution based on clustering. Figure credit: <span id="id1">Einevoll <em>et al.</em> [<a class="reference internal" href="99_references.html#id81" title="Gaute T Einevoll, Felix Franke, Espen Hagen, Christophe Pouzat, and Kenneth D Harris. Towards reliable spike-train recordings from thousands of neurons with multielectrodes. Current opinion in neurobiology, 22(1):11–17, 2012.">2012</a>]</span>.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>With that background, we come to our first neural data analysis problem: <strong>spike sorting</strong>.  The figure above illustrates the spike sorting problem. Electrophysiological recording devices like tetrodes (panel a) and Neuropixels probes (which we will discuss in the next chapter) provide measurements of the electric field in the vicinity of neurons. When those neurons spike, they cause a deflection in the voltage measured on the individual electrodes or channels of the device. The magnitude of the deflection depends on how far the neuron is from the recording site.</p>
+<div class="admonition-problem-statement admonition">
+<p class="admonition-title">Problem Statement</p>
+<p>The <em>spike sorting</em> problem is to identify the spikes in the multi-channel voltage recording and assign those spikes to individual neurons based on the spike waveform and the channels that were activated.</p>
+</div>
+<p>In the next few chapters, we will develop increasingly sophisticated solutions to this problem. We’ll start by framing the problem as a <em>clustering</em> problem in machine learning, but as we will see, this formulation has a few key limitations. In the next chapters, we will frame the problem as a <em>matrix factorization</em> problem, and then as a <em>convolutional</em> matrix factorization problem. Each step will improve on the previous, leading to a model and algorithm that is close to the state-of-the-art approaches to this fundamental problem in neural data analysis.</p>
+<section id="breaking-down-the-problem">
+<h2>Breaking down the problem<a class="headerlink" href="#breaking-down-the-problem" title="Link to this heading">#</a></h2>
+<p>Let’s start simple. One way to approach this problem is to break it down into a few steps.</p>
+<ol class="arabic simple">
+<li><p>Preprocessing the data to remove artifacts and slow fluctuations.</p></li>
+<li><p>Detect spikes in the preprocessed voltage trace.</p></li>
+<li><p>[Optionally] Extract features of the spike waveforms</p></li>
+<li><p>Infer which neuron produced each spike.</p></li>
+</ol>
+</section>
+<section id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<p>Before we go looking for spikes, we need to take care of a few preprocessing steps to obtain a nice trace like what you see in panel c above.</p>
+<section id="bandpass-filtering">
+<h3>Bandpass filtering<a class="headerlink" href="#bandpass-filtering" title="Link to this heading">#</a></h3>
+<p>Raw voltage traces exhibit large, slow fluctuations over time called the <strong>local field potential (LFP)</strong> <span id="id2">[<a class="reference internal" href="99_references.html#id82" title="Gaute T Einevoll, Christoph Kayser, Nikos K Logothetis, and Stefano Panzeri. Modelling and analysis of local field potentials for studying the function of cortical circuits. Nature Reviews Neuroscience, 14(11):770–785, 2013.">Einevoll <em>et al.</em>, 2013</a>]</span>. The LFP is typically defined as the low frequency part of the signal, up to 300-500Hz. Extracellular action potentials (EAPs) or spikes, by contrast, are fast deflections in the voltage, with frequencies in the range of 300-3000Hz. Since we are looking for those spikes, a common first step is to <strong>bandpass filter</strong> the raw voltage traces using, for example, a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html">Butterworth filter</a>.</p>
+</section>
+<section id="whitening-the-signal">
+<h3>Whitening the signal<a class="headerlink" href="#whitening-the-signal" title="Link to this heading">#</a></h3>
+<p>Another challenge arises from <strong>correlated noise</strong> across channels. A common next step of preprocessing is to <strong>whiten</strong> the data. Let <span class="math notranslate nohighlight">\(\mbY \in \reals^{T \times N}\)</span> denote the bandpass filtered signal. It is <span class="math notranslate nohighlight">\(T\)</span> samples long and <span class="math notranslate nohighlight">\(N\)</span> channels wide. Electrophysiological voltage traces are recorded with high sampling frequencies, around 30 kHz, so a 1 minute long recording would have <span class="math notranslate nohighlight">\(T=60 \times 30 \times 10^3 = 1.8 \times 10^6\)</span> samples.</p>
+<p>The bandpass filter effectively removes the zero-frequency component of the raw signal — i.e., the mean — So each column of <span class="math notranslate nohighlight">\(\mbY\)</span> should be mean zero. Thus, the empirical covariance across channels is given by,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\hat{\mbSigma} 
+&amp;= \frac{1}{T} \sum_{t=1}^T (\mby_t - \bar{\mby}) (\mby_t - \bar{\mby})^\top \\
+&amp;= \frac{1}{T} \sum_{t=1}^T \mby_t \mby_t^\top \\
+&amp;= \frac{1}{T} \mbY^\top \mbY.
+\end{align*}\]</div>
+<p>To whiten the signal, we need to multiply an <em>inverse square root</em> of the covariance matrix. The eigendecomposition of the covariance matrix is given by <span class="math notranslate nohighlight">\(\hat{\mbSigma} = \mbV \mbLambda \mbV^{-1}\)</span>, where <span class="math notranslate nohighlight">\(\mbV\)</span> is a matrix of eigenvectors and <span class="math notranslate nohighlight">\(\mbLambda = \diag(\lambda_1, \ldots, \lambda_N)\)</span> is a diagonal matrix of eigenvalues.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Eigendecomposition of covariance matrices</p>
+<p>Since <span class="math notranslate nohighlight">\(\hat{\mbSigma}\)</span> is a covariance matrix, it must be positive semi-definite (PSD). The eigendecomposition of a PSD has a few nice properties:</p>
+<ol class="arabic simple">
+<li><p>The eigenvalues are real-valued and non-negative (<span class="math notranslate nohighlight">\(\lambda_n \in \reals_+\)</span>)</p></li>
+<li><p>The eigenvectors are real-valued and orthogonal to one another, so <span class="math notranslate nohighlight">\(\mbv_n^\top \mbv_{n'} = 1\)</span> if <span class="math notranslate nohighlight">\(n=n'\)</span> and 0 otherwise.</p></li>
+</ol>
+<p>Moreover, since the eigenvectors are orthogonal, the inverse of <span class="math notranslate nohighlight">\(\mbV\)</span> is simply the transpose, <span class="math notranslate nohighlight">\(\mbV^{-1} = \mbV^\top\)</span>.</p>
+</div>
+<p>To obtain an inverse square root of the covariance matrix, we can simply take the inverse square root of the eigenvalues,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\hat{\mbSigma}^{-\frac{1}{2}} 
+&amp;= \mbV \mbLambda^{-\frac{1}{2}} \mbV^{-1} 
+= \mbV \mbLambda^{-\frac{1}{2}} \mbV^{\top},
+\end{align*}\]</div>
+<p>where the second equality follows from the fact that the eigenvectors are orthogonal (see box above).</p>
+<p>Finally, the whitened signal is</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mbY^{(\mathsf{w})} &amp;= \mbY \hat{\mbSigma}^{-\frac{1}{2}}.
+\end{align*}\]</div>
+<p>It is easy to check that the whitened signal has identity covariance.</p>
+<div class="admonition-proof admonition">
+<p class="admonition-title">Proof</p>
+<p>Since the whitened signal is also mean zero, its covariance is given by,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\frac{1}{T} (\mbY^{(\mathsf{w})})^\top \mbY^{(\mathsf{w})}
+&amp;= \frac{1}{T} (\mbY \hat{\mbSigma}^{-\frac{1}{2}})^\top (\mbY \hat{\mbSigma}^{-\frac{1}{2}}) \\
+&amp;= (\hat{\mbSigma}^{-\frac{1}{2}})^\top (\frac{1}{T} \mbY^\top \mbY) \hat{\mbSigma}^{-\frac{1}{2}} \\
+&amp;= (\hat{\mbSigma}^{-\frac{1}{2}})^\top \hat{\mbSigma} \hat{\mbSigma}^{-\frac{1}{2}} \\
+&amp;= \mbV \mbLambda^{-\frac{1}{2}} \mbV^\top \mbV \mbLambda \mbV^\top \mbV \mbLambda^{-\frac{1}{2}} \mbV^\top \\
+&amp;= \mbV \mbLambda^{-\frac{1}{2}} \mbLambda \mbLambda^{-\frac{1}{2}} \mbV^\top \\
+&amp;= \mbI.
+\end{align*}\]</div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Note</p>
+<p>Note that the whitening transformation will typically <em>rotate</em> the signal so that columns of <span class="math notranslate nohighlight">\(\mbY^{(\mathsf{w})}\)</span> no longer correspond to individual channels, but rather to linear combinations of the original channels. This is in contrast to simply z-scoring each channel separately, which would ensure that each channel is mean zero and unit variance, but would not guarantee that they are uncorrelated. We will still refer to the columns of the whitened signal as “channels” in the sections below, but it is important to keep this caveat in mind.</p>
+</div>
+<p>After bandpass filtering and whitening, we’re ready to start spike sorting!</p>
+</section>
+</section>
+<section id="detecting-spikes">
+<h2>Detecting spikes<a class="headerlink" href="#detecting-spikes" title="Link to this heading">#</a></h2>
+<p>The next step of the process is to infer spike times by looking for pronounced dips in the signal on at least one channel. Recall from the previous chapter than extracellular action potentials typically produce <em>negative</em> spikes, so we are looking for dips in the traces.</p>
+<p>To stand out from the noise, a spike should be about 4 standard deviations below the mean. After whitening, each channel has unit variance, so we are looking for dips of at least -4 in magnitude on at least one channel.</p>
+<p>If we simply thresholded the traces, we would find that the signal dips below -4 for many samples in a row. We just want to find the trough of this signal — i.e., the most negative point. To that end, we typically impose a constraint on the distance between detected spike times. For example, we might require that detected spikes be separated by at least 3 ms. At a sampling frequency of 30 kHz, that constraint would require detected spikes to be separated by at least 90 samples.</p>
+<p>The <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html"><code class="docutils literal notranslate"><span class="pre">scipy.signal.find_peaks</span></code></a> is useful for this task, and we will make use of it in the lab.</p>
+<p>Finally, once we have identified the spike times, we will extract a window around each spike. We call these windows the <strong>spike waveforms</strong>. Formally, let <span class="math notranslate nohighlight">\(\{t_s\}_{s=1}^S\)</span> denote the detected spike times. Each <span class="math notranslate nohighlight">\(t_s\)</span> is a number in the range <span class="math notranslate nohighlight">\(\{1,\ldots, T\}\)</span>. For each spike, we will extract a window of length <span class="math notranslate nohighlight">\(D\)</span>, centered on the spike time.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mbX_s \in \reals^{D \times N}\)</span> denote the window around the <span class="math notranslate nohighlight">\(t\)</span>-th spike. Using Python notation for slicing, we say,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mbX_s = \mbY^{(\mathsf{w})}_{t_s - \frac{D}{2}:t_s + \frac{D}{2}}.
+\end{align*}\]</div>
+<p>The full set of spike waveforms combines into the 3D tensor <span class="math notranslate nohighlight">\(\mbX = \{\mbX_s\}_{s=1}^S \in \reals^{S \times D \times N}\)</span> with individual entries denoted by <span class="math notranslate nohighlight">\(x_{s,d,n}\)</span></p>
+</section>
+<section id="clustering-spikes">
+<h2>Clustering spikes<a class="headerlink" href="#clustering-spikes" title="Link to this heading">#</a></h2>
+<p>Now that we have detected spikes and extracted their corresponding waveforms, the next step is to infer which neuron caused each spike. The key idea is that each neuron will produce a characteristic waveform across the <span class="math notranslate nohighlight">\(N\)</span> channels, which depends on the biophysical properties of the cell and how close it is to each channel. Our goal is to sort the spike waveforms into different groups based on their shapes, so that each group corresponds to a different neuron.</p>
+<p>From a machine learning standpoint, this is a <strong>clustering</strong> problem. One way to solve such problems is using <strong>mixture models</strong>. Mixture models are probabilistic models that make specific assumptions about how the spike waveforms arise, as we discus below.</p>
+<section id="modeling-assumptions">
+<h3>Modeling assumptions<a class="headerlink" href="#modeling-assumptions" title="Link to this heading">#</a></h3>
+<p>We make a few basic assumptions that can be codified in a probabilistic mixture model.</p>
+<ol class="arabic simple">
+<li><p>Assume there are <span class="math notranslate nohighlight">\(K\)</span> neurons in the vicinity of the probe. When the <span class="math notranslate nohighlight">\(k\)</span>-th neuron spikes, its EAP produces a signature <strong>template</strong> on the channels. The template is a matrix, <span class="math notranslate nohighlight">\(\mbW_k \in \reals^{D \times N}\)</span>, with entries <span class="math notranslate nohighlight">\(w_{k,d,n}\)</span> representing the average magnitude of the EAP produced on channel <span class="math notranslate nohighlight">\(n\)</span> at time lag <span class="math notranslate nohighlight">\(d\)</span> each time neuron <span class="math notranslate nohighlight">\(k\)</span> spikes.</p></li>
+<li><p>The voltage recordings are noisy. The observed spike waveforms match the template of the neuron that caused the spike, but they are corrupted by independent, additive Gaussian noise <span class="math notranslate nohighlight">\(\epsilon_{s,d,n} \in \mathcal{N}(0, \sigma^2)\)</span> for each channel <span class="math notranslate nohighlight">\(n\)</span>, time lag <span class="math notranslate nohighlight">\(d\)</span>, and spike <span class="math notranslate nohighlight">\(s\)</span>.</p></li>
+<li><p>Each spike waveform <span class="math notranslate nohighlight">\(\mbX_s\)</span> can be attributed to exactly one neuron, denoted by the variable <span class="math notranslate nohighlight">\(z_s \in \{1,\ldots,K\}\)</span>. This assumption essentially says that it is unlikely for two neurons to spike in the same window of time if <span class="math notranslate nohighlight">\(D\)</span> is small. However, as we will see in the following chapters, this assumption may not be warranted!</p></li>
+</ol>
+</section>
+<section id="the-gaussian-distribution">
+<h3>The Gaussian distribution<a class="headerlink" href="#the-gaussian-distribution" title="Link to this heading">#</a></h3>
+<p>To formalize this probabilistic model, we need to introduce the Gaussian distribution.</p>
+<div class="admonition-the-gaussian-distribution admonition">
+<p class="admonition-title">The Gaussian Distribution</p>
+<p>We denote a <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">Gaussian (aka normal)</a> random variable <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> by,</p>
+<div class="math notranslate nohighlight">
+\[
+x \sim \cN(\mu, \sigma^2),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu = \mathbb{E}[x]\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma^2 = \mathbb{V}[x]\)</span> is the variance. The Gaussian pdf is,</p>
+<div class="math notranslate nohighlight">
+\[
+\cN(x; \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left\{ -\frac{1}{2 \sigma^2}(x - \mu)^2\right\}.
+\]</div>
+<p>The Gaussian distribution has many important properties. For example,linear transformations of <span class="math notranslate nohighlight">\(x\)</span> are also Gaussian:</p>
+<div class="math notranslate nohighlight">
+\[
+x \sim \cN(\mu, \sigma^2) \Rightarrow ax + b \sim \cN(a \mu + b, a^2 \sigma^2). 
+\]</div>
+<p>We will cover more nice properties of the Gaussian distribution as the course goes on.</p>
+</div>
+</section>
+<section id="the-likelihood">
+<h3>The Likelihood<a class="headerlink" href="#the-likelihood" title="Link to this heading">#</a></h3>
+<p>With these facts, our assumptions above correspond to a Gaussian likelihood for the spike waveforms given the neuron assignments,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(\mbX_s \mid z_s = k) &amp;= \prod_{d=1}^D \prod_{n=1}^N \cN(w_{k,d,n}, \sigma^2).
+\end{align*}\]</div>
+<p>The product over time lags <span class="math notranslate nohighlight">\(d\)</span> and channels <span class="math notranslate nohighlight">\(n\)</span> is due to the independence assumptions we made about the noise.</p>
+</section>
+<section id="prior-distribution-on-spike-assignments">
+<h3>Prior distribution on spike assignments<a class="headerlink" href="#prior-distribution-on-spike-assignments" title="Link to this heading">#</a></h3>
+<p>We also need to specify the probability of different spike assignments, <span class="math notranslate nohighlight">\(z_s \in \{1,\ldots,K\}\)</span>. Since the spike assignments take one of <span class="math notranslate nohighlight">\(K\)</span> discrete values, we can model them as draws from a <strong>categorical distribution</strong>,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+z_s &amp;\sim \mathrm{Cat}(\mbpi),
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mbpi = (\pi_1, \ldots, \pi_K)\)</span> is a vector of prior probabilities for each neuron. We have <span class="math notranslate nohighlight">\(\pi_k \geq 0\)</span> for all <span class="math notranslate nohighlight">\(k\)</span>, and <span class="math notranslate nohighlight">\(\sum_k \pi_k = 1\)</span>.</p>
+<!-- TODO Categorical Distribution -->
+<p>In other words, <span class="math notranslate nohighlight">\(\mbpi\)</span> is a length-<span class="math notranslate nohighlight">\(K\)</span> vector in the <em>probability simplex</em>, which we denote by <span class="math notranslate nohighlight">\(\mbpi \in \Delta_{K-1}\)</span>.</p>
+</section>
+<section id="prior-distribution-on-templates-and-neuron-probabilities">
+<h3>Prior distribution on templates and neuron probabilities<a class="headerlink" href="#prior-distribution-on-templates-and-neuron-probabilities" title="Link to this heading">#</a></h3>
+<p>Finally, we could complete the model with a prior distribution on the templates, <span class="math notranslate nohighlight">\(\mbW\)</span>. For example, we could constrain the magnitude of the templates, or even limit their rank (since they are matrices). For now, we will keep it simple and forgo a prior on templates, but we will revisit these ideas in the next chapters.</p>
+<p>Likewise, we could put a prior on the neuron proabilities, <span class="math notranslate nohighlight">\(\mbpi\)</span>. In this case, the <a class="reference external" href="https://en.wikipedia.org/wiki/Dirichlet_distribution"><strong>Dirichlet distribution</strong></a> is a conjugate prior. Again, we will forgo that level of detail for now.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Improper priors</p>
+<p>If we really want to be Bayesian about our model, we need a prior of <span class="math notranslate nohighlight">\(\mbW\)</span>. However, the weakest prior is to say all templates are equally likely,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(\mbW_k) \propto 1.
+\end{align*}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\mbW_k\)</span> is a real-valued matrix, this is an <strong>improper prior</strong>: the density does not integrate to one. Improper priors can cause technical headaches for Bayesian analyses, but since we will just be making point estimates of the model parameters, it won’t hurt us in this setting.</p>
+<p>In other words, you can either treat the templates as model parameters (without priors) or as latent variables (with improper uniform priors), and the algorithms below remain the same.</p>
+</div>
+</section>
+<section id="the-joint-probability">
+<h3>The joint probability<a class="headerlink" href="#the-joint-probability" title="Link to this heading">#</a></h3>
+<p>Finally, we can write the joint probability of the spike waveforms <span class="math notranslate nohighlight">\(\mbX = \{\mbX_s\}_{s=1}^S\)</span> and spike assignments <span class="math notranslate nohighlight">\(\mbz = \{z_s\}_{s=1}^S\)</span> under the templates <span class="math notranslate nohighlight">\(\mbW = \{\mbW_k\}_{k=1}^K\)</span> as follows,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(\mbX, \mbz; \mbW, \mbpi) 
+&amp;= \prod_{s=1}^S p(\mbX_s \mid z_s; \mbW) \, p(z_s; \mbpi) \\
+&amp;= \prod_{s=1}^S \left[\prod_{d=1}^D \prod_{n=1}^N \cN (x_{s,d,n} \mid w_{z_s,d,n}, \sigma^2 ) \right] \mathrm{Cat}(z_s; \mbpi)
+\end{align*}\]</div>
+<p>(We suppressed the dependence on the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> since we will treat it as a fixed hyperparameter for now.)</p>
+</section>
+</section>
+<section id="fitting-the-model">
+<h2>Fitting the model<a class="headerlink" href="#fitting-the-model" title="Link to this heading">#</a></h2>
+<p>Like last time, we will “fit” the model by performing maximum <em>a posteriori</em> (MAP) estimation with coordinate ascent. Specifically, our algorithm will be:</p>
+<ul class="simple">
+<li><p>repeat until convergence:</p>
+<ul>
+<li><p>compute the log joint probability under the current parameters, <span class="math notranslate nohighlight">\(\log p(\mbX, \mbz; \mbW, \mbpi)\)</span>.</p></li>
+<li><p>for <span class="math notranslate nohighlight">\(s=1,\ldots,S\)</span>:</p>
+<ul>
+<li><p>Set <span class="math notranslate nohighlight">\(z_s = \arg \max_k \; p(\mbX_s \mid z_s=k) \, p(z_s=k)\)</span> holding <span class="math notranslate nohighlight">\(\mbW\)</span> and <span class="math notranslate nohighlight">\(\mbpi\)</span> fixed</p></li>
+</ul>
+</li>
+<li><p>for <span class="math notranslate nohighlight">\(k=1,\ldots,K\)</span>:</p>
+<ul>
+<li><p>Set <span class="math notranslate nohighlight">\(\mbW_k = \arg \max \; p(\mbX, \mbz; \mbW, \mbpi)\)</span> holding <span class="math notranslate nohighlight">\(\mbz\)</span> and <span class="math notranslate nohighlight">\(\mbpi\)</span> fixed</p></li>
+</ul>
+</li>
+<li><p>set <span class="math notranslate nohighlight">\(\mbpi = \arg \max \; p(\mbX, \mbz; \mbW, \mbpi)\)</span> holding <span class="math notranslate nohighlight">\(\mbz\)</span> and <span class="math notranslate nohighlight">\(\mbW\)</span> fixed</p></li>
+</ul>
+</li>
+</ul>
+<p>The log joint probability should go up each iteration since each update maximizes it with respect to one variable. We will track this quantity to monitor convergence.</p>
+<section id="updating-the-assignments">
+<h3>Updating the assignments<a class="headerlink" href="#updating-the-assignments" title="Link to this heading">#</a></h3>
+<p>To update the spike assignments, we need to maximize the joint probability as a function of <span class="math notranslate nohighlight">\(z_s\)</span>, holding everything else fixed.
+Maximizing the joint probability wrt <span class="math notranslate nohighlight">\(z_s\)</span> is equivalent to maximizing the <em>log</em> joint probability, since the logarithm is a monotonically increasing function.
+Moreover, since <span class="math notranslate nohighlight">\(z_s\)</span> only appears in a few terms in the log joint probability, the objective simplifies to,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\cL(z_s)
+&amp;= \log p(\mbX_s \mid z_s=k) + \log p(z_s=k) + \mathrm{const}\\
+&amp;= \left[\sum_{d=1}^D \sum_{n=1}^N \log \cN(x_{s,d,n} \mid w_{z_s,d,n}, \sigma^2) \right] + \log \mathrm{Cat}(z_s; \mbpi) + \mathrm{const}
+\end{align*}\]</div>
+<p>Substituting the definition of the Gaussian pdf and the categorical pmf,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\cL(z_s)
+&amp;= \left[\sum_{d=1}^D \sum_{n=1}^N -\frac{1}{2\sigma^2} (x_{s,d,n} - w_{z_s,d,n})^2 \right] + \log \pi_{z_s} + \mathrm{const}
+\end{align*}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(z_s\)</span> can only take on <span class="math notranslate nohighlight">\(K\)</span> values, we can simply evaluate this objective for each setting of <span class="math notranslate nohighlight">\(z_s\)</span> and choose the one with the largest log probability.</p>
+</section>
+<section id="updating-the-waveforms">
+<h3>Updating the waveforms<a class="headerlink" href="#updating-the-waveforms" title="Link to this heading">#</a></h3>
+<p>Now consider optimizing the waveforms. Maximizing the joint probability wrt <span class="math notranslate nohighlight">\(\mathbf{W}_k\)</span> is equivalent to maximizing the log joint probability, which is</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\cL(\mbW_k) 
+&amp;= \log p(\mbX, \mbz; \mbW, \mbpi) \\
+&amp;= \sum_{s=1}^S \sum_{d=1}^D \sum_{n=1}^N \log \mathcal{N}\left(x_{s,d,n} \mid w_{z_s,d,n}, \sigma^2 \right) +  \mathrm{const} \\
+&amp;= \sum_{s: z_s=k} \sum_{d=1}^D \sum_{n=1}^N \log \mathcal{N}\left(x_{s,d,n} \mid w_{k,d,n}, \sigma^2 \right) +  \mathrm{const} \\
+\end{align*}\]</div>
+<p>where in the second line we isolated just the spikes currently assigned to neuron <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>This objective separates into a sum over the entries of <span class="math notranslate nohighlight">\(\mbW_k\)</span>. We can optimize each entry independently. With a bit of calculus, it’s easy to show that the optimum is obtained at,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+w_{k,d,n} &amp;= \frac{1}{S_k} \sum_{s:z_s=k} x_{s,d,n}
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S_k = \sum_s \bbI[z_s=k]\)</span> is the number of spikes assigned to neuron <span class="math notranslate nohighlight">\(k\)</span>.</p>
+</section>
+<section id="optimizing-the-neuron-probabilities">
+<h3>Optimizing the neuron probabilities<a class="headerlink" href="#optimizing-the-neuron-probabilities" title="Link to this heading">#</a></h3>
+<p>Optimizing the neuron probabilities is a bit more involved since <span class="math notranslate nohighlight">\(\mbpi\)</span> is constrained to the probability simplex, but with a bit of calculus you can show that the log joint probability as a function of <span class="math notranslate nohighlight">\(\mbpi\)</span> is maximized at,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\pi_k &amp;= \frac{S_k}{S}.
+\end{align*}\]</div>
+</section>
+<section id="tracking-convergence">
+<h3>Tracking convergence<a class="headerlink" href="#tracking-convergence" title="Link to this heading">#</a></h3>
+<p>Each step of the algorithm should increase the log joint probability, ultimately leading us to a local optimum of this objective funciton. To monitor convergence, we compute the log joint probability after each iteration, and when it stops increasing we halt.</p>
+</section>
+<section id="other-considerations">
+<h3>Other considerations<a class="headerlink" href="#other-considerations" title="Link to this heading">#</a></h3>
+<p>There are several other considerations to keep in mind, and we discuss a few of them here.</p>
+<ol class="arabic simple">
+<li><p><strong>Inferring the number of neurons, <span class="math notranslate nohighlight">\(K\)</span>.</strong> We don’t know how many neurons could be contributing to the spike waveforms! This isn’t just a problem with spike sorting — it’s generally a hard problem with clustering. One common approach is to hold out a subset of the data (in our case, a subset of the spike waveforms <span class="math notranslate nohighlight">\(\mbX_s\)</span>) and evaluate the log probability of the held-out data using the parameters fitted on the training data. for example, once we have estimated the parameters <span class="math notranslate nohighlight">\(\mbW\)</span> and <span class="math notranslate nohighlight">\(\mbpi\)</span> on the training data, we can evaluate the likelihood of a held-out waveform <span class="math notranslate nohighlight">\(\mbX_s\)</span> by first finding the most likely assignment <span class="math notranslate nohighlight">\(z_s\)</span> and then evaluating <span class="math notranslate nohighlight">\(\log p(\mbX_s \mid z_s; \mbW)\)</span>. Alternatively, we could evaluate the marginal log probability of the held-out waveform, <span class="math notranslate nohighlight">\(\log p(\mbX_s; \mbW, \mbpi) = \log \sum_k p(\mbX_s \mid z_s=k; \mbW) p(z_s=k; \mbpi)\)</span>.</p></li>
+<li><p><strong>Lack of ground truth.</strong> How do we know if we’re right? Spike sorting is an <strong>unsupervised learning</strong> problem, so we generally don’t have ground truth! However, we can simulate realistic voltage traces from a biophysical model with known, ground truth spikes and assignments. Then we can evaluate how well our procedure recovers the ground truth. We will take this approach in the labs.</p></li>
+<li><p><strong>Misspecified modeling assumptions</strong>. The assumptions above could be wrong in many ways. Spikes from a given neuron may not always follow the same template. The noise may not be Gaussian. Several neurons could spike at once, leading to superimposed waveforms. Probabilistic modeling always requires us to make assumptions, and there are always trade-offs involved. We have specified a few simple and reasonable assumptions, but lots of research has gone into improving and relaxing these assumptions.</p></li>
+<li><p><strong>Estimating high-dimensional parameters with limited data.</strong> The approach developed above requires us to estimate the templates <span class="math notranslate nohighlight">\(\mbW_k\)</span> for each neuron. Those templates are matrices of size <span class="math notranslate nohighlight">\(D \times C\)</span>, and typically they will have hundreds of entries (free parameters). If we don’t observe many spikes from a given neuron, then it could be hard to estimate all these parameters reliably. In practice, most spike sorting algorithms make assumptions to combat this issue. For example, we could use off-the-shelf dimensionality reduction methods like principal components analysis (PCA) to project the spike waveforms into a lower-dimensional feature space before clustering. Alternatively, we could constrain the templates to be low rank, so that the number of free parameters scales as <span class="math notranslate nohighlight">\(\cO(D+C)\)</span> rather than <span class="math notranslate nohighlight">\(\cO(DC)\)</span>. For simplicitly, we omitted these details, but we will revisit them in the next chapter.</p></li>
+</ol>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>This chapter introduced the spike sorting problem for electrophysiological (“ephys”) recordings.<br />
+The algorithm we described here is not that far from <a class="reference external" href="https://github.com/flatironinstitute/mountainsort5/">MountainSort</a> <span id="id3">[<a class="reference internal" href="99_references.html#id21" title="Jason E Chung, Jeremy F Magland, Alex H Barnett, Vanessa M Tolosa, Angela C Tooker, Kye Y Lee, Kedar G Shah, Sarah H Felix, Loren M Frank, and Leslie F Greengard. A fully automated approach to spike sorting. Neuron, 95(6):1381–1394, 2017.">Chung <em>et al.</em>, 2017</a>]</span> and otherwidely used spike sorting algorithms <span id="id4">[]</span>, e.g.. These approaches often involved more sophisticated techniques to relax the Gaussian assumptions of the model above. However, with the advent of silicon probes like NeuroPixels, which have dozens of densely packed channels, different approaches are needed. We will discuss these next.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_neurobio.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Basic Neurobiology</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04b_simple_spike_sorting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spike Sorting by Matrix Factorization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-down-the-problem">Breaking down the problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bandpass-filtering">Bandpass filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whitening-the-signal">Whitening the signal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-spikes">Detecting spikes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-spikes">Clustering spikes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-assumptions">Modeling assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gaussian-distribution">The Gaussian distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-likelihood">The Likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution-on-spike-assignments">Prior distribution on spike assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution-on-templates-and-neuron-probabilities">Prior distribution on templates and neuron probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-joint-probability">The joint probability</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-assignments">Updating the assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-waveforms">Updating the waveforms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizing-the-neuron-probabilities">Optimizing the neuron probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-convergence">Tracking convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-considerations">Other considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Scott Linderman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

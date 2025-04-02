@@ -6,6 +6,7 @@ execute:
   execute_notebooks: force
   exclude_patterns:
     - '00_pytorch_primer.ipynb'
+    - '01a_spike_sorting.ipynb'
     - '01b_spike_sorting_deconv.ipynb'
     - '02_calcium_imaging.ipynb'
     - '03_pose_tracking.ipynb'
@@ -16,7 +17,8 @@ execute:
     - '08_lfads.ipynb'
     - '02_probabilistic_modeling.ipynb'
     - '03_neurobio.ipynb'
-    - '04_simple_spike_sorting.ipynb'
+    - '04a_spike_sorting_clustering.ipynb'
+    - '04b_simple_spike_sorting.ipynb'
     - '05_deconv_spike_sorting.ipynb'
     - '06_calcium_imaging.ipynb'
     - '07_pose_tracking.ipynb'

@@ -1,0 +1,1305 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spike Sorting by Clustering &#8212; Machine Learning Methods for Neural Data Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"mba": "\\boldsymbol{a}", "mbb": "\\boldsymbol{b}", "mbc": "\\boldsymbol{c}", "mbd": "\\boldsymbol{d}", "mbe": "\\boldsymbol{e}", "mbf": "\\boldsymbol{f}", "mbg": "\\boldsymbol{g}", "mbh": "\\boldsymbol{h}", "mbi": "\\boldsymbol{i}", "mbj": "\\boldsymbol{j}", "mbk": "\\boldsymbol{k}", "mbl": "\\boldsymbol{l}", "mbm": "\\boldsymbol{m}", "mbn": "\\boldsymbol{n}", "mbo": "\\boldsymbol{o}", "mbp": "\\boldsymbol{p}", "mbq": "\\boldsymbol{q}", "mbr": "\\boldsymbol{r}", "mbs": "\\boldsymbol{s}", "mbt": "\\boldsymbol{t}", "mbu": "\\boldsymbol{u}", "mbv": "\\boldsymbol{v}", "mbw": "\\boldsymbol{w}", "mbx": "\\boldsymbol{x}", "mby": "\\boldsymbol{y}", "mbz": "\\boldsymbol{z}", "mbA": "\\boldsymbol{A}", "mbB": "\\boldsymbol{B}", "mbC": "\\boldsymbol{C}", "mbD": "\\boldsymbol{D}", "mbE": "\\boldsymbol{E}", "mbF": "\\boldsymbol{F}", "mbG": "\\boldsymbol{G}", "mbH": "\\boldsymbol{H}", "mbI": "\\boldsymbol{I}", "mbJ": "\\boldsymbol{J}", "mbK": "\\boldsymbol{K}", "mbL": "\\boldsymbol{L}", "mbM": "\\boldsymbol{M}", "mbN": "\\boldsymbol{N}", "mbO": "\\boldsymbol{O}", "mbP": "\\boldsymbol{P}", "mbQ": "\\boldsymbol{Q}", "mbR": "\\boldsymbol{R}", "mbS": "\\boldsymbol{S}", "mbT": "\\boldsymbol{T}", "mbU": "\\boldsymbol{U}", "mbV": "\\boldsymbol{V}", "mbW": "\\boldsymbol{W}", "mbX": "\\boldsymbol{X}", "mbY": "\\boldsymbol{Y}", "mbZ": "\\boldsymbol{Z}", "bbA": "\\mathbb{A}", "bbB": "\\mathbb{B}", "bbC": "\\mathbb{C}", "bbD": "\\mathbb{D}", "bbE": "\\mathbb{E}", "bbG": "\\mathbb{G}", "bbH": "\\mathbb{H}", "bbI": "\\mathbb{I}", "bbJ": "\\mathbb{J}", "bbK": "\\mathbb{K}", "bbL": "\\mathbb{L}", "bbM": "\\mathbb{M}", "bbN": "\\mathbb{N}", "bbO": "\\mathbb{O}", "bbP": "\\mathbb{P}", "bbQ": "\\mathbb{Q}", "bbR": "\\mathbb{R}", "bbS": "\\mathbb{S}", "bbT": "\\mathbb{T}", "bbU": "\\mathbb{U}", "bbV": "\\mathbb{V}", "bbW": "\\mathbb{W}", "bbX": "\\mathbb{X}", "bbY": "\\mathbb{Y}", "bbZ": "\\mathbb{Z}", "cA": "\\mathcal{A}", "cB": "\\mathcal{B}", "cC": "\\mathcal{C}", "cD": "\\mathcal{D}", "cE": "\\mathcal{E}", "cG": "\\mathcal{G}", "cH": "\\mathcal{H}", "cI": "\\mathcal{I}", "cJ": "\\mathcal{J}", "cK": "\\mathcal{K}", "cL": "\\mathcal{L}", "cM": "\\mathcal{M}", "cN": "\\mathcal{N}", "cO": "\\mathcal{O}", "cP": "\\mathcal{P}", "cQ": "\\mathcal{Q}", "cR": "\\mathcal{R}", "cS": "\\mathcal{S}", "cT": "\\mathcal{T}", "cU": "\\mathcal{U}", "cV": "\\mathcal{V}", "cW": "\\mathcal{W}", "cX": "\\mathcal{X}", "cY": "\\mathcal{Y}", "cZ": "\\mathcal{Z}", "mbalpha": "\\boldsymbol{\\alpha}", "mbbeta": "\\boldsymbol{\\beta}", "mbgamma": "\\boldsymbol{\\gamma}", "mbdelta": "\\boldsymbol{\\delta}", "mbepsilon": "\\boldsymbol{\\epsilon}", "mbchi": "\\boldsymbol{\\chi}", "mbeta": "\\boldsymbol{\\eta}", "mbiota": "\\boldsymbol{\\iota}", "mbkappa": "\\boldsymbol{\\kappa}", "mblambda": "\\boldsymbol{\\lambda}", "mbmu": "\\boldsymbol{\\mu}", "mbnu": "\\boldsymbol{\\nu}", "mbomega": "\\boldsymbol{\\omega}", "mbtheta": "\\boldsymbol{\\theta}", "mbphi": "\\boldsymbol{\\phi}", "mbpi": "\\boldsymbol{\\pi}", "mbpsi": "\\boldsymbol{\\psi}", "mbrho": "\\boldsymbol{\\rho}", "mbsigma": "\\boldsymbol{\\sigma}", "mbtau": "\\boldsymbol{\\tau}", "mbupsilon": "\\boldsymbol{\\upsilon}", "mbxi": "\\boldsymbol{\\xi}", "mbzeta": "\\boldsymbol{\\zeta}", "mbvarepsilon": "\\boldsymbol{\\varepsilon}", "mbvarphi": "\\boldsymbol{\\varphi}", "mbvartheta": "\\boldsymbol{\\vartheta}", "mbvarrho": "\\boldsymbol{\\varrho}", "mbDelta": "\\boldsymbol{\\Delta}", "mbGamma": "\\boldsymbol{\\Gamma}", "mbLambda": "\\boldsymbol{\\Lambda}", "mbOmega": "\\boldsymbol{\\Omega}", "mbPhi": "\\boldsymbol{\\Phi}", "mbPsi": "\\boldsymbol{\\Psi}", "mbPi": "\\boldsymbol{\\Pi}", "mbSigma": "\\boldsymbol{\\Sigma}", "mbTheta": "\\boldsymbol{\\Theta}", "mbUpsilon": "\\boldsymbol{\\Upsilon}", "mbXi": "\\boldsymbol{\\Xi}", "mbzero": "\\boldsymbol{0}", "mbone": "\\boldsymbol{1}", "iid": ["\\stackrel{\\text{iid}}{#1}", 1], "ind": ["\\stackrel{\\text{ind}}{#1}", 1], "dif": "\\mathop{}\\!\\mathrm{d}", "diag": "\\textrm{diag}", "supp": "\\textrm{supp}", "Tr": "\\textrm{Tr}", "E": "\\mathbb{E}", "Var": "\\textrm{Var}", "Cov": "\\textrm{Cov}", "reals": "\\mathbb{R}", "naturals": "\\mathbb{N}", "KL": ["D_{\\textrm{KL}}\\left(#1\\;\\|\\;#2\\right)", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/01a_spike_sorting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spike Sorting by Deconvolution" href="01b_spike_sorting_deconv.html" />
+    <link rel="prev" title="PyTorch Primer" href="00_pytorch_primer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Machine Learning Methods for Neural Data Analysis</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/02_probabilistic_modeling.html">Probabilistic Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/03_neurobio.html">Basic Neurobiology</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit I: Signal Extraction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/04a_spike_sorting_clustering.html">Spike Sorting by Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/04b_simple_spike_sorting.html">Spike Sorting by Matrix Factorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/05_deconv_spike_sorting.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/06_calcium_imaging.html">Demixing Calcium Imaging Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/07_pose_tracking.html">Markerless Pose Tracking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit II: Encoding &amp; Decoding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/08_summary_stats.html">Summary Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/09_glm.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/10_poisson_processes.html">Poisson Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/11_decoding.html">Decoding Models</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unit III: Unsupervised Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/12_mixtures_em.html">Mixture Models and the EM Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/13_hmms.html">Hidden Markov Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/16_poldrack_fmri_analysis.html">fMRI Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_pytorch_primer.html">PyTorch Primer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spike Sorting by Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01b_spike_sorting_deconv.html">Spike Sorting by Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Calcium Deconvolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Markerless Pose Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Bayesian Decoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Autoregressive HMMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_slds.html">Switching LDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Sequential Variational Autoencoders</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../chapters/99_references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/slinderman/ml4nd/blob/main/labs/01a_spike_sorting.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/labs/01a_spike_sorting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spike Sorting by Clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-detect-spike-times">Part 1: Detect spike times</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1a-find-negative-peaks-in-the-data">Problem 1a: Find negative peaks in the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1b-evaluate-the-inferred-spike-times">Problem 1b: Evaluate the inferred spike times</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1c-precision-and-recall">Problem 1c: Precision and Recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1d-interpretation">Problem 1d: Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-spike-waveforms-no-coding-required">Extract the spike waveforms [no coding required]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-simple-spike-sorting">Part 2: Simple Spike Sorting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2a-deriving-the-template-update">Problem 2a: Deriving the template update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-derive-the-spike-assignment-updates">Problem 2b: Derive the spike assignment updates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2c-implement-the-model-and-algorithm">Problem 2c: Implement the model and algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-ids-of-the-true-neurons-that-match-each-inferred-spike">Compare IDs of the true neurons that match each inferred spike</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2d-compare-the-true-and-inferred-spike-assignments">Problem 2d: Compare the true and inferred spike assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2e-interpretation">Problem 2e: Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-generalizations">Part 3: Generalizations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3a">Problem 3a</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3b">Problem 3b</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3c">Problem 3c</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spike-sorting-by-clustering">
+<h1>Spike Sorting by Clustering<a class="headerlink" href="#spike-sorting-by-clustering" title="Link to this heading">#</a></h1>
+<p>In this lab you’ll build a basic spike sorting model and algorithm, as discussed in the <a class="reference internal" href="#../lectures/04a_spike_sorting_clustering.ipynb"><span class="xref myst">Spike Sorting by Clustering</span></a> chapter. The model is inspired by widely used spike sorting tools like <a class="reference external" href="https://github.com/flatironinstitute/mountainsort5">MountainSort</a>. We’ll fit the model to synthetic data simulated with <a class="reference external" href="https://github.com/SpikeInterface/spikeinterface">SpikeInterface</a>, so that we know the ground truth spike times, IDs, and templates.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>The assignment will be implemented in PyTorch. If you are unfamiliar with PyTorch, we encourage you to work on the <a class="reference internal" href="00_pytorch_primer.html"><span class="std std-doc">PyTorch Primer</span></a> tutorial before diving in to this lab.</p>
+<p>We also use <code class="docutils literal notranslate"><span class="pre">jaxtyping</span></code> for type annotations of our functions. It allows us to specify the type and shape of tensors. These annotations won’t cause runtime errors if you call the function with improper arguments, but they are helpful for understanding the code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">jaxtyping</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">jaxtyping</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, import necessary libraries.</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">signal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dist</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="load-the-data">
+<h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
+<p>We created a synthetic dataset for this lab, so we know the ground truth spike times, spike IDs, and neuron templates. We will evaluate how well we can recover those spikes, assignments, and templates using our model.</p>
+<p>For simplicity, we provide you with preprocessed data that has already been bandpass filtered and whitened. This lab will focus on detecting spikes and clustering them with a Gaussian mixture model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="err">!</span><span class="n">wget</span> <span class="o">-</span><span class="n">nc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">slinderman</span><span class="o">/</span><span class="n">ml4nd</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="mi">01</span><span class="n">_simple_spike_sorting</span><span class="o">/</span><span class="n">lab01_data</span><span class="o">.</span><span class="n">pt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The data has four fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">traces</span></code>: A <span class="math notranslate nohighlight">\(T \times N\)</span> tensor of preprocessed voltage measurements (z-scored so they are in units of standard deviation) over <span class="math notranslate nohighlight">\(T\)</span> time steps and <span class="math notranslate nohighlight">\(N\)</span> recording channels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true_spike_times</span></code>: A length <span class="math notranslate nohighlight">\(S\)</span> tensor of spike times (in the range <span class="math notranslate nohighlight">\(0, \ldots, T-1\)</span>) corresponding to when spikes truly happened in this simulated dataset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true_spike_ids</span></code>: A length <span class="math notranslate nohighlight">\(S\)</span> tensor of spike IDs (in the range <span class="math notranslate nohighlight">\(0,\ldots, K-1\)</span>, where <span class="math notranslate nohighlight">\(K\)</span> denotes the number of neurons) representing which neuron produced the corresponding spike</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sampling_frequency</span></code>: The sampling frequency of the recording (in Hz)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;lab01_data.pt&quot;</span><span class="p">)</span>
+<span class="n">traces</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;traces&quot;</span><span class="p">]</span>
+<span class="n">true_spike_times</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;true_spike_times&quot;</span><span class="p">]</span>
+<span class="n">true_spike_ids</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;true_spike_ids&quot;</span><span class="p">]</span>
+<span class="n">true_templates</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;true_templates&quot;</span><span class="p">]</span>
+
+<span class="c1"># Extract scalar constants </span>
+<span class="n">SAMPLING_FREQUENCY</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;sampling_frequency&quot;</span><span class="p">]</span>
+<span class="n">NUM_SAMPLES</span><span class="p">,</span> <span class="n">NUM_CHANNELS</span> <span class="o">=</span> <span class="n">traces</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">TRUE_NUM_SPIKES</span> <span class="o">=</span> <span class="n">true_spike_times</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">TRUE_NUM_NEURONS</span><span class="p">,</span> <span class="n">WINDOW_SIZE</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">true_templates</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="helper-functions">
+<h3>Helper functions<a class="headerlink" href="#helper-functions" title="Link to this heading">#</a></h3>
+<p>We provide two helper functions for plotting.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_slice</span></code> plots a slice of the data. It shows the spike train along with the voltage traces for each channel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_waveforms</span></code> can be used to plot the waveforms for inferred spikes or the templates of a spike sorting model.</p></li>
+</ul>
+<div class="cell tag_:hide-cell: docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_slice</span><span class="p">(</span><span class="n">traces</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_samples num_channels&quot;</span><span class="p">],</span>
+               <span class="n">spike_times</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">],</span>
+               <span class="n">spike_ids</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">],</span>
+               <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+               <span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+               <span class="n">ylim</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a slice of the recording and the corresponding spike times.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    traces : torch.Tensor</span>
+<span class="sd">        The voltage traces.</span>
+<span class="sd">    spike_times : torch.Tensor</span>
+<span class="sd">        The spike times, in samples.</span>
+<span class="sd">    spike_ids : torch.Tensor</span>
+<span class="sd">        The spike IDs, taking values 0,1,2,...,num_neurons-1</span>
+<span class="sd">    start_time : float</span>
+<span class="sd">        The start time of the slice, in seconds.</span>
+<span class="sd">    end_time : float</span>
+<span class="sd">        The end time of the slice, in seconds.</span>
+<span class="sd">    ylim : float</span>
+<span class="sd">        The y-limit for the traces. If None, it is set to 1.05 times the max absolute value of the traces.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract constants</span>
+    <span class="n">num_samples</span><span class="p">,</span> <span class="n">num_channels</span> <span class="o">=</span> <span class="n">traces</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_neurons</span> <span class="o">=</span> <span class="n">spike_ids</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># Extract the slice of the recording</span>
+    <span class="n">slc</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_time</span> <span class="o">*</span> <span class="n">SAMPLING_FREQUENCY</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_time</span> <span class="o">*</span> <span class="n">SAMPLING_FREQUENCY</span><span class="p">))</span>
+    
+    <span class="c1"># Get the y-limit for traces if not specified</span>
+    <span class="k">if</span> <span class="n">ylim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ylim</span> <span class="o">=</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">traces</span><span class="p">[</span><span class="n">slc</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="c1"># Make an array of times in seconds</span>
+    <span class="n">times_sec</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">)</span> <span class="o">/</span> <span class="n">SAMPLING_FREQUENCY</span>
+    <span class="n">spike_times_sec</span> <span class="o">=</span> <span class="n">times_sec</span><span class="p">[</span><span class="n">spike_times</span><span class="p">]</span>
+    <span class="n">spike_in_slice</span> <span class="o">=</span> <span class="p">(</span><span class="n">spike_times_sec</span> <span class="o">&gt;=</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">spike_times_sec</span> <span class="o">&lt;=</span> <span class="n">end_time</span><span class="p">)</span>
+
+    <span class="c1"># Plot the spike raster</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_channels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_channels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spike_times_sec</span><span class="p">[</span><span class="n">spike_in_slice</span><span class="p">],</span> <span class="n">spike_ids</span><span class="p">[</span><span class="n">spike_in_slice</span><span class="p">],</span> <span class="s1">&#39;|k&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;neuron&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;spike train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Plot the voltage traces </span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_channels</span><span class="p">):</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_sec</span><span class="p">[</span><span class="n">slc</span><span class="p">],</span> <span class="n">traces</span><span class="p">[</span><span class="n">slc</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;channel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;trace</span><span class="se">\n</span><span class="s2">[z-score]&quot;</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">num_channels</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span> 
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;time [sec]&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_:hide-cell: docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_waveforms</span><span class="p">(</span><span class="n">waveforms</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_waveforms windows_size num_channels&quot;</span><span class="p">],</span>
+                   <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;waveform&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a grid of spike waveforms or templates.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    waveforms : torch.Tensor</span>
+<span class="sd">        The waveforms (or templates) to plot.</span>
+
+<span class="sd">    name : str</span>
+<span class="sd">        The name of the waveforms (or templates) to plot. Default is &quot;waveform&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_waveforms</span><span class="p">,</span> <span class="n">window_size</span><span class="p">,</span> <span class="n">num_channels</span> <span class="o">=</span> <span class="n">waveforms</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">window_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_size</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">SAMPLING_FREQUENCY</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">num_waveforms</span><span class="p">,</span> 
+                            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">1.25</span> <span class="o">*</span> <span class="n">num_waveforms</span><span class="p">,</span> <span class="mf">1.25</span> <span class="o">*</span> <span class="n">num_channels</span><span class="p">),</span> 
+                            <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lim</span> <span class="o">=</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="n">waveforms</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_waveforms</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_channels</span><span class="p">):</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">waveforms</span><span class="p">[</span><span class="n">j</span><span class="p">,:,</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">lim</span><span class="p">,</span> <span class="n">lim</span><span class="p">)</span>
+            <span class="c1"># axs[i,j].set_xlabel(&quot;time [samples]&quot;)</span>
+            <span class="c1"># axs[i,j].set_title(f&quot;waveform {j}\n channel {i}&quot;)</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;channel </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="s2"> [z-score]&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">num_channels</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;time [ms]&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use the helper function to plot the first second of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_slice</span><span class="p">(</span>
+    <span class="n">traces</span><span class="p">,</span>
+    <span class="n">true_spike_times</span><span class="p">,</span>
+    <span class="n">true_spike_ids</span><span class="p">,</span>
+    <span class="n">start_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">end_time</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ab15f6698d612527eed069473adda498c0cc8170a6441bff9fbe63ba3c7caffd.png" src="../_images/ab15f6698d612527eed069473adda498c0cc8170a6441bff9fbe63ba3c7caffd.png" />
+</div>
+</div>
+<p>Now plot a 50 ms snippet so we can better see the voltage traces around each spike.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_slice</span><span class="p">(</span>
+    <span class="n">traces</span><span class="p">,</span>
+    <span class="n">true_spike_times</span><span class="p">,</span>
+    <span class="n">true_spike_ids</span><span class="p">,</span>
+    <span class="n">start_time</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">end_time</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4238582be54a311415fcd5df2a384bb5b7e6161997a82e5637cb5896712e8843.png" src="../_images/4238582be54a311415fcd5df2a384bb5b7e6161997a82e5637cb5896712e8843.png" />
+</div>
+</div>
+<p>Finally, plot the true templates for each neuron in this synthetic dataset.
+Each time a neuron spikes, these templates are superimposed to create the traces above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plot_waveforms</span><span class="p">(</span><span class="n">true_templates</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;template&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;True templates&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.05, &#39;True templates&#39;)
+</pre></div>
+</div>
+<img alt="../_images/abd15600488e096da4c7c25dd053b392d69cc5b0a4e9dbb3ebee2619a4eaf66d.png" src="../_images/abd15600488e096da4c7c25dd053b392d69cc5b0a4e9dbb3ebee2619a4eaf66d.png" />
+</div>
+</div>
+<p>Notice that some neuron produce larger amplitude spikes than others. For example, neuron 4 produces large spikes on channel 3, whereas neuron 3 produces very small spikes on all channels.</p>
+</section>
+</section>
+<section id="part-1-detect-spike-times">
+<h2>Part 1: Detect spike times<a class="headerlink" href="#part-1-detect-spike-times" title="Link to this heading">#</a></h2>
+<p>The next step of the process is to detect spike times by looking for pronounced dips in the signal on at least one channel. Since the traces have already been standardized, each trace has unit variance. To stand out from the noise, a spike should have a magnitude of at least -4, which means it is at least 4 standard deviations below the mean. Moreover, spikes should be separated from one another by at least 3 ms.</p>
+<section id="problem-1a-find-negative-peaks-in-the-data">
+<h3>Problem 1a: Find negative peaks in the data<a class="headerlink" href="#problem-1a-find-negative-peaks-in-the-data" title="Link to this heading">#</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">signal.find_peaks</span></code> function to extract negative peaks on at least one channel. A simple way to do so is to compute the minimum value across channels for each time step, then negate that signal and look for peaks that match the heigh and distance criteria described above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO</span>
+<span class="n">detected_spike_times</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="c1"># Make sure the result is a tensor</span>
+<span class="n">detected_spike_times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">detected_spike_times</span><span class="p">)</span>
+<span class="n">num_detected_spikes</span> <span class="o">=</span> <span class="n">detected_spike_times</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the inferred spike times with dummy spike ids</span>
+<span class="n">dummy_spike_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">detected_spike_times</span><span class="p">)</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_slice</span><span class="p">(</span>
+    <span class="n">traces</span><span class="p">,</span>
+    <span class="n">detected_spike_times</span><span class="p">,</span>
+    <span class="n">dummy_spike_ids</span><span class="p">,</span>
+    <span class="n">start_time</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">end_time</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1b-evaluate-the-inferred-spike-times">
+<h3>Problem 1b: Evaluate the inferred spike times<a class="headerlink" href="#problem-1b-evaluate-the-inferred-spike-times" title="Link to this heading">#</a></h3>
+<p>To evaluate the detected spikes, let’s think of it as a binary classification problem.
+If a true spike and an detected spike are found in close proximity,
+the detected spike is a <em>true positive</em>. If there is an detected spike but
+no true spike, then it’s a <em>false positive</em>. True and false negatives are
+defined similarly.</p>
+<p><strong>For this problem, comment the code below. Add a function header and comments to explain the operations.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_detected_spikes</span><span class="p">(</span>
+        <span class="n">detected_spike_times</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_detected_spikes&quot;</span><span class="p">],</span>
+        <span class="n">true_spike_times</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_true_spikes&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO</span>
+    <span class="n">true_spike_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NUM_SAMPLES</span> <span class="o">//</span> <span class="n">WINDOW_SIZE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">true_spike_mask</span><span class="p">[</span><span class="n">true_spike_times</span> <span class="o">//</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="c1"># TODO</span>
+    <span class="n">detected_spike_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">NUM_SAMPLES</span> <span class="o">//</span> <span class="n">WINDOW_SIZE</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">detected_spike_mask</span><span class="p">[</span><span class="n">detected_spike_times</span> <span class="o">//</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="c1"># TODO</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">true_spike_mask</span> <span class="o">&amp;</span> <span class="n">detected_spike_mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">detected_spike_mask</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">true_spike_mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">detected_spike_mask</span> <span class="o">&amp;</span> <span class="n">true_spike_mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">detected_spike_mask</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">true_spike_mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="c1"># TODO</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tp</span><span class="o">=</span><span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="o">=</span><span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="o">=</span><span class="n">tn</span><span class="p">)</span>
+    
+<span class="n">perf_stats</span> <span class="o">=</span> <span class="n">evaluate_detected_spikes</span><span class="p">(</span>
+    <span class="n">detected_spike_times</span><span class="p">,</span>
+    <span class="n">true_spike_times</span>
+<span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1c-precision-and-recall">
+<h3>Problem 1c: Precision and Recall<a class="headerlink" href="#problem-1c-precision-and-recall" title="Link to this heading">#</a></h3>
+<p>Based on the number of true positives (<span class="math notranslate nohighlight">\(TP\)</span>), false positives (<span class="math notranslate nohighlight">\(FP\)</span>), false negatives (<span class="math notranslate nohighlight">\(FN\)</span>), and true negatives (<span class="math notranslate nohighlight">\(TN\)</span>), compute and print the precision and recall the spike detector,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mathrm{precision} &amp;= \frac{TP}{TP + FP} \\
+\mathrm{recall} &amp;= \frac{TP}{TP + FN}
+\end{align*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-1d-interpretation">
+<h3>Problem 1d: Interpretation<a class="headerlink" href="#problem-1d-interpretation" title="Link to this heading">#</a></h3>
+<p>Explain what the precision and recall tell us about the efficacy of this spike detector. Are they any limitations to this performance summary?</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+<hr class="docutils" />
+<section id="extract-the-spike-waveforms-no-coding-required">
+<h3>Extract the spike waveforms [no coding required]<a class="headerlink" href="#extract-the-spike-waveforms-no-coding-required" title="Link to this heading">#</a></h3>
+<p>Finally, we have written a simple for loop to extract <em>spike waveforms</em> — windows of the voltage trace surrounding each inferred spike. The spike waveforms are centered on the detected spike times, just like the true templates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spike_waveforms</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_detected_spikes</span><span class="p">,</span> <span class="n">WINDOW_SIZE</span><span class="p">,</span> <span class="n">NUM_CHANNELS</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">detected_spike_times</span><span class="p">):</span>
+    <span class="n">slc</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">WINDOW_SIZE</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="n">WINDOW_SIZE</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">spike_waveforms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">traces</span><span class="p">[</span><span class="n">slc</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a few of the waveforms</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plot_waveforms</span><span class="p">(</span><span class="n">spike_waveforms</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;waveform&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;First 5 spike waveforms&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="part-2-simple-spike-sorting">
+<h2>Part 2: Simple Spike Sorting<a class="headerlink" href="#part-2-simple-spike-sorting" title="Link to this heading">#</a></h2>
+<p>Now let’s write a simple spike sorting algorithm to cluster the spikes based on their waveforms!</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_s \in \mathbb{R}^{D \times N}\)</span> denote the waveform of spike <span class="math notranslate nohighlight">\(s\)</span>. It is <span class="math notranslate nohighlight">\(D\)</span> samples long and <span class="math notranslate nohighlight">\(N\)</span> channels wide, with entries denoted by,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mathbf{X}_s = 
+\begin{bmatrix}
+x_{s,1,1} &amp; \cdots &amp; x_{s,1,N} \\
+\vdots &amp; &amp; \vdots \\
+x_{s,D,1} &amp; \cdots &amp; x_{s,D,N} 
+\end{bmatrix}
+\end{align*} \]</div>
+<p>Assume each spike waveform can be attributed to one of <span class="math notranslate nohighlight">\(N\)</span> neurons.
+Each neuron <span class="math notranslate nohighlight">\(k=1,\ldots,K\)</span> is associated with a template, <span class="math notranslate nohighlight">\(\mathbf{W}_k \in \mathbb{R}^{D \times N}\)</span> with entries,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mathbf{W}_k = 
+\begin{bmatrix}
+w_{k,1,1} &amp; \cdots &amp; w_{k,1,N} \\
+\vdots &amp; &amp; \vdots \\
+w_{k,D,1} &amp; \cdots &amp; w_{k,D,N} 
+\end{bmatrix}
+\end{align*} \]</div>
+<p>Let <span class="math notranslate nohighlight">\(z_s \in \{1,\ldots, K\}\)</span> be a latent variable that specifies which neuron produced spike <span class="math notranslate nohighlight">\(s\)</span>.
+We assume that each spike waveform equal to the template of the neuron that produced it, plus Gaussian noise,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mathbf{X}_s &amp;= \mathbf{W}_{z_s} + \mathbf{E}_s,
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{E}_s \in \mathbb{R}^{D \times N}\)</span> is a matrix of i.i.d. Gaussian random variables, each with mean zero and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<p>In other words, we assume a Gaussian likelihood model of the form,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(\mathbf{X}_s \mid z_s = k) 
+&amp;= \prod_{d=1}^D \prod_{k=1}^N
+\mathcal{N}(x_{s,d,n} \mid w_{k,d,c}, \sigma^2).
+\end{align*}\]</div>
+<p>where</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\mathcal{N}(x \mid \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{1}{2 \sigma^2}(x - \mu)^2}
+\end{align*}\]</div>
+<p>is the probability density function (pdf) of a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> evaluated at a point <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>To fit the model, we need to infer the latent spike IDs <span class="math notranslate nohighlight">\(z_s\)</span> for <span class="math notranslate nohighlight">\(s=1,\ldots,S\)</span>, as well as the templates <span class="math notranslate nohighlight">\(\mathbf{W}_k\)</span> for <span class="math notranslate nohighlight">\(k=1,\ldots,K\)</span>.
+We will do so by maximizing the log probability with respect to <span class="math notranslate nohighlight">\(z_s\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_k\)</span>.
+In particular, we will use coordinate ascent, alternating between updating the latent variables while keeping the templates fixed, and then updating the templates given the latent variables.</p>
+<p>To simplify notation, let</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X} = \{\mathbf{X}_s\}_{s=1}^S\)</span> denote the set of all spike waveforms,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{z} = \{z_s\}_{s=1}^S\)</span> denote the set of spike assignments, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W} = \{\mathbf{W}_k\}_{k=1}^K\)</span> denote the set of all templates.</p></li>
+</ul>
+<p>The log joint probability, viewed as a function of <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>, is</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+L(\mathbf{z}, \mathbf{W})  \triangleq 
+\log p(\mathbf{X}, \mathbf{z}; \mathbf{W})
+= \sum_{s=1}^S \log p(\mathbf{X}_s \mid z_s) + \log p(z_s)
+\end{align*}\]</div>
+<p>Assume that all spike assignments are equally probable under the prior, so that <span class="math notranslate nohighlight">\(p(z_s = k) = \frac{1}{K}\)</span> and <span class="math notranslate nohighlight">\(\log p(z_s) = -\log K\)</span> for all settings of <span class="math notranslate nohighlight">\(z_s\)</span>. Then, substituting the likelihood above, we have the following objective function,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+L(\mathbf{z}, \mathbf{W}) 
+= \sum_{s=1}^S \sum_{d=1}^D \sum_{n=1}^N \log \mathcal{N}(x_{s,d,n} \mid w_{z_s,d,n}, \sigma^2) + \mathrm{const}
+\end{align*}\]</div>
+<p>Our goal is to find assignments of <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> that maximize <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<section id="problem-2a-deriving-the-template-update">
+<h3>Problem 2a: Deriving the template update<a class="headerlink" href="#problem-2a-deriving-the-template-update" title="Link to this heading">#</a></h3>
+<p>First, show that if you fix the spike assignments, <span class="math notranslate nohighlight">\(\mathbf{z}\)</span>, the log probability is maximized by setting,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+w_{k,d,n} &amp;= \frac{1}{S_k} \sum_{s:z_s = k} x_{s,d,n}
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S_k = \sum_s \mathbb{I}[z_s=k]\)</span> is the number of spikes assigned to neuron <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+<hr class="docutils" />
+<section id="problem-2b-derive-the-spike-assignment-updates">
+<h3>Problem 2b: Derive the spike assignment updates<a class="headerlink" href="#problem-2b-derive-the-spike-assignment-updates" title="Link to this heading">#</a></h3>
+<p>Next, show that when you fix the templates, the log probability is optimized by setting,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+z_s &amp;= \arg \max_k \; \sum_{d=1}^D \sum_{n=1}^N \log \mathcal{N}(x_{s,d,n} \mid w_{k,d,n}, \sigma^2).
+\end{align*}\]</div>
+<p>Or equivalently,</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+z_s &amp;= \arg \min_k \; \|\mathbf{X}_s - \mathbf{W}_k\|_F^2.
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\|\mathbf{A}\|_F^2 = \sum_{d=1}^D \sum_{n=1}^N a_{d,n}^2\)</span> is the squared Frobenius norm of a matrix <span class="math notranslate nohighlight">\(\mathbf{A} \in \mathbb{R}^{D \times N}\)</span>.</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+<hr class="docutils" />
+<section id="problem-2c-implement-the-model-and-algorithm">
+<h3>Problem 2c: Implement the model and algorithm<a class="headerlink" href="#problem-2c-implement-the-model-and-algorithm" title="Link to this heading">#</a></h3>
+<p>Complete the starter code below to implement this simple spike sorting model and algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleSpikeSorter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple spike sorter that uses a Gaussian mixture model (GMM) to fit the templates.</span>
+<span class="sd">    The GMM is fit to the putative spike waveforms using coordinate ascent on the </span>
+<span class="sd">    log joint probability of the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_templates : torch.Tensor</span>
+<span class="sd">        The initial templates for the GMM, with shape (num_neurons, window_size, num_channels).</span>
+
+<span class="sd">    noise_scale : float</span>
+<span class="sd">        The scale of the noise in the GMM. This is used to compute the log likelihood of</span>
+<span class="sd">        the spike waveforms given the templates. The noise scale is assumed to be the same</span>
+<span class="sd">        for all neurons, samples, and channels. Note that the scale is the standard deviation</span>
+<span class="sd">        of the noise, not the variance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">templates</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_neurons window_size num_channels&quot;</span><span class="p">]</span>
+    <span class="n">noise_scale</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">initial_templates</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_neurons window_size num_channels&quot;</span><span class="p">],</span>
+            <span class="n">noise_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates</span> <span class="o">=</span> <span class="n">initial_templates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise_scale</span> <span class="o">=</span> <span class="n">noise_scale</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">num_neurons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">templates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_probability</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">spike_waveforms</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes window_size num_channels&quot;</span><span class="p">],</span>
+            <span class="n">spike_ids</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the log probability of the spike waveforms given the templates</span>
+<span class="sd">        using torch.distributions.Normal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="k">return</span> <span class="n">ll</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_templates</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">spike_waveforms</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes window_size num_channels&quot;</span><span class="p">],</span>
+            <span class="n">spike_ids</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the templates using the spike waveforms and spike IDs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_spike_ids</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">spike_waveforms</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes window_size num_channels&quot;</span><span class="p">],</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the spike IDs using the templates and spike waveforms.</span>
+<span class="sd">        Use torch.distributions.Normal to evaluate the log probabilites.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+
+        <span class="k">return</span> <span class="n">spike_ids</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+            <span class="n">spike_waveforms</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes window_size num_channels&quot;</span><span class="p">],</span>
+            <span class="n">num_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_iterations&quot;</span><span class="p">],</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_spikes&quot;</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit the GMM to the spike waveforms using coordinate ascent on the log joint probability.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize the spike IDs</span>
+        <span class="n">spike_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_spike_ids</span><span class="p">(</span><span class="n">spike_waveforms</span><span class="p">)</span>
+
+        <span class="c1"># Iterate to update the templates and spike IDs</span>
+        <span class="n">lps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+            <span class="n">lps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_probability</span><span class="p">(</span><span class="n">spike_waveforms</span><span class="p">,</span> <span class="n">spike_ids</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;iteration </span><span class="si">{</span><span class="n">itr</span><span class="si">}</span><span class="s2">: log probability = </span><span class="si">{</span><span class="n">lps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Update the templates and spike IDs</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_templates</span><span class="p">(</span><span class="n">spike_waveforms</span><span class="p">,</span> <span class="n">spike_ids</span><span class="p">)</span>
+            <span class="n">spike_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_spike_ids</span><span class="p">(</span><span class="n">spike_waveforms</span><span class="p">)</span>
+
+        <span class="c1"># Return the final spike IDs</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">lps</span><span class="p">),</span> <span class="n">spike_ids</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run the coordinate ascent algorithm to fit the model!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_neurons</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="c1"># Initialize the spike sorter with random templates</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="s2">&quot;stats&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">220</span><span class="p">)</span>
+<span class="n">initial_templates</span> <span class="o">=</span> <span class="n">spike_waveforms</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_detected_spikes</span><span class="p">,</span> <span class="p">(</span><span class="n">num_neurons</span><span class="p">,))]</span>
+<span class="n">spike_sorter</span> <span class="o">=</span> <span class="n">SimpleSpikeSorter</span><span class="p">(</span><span class="n">initial_templates</span><span class="p">)</span>
+
+<span class="c1"># Fit the spike sorter to the putative spike waveforms</span>
+<span class="n">lps</span><span class="p">,</span> <span class="n">inferred_spike_ids</span> <span class="o">=</span> <span class="n">spike_sorter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">spike_waveforms</span><span class="p">,</span>
+    <span class="n">num_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plot the log probability over iterations of the algorithm. It should increase and then converge to a fixed value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lps</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;log probability&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plot_waveforms</span><span class="p">(</span><span class="n">spike_sorter</span><span class="o">.</span><span class="n">templates</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;template&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Inferred templates&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-ids-of-the-true-neurons-that-match-each-inferred-spike">
+<h3>Compare IDs of the true neurons that match each inferred spike<a class="headerlink" href="#compare-ids-of-the-true-neurons-that-match-each-inferred-spike" title="Link to this heading">#</a></h3>
+<p>The function below computes the identities of the true neurons corresponding
+to each inferred spike, if one exists. For each inferred spike time, first determine if there
+is a true spike within a small window of that time. If so, find the ID of the true
+neuron that generated that spike. Otherwise, declare the inferred spike to be a false
+positive, indicated by -1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">match_true_and_inferred_spikes</span><span class="p">(</span>
+        <span class="n">inferred_spike_times</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_detected_spikes&quot;</span><span class="p">],</span>
+        <span class="n">true_spike_times</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_true_spikes&quot;</span><span class="p">],</span>
+        <span class="n">true_spike_ids</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_true_spikes&quot;</span><span class="p">]</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_detected_spikes&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Match the inferred spike times to the true spike times.</span>
+<span class="sd">    For each inferred spike, find the closest true spike within a window size.</span>
+<span class="sd">    If the closest true spike is within the window size, assign the inferred spike</span>
+<span class="sd">    to the true spike ID. If not, assign the inferred spike to -1 (no match).</span>
+<span class="sd">    The matching is done with a simple for loop, which is not efficient for large</span>
+<span class="sd">    spike trains. However, it is simple and easy to understand.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    inferred_spike_times : torch.Tensor</span>
+<span class="sd">        The inferred spike times, in samples.</span>
+<span class="sd">    true_spike_times : torch.Tensor</span>
+<span class="sd">        The true spike times, in samples.</span>
+<span class="sd">    true_spike_ids : torch.Tensor</span>
+<span class="sd">        The true spike IDs, taking values 0,1,2,...,true_num_neurons-1</span>
+<span class="sd">    window_size : int</span>
+<span class="sd">        The window size, in samples.</span>
+<span class="sd">    sampling_frequency : int</span>
+<span class="sd">        The sampling frequency of the recording.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matching_spike_ids : torch.Tensor</span>
+<span class="sd">        The IDs of the true neurons that produced the inferred spike.</span>
+<span class="sd">        The tensor takes values -1,0,1,2,...,num_neurons-1, where -1 indicates </span>
+<span class="sd">        that the inferred spike does not match any true spike within the window size.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># For each inferred spike, find the closest true spike</span>
+    <span class="n">matching_spike_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">inferred_spike_times</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">inferred_time</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inferred_spike_times</span><span class="p">):</span>
+        <span class="c1"># Find the closest true spike within the window size</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">true_spike_times</span> <span class="o">-</span> <span class="n">inferred_time</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="o">.</span><span class="n">values</span> <span class="o">&lt;</span> <span class="n">WINDOW_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">matching_spike_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">true_spike_ids</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">indices</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">matching_spike_ids</span>
+
+<span class="n">matching_spike_ids</span> <span class="o">=</span> <span class="n">match_true_and_inferred_spikes</span><span class="p">(</span>
+    <span class="n">detected_spike_times</span><span class="p">,</span>
+    <span class="n">true_spike_times</span><span class="p">,</span>
+    <span class="n">true_spike_ids</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2d-compare-the-true-and-inferred-spike-assignments">
+<h3>Problem 2d: Compare the true and inferred spike assignments<a class="headerlink" href="#problem-2d-compare-the-true-and-inferred-spike-assignments" title="Link to this heading">#</a></h3>
+<p>Create a confusion matrix that counts how many times each inferred spike assignment
+was matched to either a false positive (-1) or a true neuron <span class="math notranslate nohighlight">\(k\)</span> for <span class="math notranslate nohighlight">\(k=1,\ldots,K_{\mathsf{true}}\)</span>.</p>
+<p>Show this confusion matrix using <code class="docutils literal notranslate"><span class="pre">plt.imshow</span></code>. Remember to label your axes and include a colorbar!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2e-interpretation">
+<h3>Problem 2e: Interpretation<a class="headerlink" href="#problem-2e-interpretation" title="Link to this heading">#</a></h3>
+<p>How well is your spike sorter performing, as judged by the confusion matrix above? What kinds of errors, if any, is it making?</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-generalizations">
+<h2>Part 3: Generalizations<a class="headerlink" href="#part-3-generalizations" title="Link to this heading">#</a></h2>
+<p>Now that you have implemented a bare bones spike sorter, let’s consider some improvements you could make. You don’t need to write any code for this part — just provide written responses.</p>
+<section id="problem-3a">
+<h3>Problem 3a<a class="headerlink" href="#problem-3a" title="Link to this heading">#</a></h3>
+<p>How would you change the model to account for neurons that have different firing rates?</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+<hr class="docutils" />
+<section id="problem-3b">
+<h3>Problem 3b<a class="headerlink" href="#problem-3b" title="Link to this heading">#</a></h3>
+<p>How would you generalize this model if spikes from the same neuron could have different amplitudes? That is, on average <span class="math notranslate nohighlight">\(\mathbf{X}_s\)</span> equals the template <span class="math notranslate nohighlight">\(\mathbf{W}_{z_s}\)</span>, but they can be scaled up or down by a random number <span class="math notranslate nohighlight">\(a_s &gt; 0\)</span>. Describe how you would update your model to allow for this extra form of variability.</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+<hr class="docutils" />
+<section id="problem-3c">
+<h3>Problem 3c<a class="headerlink" href="#problem-3c" title="Link to this heading">#</a></h3>
+<p>Here we assumed that we knew the number of neurons, but of course that’s unrealistic. How would you estimate the number of neurons in a data-driven manner?</p>
+<hr class="docutils" />
+<p><em>Your answer here</em></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="submission-instructions">
+<h2>Submission Instructions<a class="headerlink" href="#submission-instructions" title="Link to this heading">#</a></h2>
+<p><strong>Formatting:</strong> check that your code does not exceed 80 characters in line width. You can set <em>Tools → Settings → Editor → Vertical ruler column</em> to 80 to see when you’ve exceeded the limit.</p>
+<p><strong>Converting to PDF</strong> The simplest way to convert to PDF is to use the “Print to PDF” option in your browser. Just make sure that your code and plots aren’t cut off, as it may not wrap lines.</p>
+<p><strong>Alternatively</strong> You can download your notebook in .ipynb format and use the following commands to convert it to PDF.  Then run the following command to convert to a PDF:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="o">--</span><span class="n">to</span> <span class="n">pdf</span> <span class="o">&lt;</span><span class="n">yourlastname</span><span class="o">&gt;</span><span class="n">_hw</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+<p>(Note that for the above code to work, you need to rename your file <code class="docutils literal notranslate"><span class="pre">&lt;yourlastname&gt;_hw&lt;number&gt;.ipynb</span></code>)</p>
+<p><strong>Installing nbconvert:</strong></p>
+<p>If you’re using Anaconda for package management,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">anaconda</span> <span class="n">nbconvert</span>
+</pre></div>
+</div>
+<p><strong>Upload</strong> your .pdf file to Gradescope. Please tag your questions correctly! I.e., for each question, all of and only the relevant sections are tagged.</p>
+<p>Please post on Ed or come to OH if there are any other problems submitting the HW.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./labs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00_pytorch_primer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyTorch Primer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01b_spike_sorting_deconv.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spike Sorting by Deconvolution</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-detect-spike-times">Part 1: Detect spike times</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1a-find-negative-peaks-in-the-data">Problem 1a: Find negative peaks in the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1b-evaluate-the-inferred-spike-times">Problem 1b: Evaluate the inferred spike times</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1c-precision-and-recall">Problem 1c: Precision and Recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1d-interpretation">Problem 1d: Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-spike-waveforms-no-coding-required">Extract the spike waveforms [no coding required]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-simple-spike-sorting">Part 2: Simple Spike Sorting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2a-deriving-the-template-update">Problem 2a: Deriving the template update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-derive-the-spike-assignment-updates">Problem 2b: Derive the spike assignment updates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2c-implement-the-model-and-algorithm">Problem 2c: Implement the model and algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-ids-of-the-true-neurons-that-match-each-inferred-spike">Compare IDs of the true neurons that match each inferred spike</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2d-compare-the-true-and-inferred-spike-assignments">Problem 2d: Compare the true and inferred spike assignments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2e-interpretation">Problem 2e: Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-generalizations">Part 3: Generalizations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3a">Problem 3a</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3b">Problem 3b</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3c">Problem 3c</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Scott Linderman
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

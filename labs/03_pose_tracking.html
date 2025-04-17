@@ -1073,7 +1073,7 @@ document.write(`
 <span class="sd">            Assume both are PyTorch tensors and their shapes</span>
 <span class="sd">            are (3, H, W) and (K, H, W), respectively.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">targets</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">]</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">datapoint</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">]</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span>
         <span class="k">assert</span> <span class="n">targets</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;DilateTargets called without targets!&quot;</span>
 
@@ -1090,7 +1090,7 @@ document.write(`
         <span class="c1">###</span>
 
         <span class="k">assert</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">shape</span>
-        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">datapoint</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
 
 <span class="c1">#  Test by comparing to dilation with scipy.ndimage.</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_dilate</span><span class="p">():</span>

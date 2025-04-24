@@ -447,6 +447,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author-contributions">Author contributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
 </ul>
             </nav>
         </div>
@@ -467,21 +468,32 @@ document.write(`
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="kn">import</span> <span class="n">lr_scheduler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poisson</span>
-
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">jaxtyping</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>jaxtyping
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poisson</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="kn">import</span> <span class="n">lr_scheduler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
 
 <span class="c1"># Specify that we want our tensors on the GPU and in float32</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
@@ -499,7 +511,7 @@ document.write(`
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Helper functions for plotting (run this cell!)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
 
 <span class="c1"># initialize a color palette for plotting</span>
@@ -513,11 +525,14 @@ document.write(`
                             <span class="s2">&quot;pink&quot;</span><span class="p">,</span>
                             <span class="s2">&quot;greyish&quot;</span><span class="p">])</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_weights</span><span class="p">(</span><span class="n">glm</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_weights</span><span class="p">(</span><span class="n">glm</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the stimulus weights of a GLM.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">num_neurons</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">num_neurons</span>
     <span class="n">max_delay</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">max_delay</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">num_neurons</span><span class="p">),</span> 
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">num_neurons</span><span class="p">),</span>
                             <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">]))</span>
 
     <span class="n">temporal_weights</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">weight</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
@@ -528,7 +543,7 @@ document.write(`
     <span class="c1"># normalize and flip the spatial weights</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
         <span class="c1"># Flip if spatial weight peak is negative</span>
-        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> 
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
                        <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()):</span>
             <span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
             <span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
@@ -541,7 +556,7 @@ document.write(`
     <span class="c1"># Set the same limits for each neuron</span>
     <span class="n">vlim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">ylim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">temporal_weights</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    
+
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">max_delay</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim</span><span class="p">)</span>
@@ -551,23 +566,25 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$\Delta t$ [ms]&quot;</span><span class="p">)</span>
 
-        <span class="n">im</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> 
+        <span class="n">im</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">],</span>
                               <span class="n">vmin</span><span class="o">=-</span><span class="n">vlim</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vlim</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdBu&quot;</span><span class="p">)</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;neuron </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_coupling_weights</span><span class="p">(</span><span class="n">glm</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_coupling_weights</span><span class="p">(</span><span class="n">glm</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the coupling weights of a GLM.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get the weights and flip them to get time after spike</span>
     <span class="n">W</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">coupling_conv</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
-    <span class="c1"># W = W[:, :, ::-1]</span>
     <span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
     <span class="n">num_neurons</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">wlim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">W</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> 
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                             <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
@@ -580,11 +597,14 @@ document.write(`
                 <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$\Delta t$ [ms]&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_cnn_subunits_1</span><span class="p">(</span><span class="n">cnn</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_cnn_subunits_1</span><span class="p">(</span><span class="n">cnn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the first layer of subunits of a CNN.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">num_subunits</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_1</span>
     <span class="n">max_delay</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">max_delay</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_subunits</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">num_subunits</span><span class="p">),</span> 
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_subunits</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">num_subunits</span><span class="p">),</span>
                             <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">.1</span><span class="p">]))</span>
 
     <span class="n">temporal_weights</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">weight</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
@@ -595,7 +615,7 @@ document.write(`
     <span class="c1"># normalize and flip the spatial weights</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_subunits</span><span class="p">):</span>
         <span class="c1"># Flip if spatial weight peak is negative</span>
-        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> 
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
                     <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()):</span>
             <span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
             <span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
@@ -608,7 +628,7 @@ document.write(`
     <span class="c1"># Set the same limits for each neuron</span>
     <span class="n">vlim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">ylim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">temporal_weights</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    
+
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_subunits</span><span class="p">):</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">max_delay</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">temporal_weights</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">ylim</span><span class="p">,</span> <span class="n">ylim</span><span class="p">)</span>
@@ -618,16 +638,19 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$\Delta t$ [ms]&quot;</span><span class="p">)</span>
 
-        <span class="n">im</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> 
+        <span class="n">im</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">spatial_weights</span><span class="p">[</span><span class="n">n</span><span class="p">],</span>
                               <span class="n">vmin</span><span class="o">=-</span><span class="n">vlim</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vlim</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdBu&quot;</span><span class="p">)</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
         <span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;subunit 1,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_cnn_subunits2</span><span class="p">(</span><span class="n">cnn</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_cnn_subunits2</span><span class="p">(</span><span class="n">cnn</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the second layer of subunits of a CNN.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cnn_filters_2</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">layer2</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_2</span><span class="p">,</span> 
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_2</span><span class="p">,</span>
                             <span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_1</span><span class="p">,</span>
                             <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_2</span><span class="p">,</span>
                                     <span class="mi">4</span> <span class="o">*</span> <span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_1</span><span class="p">),</span>
@@ -635,11 +658,10 @@ document.write(`
     <span class="n">vlim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cnn_filters_2</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_2</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnn</span><span class="o">.</span><span class="n">num_subunits_1</span><span class="p">):</span>
-            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cnn_filters_2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> 
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cnn_filters_2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
                             <span class="n">vmin</span><span class="o">=-</span><span class="n">vlim</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vlim</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdBu&quot;</span><span class="p">)</span>
-            
+
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;subunit 1,</span><span class="si">{}</span><span class="s1"> $</span><span class="se">\\</span><span class="s1">to$ 2,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-            
 </pre></div>
 </div>
 </div>
@@ -656,17 +678,58 @@ document.write(`
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title </span>
-<span class="k">def</span><span class="w"> </span><span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> 
-                <span class="n">train_dataset</span><span class="p">,</span> 
-                <span class="n">val_dataset</span><span class="p">,</span>
-                <span class="n">objective</span><span class="p">,</span>
-                <span class="n">regularizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> 
-                <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-                <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-                <span class="n">lr_step_size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-                <span class="n">lr_gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Implement `train_model` function (run this cell!)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span>
+                <span class="n">val_dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span>
+                <span class="n">objective</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span>
+                <span class="n">regularizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">callable</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">num_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">momentum</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+                <span class="n">lr_step_size</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                <span class="n">lr_gamma</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.9</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot; num_epochs&quot;</span><span class="p">],</span>
+                           <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot; num_epochs&quot;</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train a model on the training dataset and validate it on the validation</span>
+<span class="sd">    dataset. The model is trained using stochastic gradient descent with a</span>
+<span class="sd">    decaying learning rate. The model is trained for `num_epochs` epochs and</span>
+<span class="sd">    the learning rate is decayed every `lr_step_size` epochs by a factor of</span>
+<span class="sd">    `lr_gamma`. The model is trained using the specified `objective` function</span>
+<span class="sd">    and an optional `regularizer`.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : nn.Module</span>
+<span class="sd">        The model to be trained.</span>
+<span class="sd">    train_dataset : Dataset</span>
+<span class="sd">        The training dataset.</span>
+<span class="sd">    val_dataset : Dataset</span>
+<span class="sd">        The validation dataset.</span>
+<span class="sd">    objective : callable</span>
+<span class="sd">        The objective function to be minimized.</span>
+<span class="sd">    regularizer : callable, optional</span>
+<span class="sd">        The regularizer to be added to the objective function. The default</span>
+<span class="sd">        is None.</span>
+<span class="sd">    num_epochs : int, optional</span>
+<span class="sd">        The number of epochs to train the model. The default is 100.</span>
+<span class="sd">    lr : float, optional</span>
+<span class="sd">        The learning rate for the optimizer. The default is 0.1.</span>
+<span class="sd">    momentum : float, optional</span>
+<span class="sd">        The momentum for the optimizer. The default is 0.9.</span>
+<span class="sd">    lr_step_size : int, optional</span>
+<span class="sd">        The number of epochs after which to decay the learning rate. The</span>
+<span class="sd">        default is 25.</span>
+<span class="sd">    lr_gamma : float, optional</span>
+<span class="sd">        The factor by which to decay the learning rate. The default is 0.9.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[Float[Tensor, &quot; num_epochs&quot;], Float[Tensor, &quot; num_epochs&quot;]]</span>
+<span class="sd">        The training and validation losses for each epoch.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># progress bars</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">trange</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)</span>
     <span class="n">pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
@@ -679,13 +742,13 @@ document.write(`
     <span class="n">dataloaders</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val_dataloader</span><span class="p">)</span>
 
     <span class="c1"># use standard SGD with a decaying learning rate</span>
-    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> 
-                          <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> 
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+                          <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
                           <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">)</span>
-    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> 
-                                    <span class="n">step_size</span><span class="o">=</span><span class="n">lr_step_size</span><span class="p">,</span> 
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span>
+                                    <span class="n">step_size</span><span class="o">=</span><span class="n">lr_step_size</span><span class="p">,</span>
                                     <span class="n">gamma</span><span class="o">=</span><span class="n">lr_gamma</span><span class="p">)</span>
-    
+
     <span class="c1"># Keep track of the best model</span>
     <span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
     <span class="n">best_loss</span> <span class="o">=</span> <span class="mf">1e8</span>
@@ -701,7 +764,7 @@ document.write(`
                 <span class="n">inner_pbar</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-            
+
             <span class="c1"># track the running loss over batches</span>
             <span class="n">running_loss</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">running_size</span> <span class="o">=</span> <span class="mi">0</span>
@@ -730,7 +793,7 @@ document.write(`
                 <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">loss_t</span><span class="p">)</span>
                 <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss_t</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
                 <span class="n">running_size</span> <span class="o">+=</span> <span class="mi">1</span>
-            
+
             <span class="c1"># compute the train/validation loss and update the best</span>
             <span class="c1"># model parameters if this is the lowest validation loss yet</span>
             <span class="n">running_loss</span> <span class="o">/=</span> <span class="n">running_size</span>
@@ -780,13 +843,7 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget<span class="w"> </span>-nc<span class="w"> </span>https://www.dropbox.com/s/gmgus2rm4sks6b8/whitenoise.h5
-<span class="c1"># !wget -nc https://www.dropbox.com/s/gj8jf50v7dzy4ew/naturalscene.h5</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File ‘whitenoise.h5’ already there; not retrieving.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget<span class="w"> </span>-nc<span class="w"> </span>https://github.com/slinderman/ml4nd/raw/refs/heads/main/data/04_glms/lab4_data.h5
 </pre></div>
 </div>
 </div>
@@ -794,18 +851,24 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the white noise data</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;whitenoise.h5&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">frame_rate</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;lab4_data.h5&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 <span class="n">stimulus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;stimulus&#39;</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="n">spikes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;binned&#39;</span><span class="p">][:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 <span class="n">test_times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 <span class="n">test_stimulus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;stimulus&#39;</span><span class="p">][:],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="n">test_rates</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;response&#39;</span><span class="p">][</span><span class="s1">&#39;binned&#39;</span><span class="p">][:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-
-<span class="c1"># Get the size of the training data</span>
-<span class="n">num_frames</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">stimulus</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">num_neurons</span> <span class="o">=</span> <span class="n">spikes</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract/set some constants.</span>
+<span class="n">NUM_FRAMES</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="n">stimulus</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">NUM_NEURONS</span> <span class="o">=</span> <span class="n">spikes</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">FRAME_RATE</span> <span class="o">=</span> <span class="mi">100</span>    <span class="c1"># Hz</span>
+<span class="n">MAX_DELAY</span> <span class="o">=</span> <span class="mi">40</span>      <span class="c1"># frames</span>
 </pre></div>
 </div>
 </div>
@@ -822,9 +885,13 @@ Add a colorbar and label your axes!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a few seconds of the spike train</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_spike_train</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">t_stop</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_spike_train</span><span class="p">(</span><span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">],</span>
+                     <span class="n">t_start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                     <span class="n">t_stop</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                     <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+                     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    `imshow` a window of the spike count matrix.</span>
+<span class="sd">    Visualize a window of the spike count matrix.</span>
 
 <span class="sd">    spikes:  time x neuron spike count matrix</span>
 <span class="sd">    t_start: time (in seconds) of the start of the window</span>
@@ -835,15 +902,12 @@ Add a colorbar and label your axes!</p>
 
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
-    
+    <span class="o">...</span>
     <span class="c1">###</span>
 
 <span class="n">plot_spike_train</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/e889dc5665654672a63a75c78df7c43c03d004f0dac1900e3c8ac3eace68a981.png" src="../_images/e889dc5665654672a63a75c78df7c43c03d004f0dac1900e3c8ac3eace68a981.png" />
 </div>
 </div>
 </section>
@@ -853,26 +917,10 @@ Add a colorbar and label your axes!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###</span>
+<span class="c1"># Compute the firing rates</span>
 <span class="c1"># YOUR CODE BELOW</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean firing rates:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  neuron </span><span class="si">{}</span><span class="s2">: </span><span class="si">{:.4f}</span><span class="s2"> spk/sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">...</span><span class="p">))</span>
-<span class="c1">#</span>
+<span class="o">...</span>
 <span class="c1">###</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean firing rates:
-  neuron 1: 7.1598 spk/sec
-  neuron 2: 1.9219 spk/sec
-  neuron 3: 1.9822 spk/sec
-  neuron 4: 6.2960 spk/sec
-  neuron 5: 1.4038 spk/sec
-  neuron 6: 1.3310 spk/sec
-  neuron 7: 1.8496 spk/sec
-  neuron 8: 0.4672 spk/sec
-  neuron 9: 3.7988 spk/sec
 </pre></div>
 </div>
 </div>
@@ -896,13 +944,10 @@ Add a colorbar and label your axes!</p>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
     <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="nb">len</span><span class="p">(</span><span class="n">frame_inds</span><span class="p">):]:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-    
+
 <span class="n">plot_stimulus</span><span class="p">(</span><span class="n">stimulus</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/d1df93d94fbf9166a8c184ea033104f17987b2153967b0e5ac4f6fd3ee61e474.png" src="../_images/d1df93d94fbf9166a8c184ea033104f17987b2153967b0e5ac4f6fd3ee61e474.png" />
 </div>
 </div>
 </section>
@@ -910,35 +955,63 @@ Add a colorbar and label your axes!</p>
 <h3>Problem 1c: Compute and plot the spike triggered average<a class="headerlink" href="#problem-1c-compute-and-plot-the-spike-triggered-average" title="Link to this heading">#</a></h3>
 <p>The spike triggered average for neuron <span class="math notranslate nohighlight">\(n\)</span> is the average stimulus in the lead-up to a spike by that neuron.</p>
 <p>Formally, let <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{D \times P_H \times P_W}\)</span> denote the STA for neuron <span class="math notranslate nohighlight">\(n\)</span>. It’s defined as,</p>
-<div class="math notranslate nohighlight">
-\[
-\begin{aligned}
+<div class="amsmath math notranslate nohighlight" id="equation-3a22f7c8-928f-4c0b-b859-54b904cf4d04">
+<span class="eqno">(1)<a class="headerlink" href="#equation-3a22f7c8-928f-4c0b-b859-54b904cf4d04" title="Permalink to this equation">#</a></span>\[\begin{align}
 A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &gt;0]
-\end{aligned}
-\]</div>
+\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(S_{n,d} = \sum_{t=d+1}^T \mathbb{I}[y_{t,n} &gt;0]\)</span> is the number of spikes on neuron <span class="math notranslate nohighlight">\(n\)</span>, accounting for edge effects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_sta</span><span class="p">(</span><span class="n">neuron</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span><span class="p">,</span> <span class="n">max_delay</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_sta</span><span class="p">(</span><span class="n">neuron</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">],</span>
+                <span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">],</span>
+                <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">25</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;max_delay height width&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the spike triggered average.</span>
+<span class="sd">    Compute the spike triggered average (STA) for a specified neuron.</span>
 
-<span class="sd">    neuron: int index of the neuron </span>
-<span class="sd">    stimulus: (frames x height x width) array of stimulus</span>
-<span class="sd">    spikes: (frames x neurons) array of spike counts</span>
-<span class="sd">    max_delay: number of preceding frames (D) in the STA</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    neuron : int</span>
+<span class="sd">        index of the neuron</span>
+<span class="sd">    stimulus : Float[Tensor, &quot;num_frames height width&quot;]</span>
+<span class="sd">        stimulus array</span>
+<span class="sd">    spikes : Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">        spike count array</span>
+<span class="sd">    max_delay : int</span>
+<span class="sd">        number of preceding frames (D) in the STA</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Float[Tensor, &quot;max_delay height width&quot;]</span>
+<span class="sd">        spike triggered average (STA) for the specified neuron</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">stim_shape</span> <span class="o">=</span> <span class="n">stimulus</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
     <span class="n">sta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_delay</span><span class="p">,)</span> <span class="o">+</span> <span class="n">stim_shape</span><span class="p">)</span>
-    
+
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
     <span class="o">...</span>
     <span class="c1">###</span>
-
     <span class="k">return</span> <span class="n">sta</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_sta</span><span class="p">(</span><span class="n">neuron</span><span class="p">,</span> <span class="n">sta</span><span class="p">,</span> <span class="n">n_cols</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sta</span><span class="p">(</span><span class="n">neuron</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+             <span class="n">sta</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;max_delay height width&quot;</span><span class="p">],</span>
+             <span class="n">n_cols</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">5</span>
+             <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the spike triggered average (STA) for a specified neuron.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    neuron : int</span>
+<span class="sd">        index of the neuron</span>
+<span class="sd">    sta : Float[Tensor, &quot;max_delay height width&quot;]</span>
+<span class="sd">        spike triggered average (STA) for the specified neuron</span>
+<span class="sd">    n_cols : int</span>
+<span class="sd">        number of columns in the plot</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">max_delay</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">n_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">max_delay</span> <span class="o">/</span> <span class="n">n_cols</span><span class="p">)))</span>
 
@@ -958,9 +1031,6 @@ A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &g
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/a7fa3e79f548ce84f7b265b926550fcd428ec61ca3c9c0c204e731197864243f.png" src="../_images/a7fa3e79f548ce84f7b265b926550fcd428ec61ca3c9c0c204e731197864243f.png" />
-</div>
 </div>
 </section>
 <section id="finally-create-pytorch-datasets-containing-the-stimuli-and-the-spikes">
@@ -969,26 +1039,52 @@ A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &g
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RGCDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dataset for the RGC white noise data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">]</span>
+    <span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">],</span>
+                 <span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stimulus</span> <span class="o">=</span> <span class="n">stimulus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">spikes</span> <span class="o">=</span> <span class="n">spikes</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Return the number of frames in the dataset</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                    <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">]]:</span>
         <span class="c1"># Binarize the stimulus, move it and the spikes to the GPU,</span>
         <span class="c1"># and package into a dictionary</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">/</span> <span class="mf">128.0</span>
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spikes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">spikes</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">make_datasets</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
-    <span class="n">n_batches</span> <span class="o">=</span> <span class="n">num_frames</span> <span class="o">//</span> <span class="n">batch_size</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_datasets</span><span class="p">(</span><span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1000</span>
+                  <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RGCDataset</span><span class="p">,</span> <span class="n">RGCDataset</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create the training and validation datasets.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    batch_size : int</span>
+<span class="sd">        The number of frames in each batch.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[RGCDataset, RGCDataset]</span>
+<span class="sd">        The training and validation datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_batches</span> <span class="o">=</span> <span class="n">NUM_FRAMES</span> <span class="o">//</span> <span class="n">batch_size</span>
     <span class="n">batched_stimulus</span> <span class="o">=</span> <span class="n">stimulus</span><span class="p">[:</span><span class="n">n_batches</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">]</span>
-    <span class="n">batched_stimulus</span> <span class="o">=</span> <span class="n">batched_stimulus</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_batches</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+    <span class="n">batched_stimulus</span> <span class="o">=</span> <span class="n">batched_stimulus</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_batches</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">)</span>
     <span class="n">batched_spikes</span> <span class="o">=</span> <span class="n">spikes</span><span class="p">[:</span><span class="n">n_batches</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">]</span>
-    <span class="n">batched_spikes</span> <span class="o">=</span> <span class="n">batched_spikes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_batches</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_neurons</span><span class="p">)</span>
+    <span class="n">batched_spikes</span> <span class="o">=</span> <span class="n">batched_spikes</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_batches</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">NUM_NEURONS</span><span class="p">)</span>
 
     <span class="c1"># Split into train and validation</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -1012,20 +1108,16 @@ A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &g
 </section>
 <section id="part-2-fit-a-linear-nonlinear-poisson-lnp-model">
 <h2>Part 2: Fit a linear-nonlinear Poisson (LNP) model<a class="headerlink" href="#part-2-fit-a-linear-nonlinear-poisson-lnp-model" title="Link to this heading">#</a></h2>
-<center>
-<img src=https://github.com/slinderman/stats320/raw/main/assets/lnp.png width=500>
-</center>
-<small><it>Image credit: Jonathan Pillow, Cosyne Tutorial 2018.</it></small>
 <p>Let’s start with a simple linear-nonlinear-Poisson (LNP) model. In statistics, we would just call this a generalized linear model (GLM), but here we’ll stick to the neuroscience lingo to be consistent with McIntosh et al. (2016). LNP models (and GLMs more generally) are natural models for count data, like spike counts. Whereas standard linear models could ouput negative means, these models are constrained to output non-negative expected spike counts. Moreover, since they use a Poisson noise model, the variance of the spike counts will grow with the mean, unlike in typical linear regression models.</p>
 <p>The basic LNP model is,</p>
 <div class="math notranslate nohighlight">
 \[
 \begin{aligned}
-\mathbb{E}[y_{t,n} \mid \mathbf{X}, \mathbf{W}_n] 
+\mathbb{E}[y_{t,n} \mid \mathbf{X}, \mathbf{W}_n]
 &amp;= f \left(\sum_{d=1}^D \sum_{i=1}^{P_H} \sum_{j=1}^{P_W} x_{t-d,i,j} w_{n,d,i,j} \right)
 \end{aligned}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{W}_n \in \mathbb{R}^{D \times P_h \times P_W}\)</span> are the weights, and entry <span class="math notranslate nohighlight">\(w_{n,d,i,j}\)</span> is the weight neuron <span class="math notranslate nohighlight">\(n\)</span> gives to the simulus at pixel <span class="math notranslate nohighlight">\(i,j\)</span> at <span class="math notranslate nohighlight">\(d\)</span> frames preceding the current time. Assume the weights factor into a <strong>spatial footprint</strong> <span class="math notranslate nohighlight">\(\mathbf{u}_n \in \mathbb{R}^{P_H \times P_W}\)</span> times a <strong>temporal profile</strong> <span class="math notranslate nohighlight">\(\mathbf{v}_n \in \mathbb{R}^D\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{W}_n \in \mathbb{R}^{D \times P_h \times P_W}\)</span> are the weights, and entry <span class="math notranslate nohighlight">\(w_{n,d,i,j}\)</span> is the weight neuron <span class="math notranslate nohighlight">\(n\)</span> gives to the simulus at pixel <span class="math notranslate nohighlight">\(i,j\)</span> at <span class="math notranslate nohighlight">\(d\)</span> frames preceding the current time. Assume the weights factor into a <strong>spatial footprint</strong> <span class="math notranslate nohighlight">\(\mathbf{u}_n \in \mathbb{R}^{P_H \times P_W}\)</span> times a temporal profile <span class="math notranslate nohighlight">\(\mathbf{v}_n \in \mathbb{R}^D\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[
 w_{n,d,i,j} = v_{n,d} u_{n,i,j}
@@ -1034,7 +1126,7 @@ w_{n,d,i,j} = v_{n,d} u_{n,i,j}
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\mathbb{E}[y_{t,n} \mid \mathbf{X}, \mathbf{W}_n]
+\mathbb{E}[y_{t,n} \mid X]
 &amp;= f \left( \sum_{d=1}^D v_{n,d} \left(\sum_{i=1}^{P_H} \sum_{j=1}^{P_W} x_{t-d,i,j} u_{n,i,j} \right) \right) \\
 &amp;= f \left( \sum_{d=1}^D v_{n,d} \tilde{x}_{n,t-d} \right) \\
 &amp;= f \left( a_{t,n} \right)
@@ -1063,7 +1155,7 @@ a_{t,n} = [\tilde{\mathbf{x}}_n \star \mathbf{v}_n]_t
 given the stimulus. In the loss function below (Problem 2b), we’ll pass this output to the mean of a Poisson distribution.</p>
 <p><strong>Notes:</strong></p>
 <ul class="simple">
-<li><p>As in Lab 1, you should first project the stimulus onto the spatial filters with a linear layer, then you can convolve with the temporal filters.</p></li>
+<li><p>As in Lab 2, you should first project the stimulus onto the spatial filters with a linear layer, then you can convolve with the temporal filters.</p></li>
 <li><p>Even though the spatial projection is a linear layer, we’ll call it <code class="docutils literal notranslate"><span class="pre">spatial_conv</span></code> since its a factor of a spatiotemporal convolution. This naming will also be consistent with our models below.</p></li>
 <li><p>Both <code class="docutils literal notranslate"><span class="pre">spatial_conv</span></code> and <code class="docutils literal notranslate"><span class="pre">temporal_conv</span></code> include a learnable bias, by default. We only need one, so turn off the bias in the spatial layer.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mean_function</span></code> specifies the mapping from the linear predictor to the expected spike count. We’ll use an exponential function to be consistent with the lecture, but <code class="docutils literal notranslate"><span class="pre">F.softplus</span></code> is more common in practice. (It tends to be a little more stable during training.</p></li>
@@ -1074,11 +1166,45 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LNP</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A linear-nonlinear-Poisson (LNP) model for RGC data, as described above.</span>
+
+<span class="sd">    The model consists of a linear filter (spatial and temporay convolution) followed by</span>
+<span class="sd">    a nonlinear function to produce the mean of a Poisson spike count distribution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_neurons : int</span>
+<span class="sd">        The number of neurons in the model.</span>
+<span class="sd">    height : int</span>
+<span class="sd">        The height of the stimulus in pixels.</span>
+<span class="sd">    width : int</span>
+<span class="sd">        The width of the stimulus in pixels.</span>
+<span class="sd">    max_delay : int</span>
+<span class="sd">        The maximum delay in frames for the temporal convolution.</span>
+<span class="sd">    mean_function : callable</span>
+<span class="sd">        The function to compute the mean of the Poisson distribution.</span>
+<span class="sd">    initial_bias : float</span>
+<span class="sd">        The initial bias for the temporal convolution.</span>
+<span class="sd">    spatial_conv : nn.Linear</span>
+<span class="sd">        The linear layer for the spatial convolution.</span>
+<span class="sd">    temporal_conv : nn.Conv1d</span>
+<span class="sd">        The convolutional layer for the temporal convolution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_neurons</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">mean_function</span><span class="p">:</span> <span class="nb">callable</span>
+    <span class="n">initial_bias</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">spatial_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span>
+    <span class="n">temporal_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
-                 <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
-                 <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                 <span class="n">max_delay</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                 <span class="n">num_neurons</span><span class="o">=</span><span class="n">NUM_NEURONS</span><span class="p">,</span>
+                 <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span>
+                 <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">,</span>
+                 <span class="n">max_delay</span><span class="o">=</span><span class="n">MAX_DELAY</span><span class="p">,</span>
                  <span class="n">mean_function</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">,</span>
                  <span class="n">initial_bias</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LNP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1091,34 +1217,50 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
         <span class="c1">#</span>
-        <span class="c1"># self.spatial_conv = nn.Linear(...)</span>
-        <span class="c1"># self.temporal_conv = nn.Conv1d(...)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spatial_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="c1">#</span>
         <span class="c1">###</span>
 
         <span class="c1"># Initialize the bias</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> 
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
                                 <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">initial_bias</span><span class="p">)))</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">],</span>
+                <span class="n">spikes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        stimulus: num_frames x height x width</span>
-<span class="sd">        spikes: num_frames x num_neurons (unused by this model)</span>
-<span class="sd">        </span>
-<span class="sd">        returns: num_frames x num_neurons tensor of expected spike counts</span>
+<span class="sd">        Compute the expected spike counts for a given stimulus.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stimulus : Float[Tensor, &quot;num_frames height width&quot;]</span>
+<span class="sd">            The stimulus to be processed.</span>
+<span class="sd">        spikes : Float[Tensor, &quot;num_frames num_neurons&quot;], optional</span>
+<span class="sd">            The spike counts for the neurons. This is NOT USED in the model,</span>
+<span class="sd">            but is included for compatibility with the training loop.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">            The expected spike counts for the neurons.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">stimulus</span>
-        
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
         <span class="c1">#</span>
-        <span class="n">rate</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">stimulus</span>
+        <span class="o">...</span>
         <span class="c1">###</span>
 
-        <span class="k">return</span> <span class="mf">1e-4</span> <span class="o">+</span> <span class="n">rate</span>
+        <span class="k">return</span> <span class="mf">1e-4</span> <span class="o">+</span> <span class="n">x</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">check_model_outputs</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check that the model outputs are the right shape and non-negative.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stimulus&#39;</span><span class="p">],</span>
                 <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;spikes&#39;</span><span class="p">])</span>
     <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;spikes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
@@ -1140,17 +1282,28 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 <div class="math notranslate nohighlight">
 \[
 \begin{aligned}
-\mathcal{L}(\mathbf{W}) = -\frac{1}{NT} \sum_{n=1}^N \sum_{t=1}^T \log \mathrm{Po}(y_{t,n} \mid f(a_{t,n}))
+\mathcal{L}(\mathbf{W}) = -\frac{1}{NT} \sum_{n=1}^N \sum_{t=1}^T \log \mathrm{Po}(y_{t,n} \mid f(a_{t,n})
 \end{aligned}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">poisson_loss</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">poisson_loss</span><span class="p">(</span><span class="n">rate</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">],</span>
+                 <span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the log-likelihood under a Poisson spiking model.</span>
 
-<span class="sd">    rate:  T x N array of expected spike counts</span>
-<span class="sd">    spikes: T x N array of integer spikes</span>
-<span class="sd">    returns: average negative log likelihood (mean over all spikes)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rate: Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">        The expected spike counts for the neurons.</span>
+<span class="sd">    spikes: Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">        The actual spike counts for the neurons.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">        The negative log likelihood of the Poisson distribution.</span>
+<span class="sd">        This is the loss function for the LNP and subsequent GLM models.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
@@ -1158,9 +1311,9 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
     <span class="c1">###</span>
 
     <span class="k">return</span> <span class="n">avg_nll</span>
-    
+
 <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
-    <span class="n">poisson_loss</span><span class="p">(</span><span class="n">lnp</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]),</span> 
+    <span class="n">poisson_loss</span><span class="p">(</span><span class="n">lnp</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]),</span>
                  <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;spikes&#39;</span><span class="p">]),</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.2675</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
@@ -1181,18 +1334,31 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 <p>Do not regularize the biases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lnp_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the log prior probability under a mean-zero Gaussian model.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lnp_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">LNP</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1e-3</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the log prior probability under a mean-zero Gaussian model.</span>
 
-<span class="sd">    model: LNP instance</span>
-<span class="sd">    scale: standard deviation </span>
-<span class="sd">    returns: scalar sum of log probabilities for each spike.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model: LNP</span>
+<span class="sd">        The LNP model to be regularized.</span>
+<span class="sd">    alpha: float</span>
+<span class="sd">        The regularization strength.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The regularization term for the model. This is the sum of the</span>
+<span class="sd">        squared weights of the spatial and temporal convolution filters.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
     <span class="n">reg</span> <span class="o">=</span> <span class="o">...</span>
     <span class="c1">###</span>
-    
+
     <span class="k">return</span> <span class="n">reg</span>
 </pre></div>
 </div>
@@ -1210,19 +1376,14 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 <span class="c1"># Fit the LNP model</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training LNP model. This should take about 2 minutes...&quot;</span><span class="p">)</span>
 <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> \
-    <span class="n">train_model</span><span class="p">(</span><span class="n">lnp</span><span class="p">,</span> 
-                <span class="n">train_dataset</span><span class="p">,</span> 
-                <span class="n">val_dataset</span><span class="p">,</span> 
+    <span class="n">train_model</span><span class="p">(</span><span class="n">lnp</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="p">,</span>
+                <span class="n">val_dataset</span><span class="p">,</span>
                 <span class="n">poisson_loss</span><span class="p">,</span>
                 <span class="n">lnp_regularizer</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training LNP model. This should take about 2 minutes...
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fab577d80e3146beb709c9e706f9644c", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "40711acd402042abbe817462f184d7f6", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="plot-the-results">
@@ -1249,18 +1410,12 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/c1dc2a9a9efb2127a842216819449a6df487af97f91775c809dfeb58ca1bc4ad.png" src="../_images/c1dc2a9a9efb2127a842216819449a6df487af97f91775c809dfeb58ca1bc4ad.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_stimulus_weights</span><span class="p">(</span><span class="n">lnp</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/0b5fc48a449c95f78bba522d9a63201d2ed3ef06e009b3afe2a72d2794b6f437.png" src="../_images/0b5fc48a449c95f78bba522d9a63201d2ed3ef06e009b3afe2a72d2794b6f437.png" />
 </div>
 </div>
 </section>
@@ -1273,15 +1428,11 @@ given the stimulus. In the loss function below (Problem 2b), we’ll pass this o
 </section>
 <section id="part-3-fit-a-glm-with-inter-neuron-couplings">
 <h2>Part 3: Fit a GLM with inter-neuron couplings<a class="headerlink" href="#part-3-fit-a-glm-with-inter-neuron-couplings" title="Link to this heading">#</a></h2>
-<center>
-<img src=https://github.com/slinderman/stats320/raw/main/assets/glm.png width=300>
-</center>
-<small><it>Image credit: Jonathan Pillow, Cosyne Tutorial 2018.</it></small>
 <p>Now add inter-neuron couplings to the basic model above. For historical reasons, the LNP with inter-neuron couplings is what some neuroscientists call a GLM, even though they’re both instances of generalized linear models! Again, we’re just going to stick to the notation of McIntosh et al (2016) for this lab anyway.</p>
 <p>The new model has activation,</p>
 <div class="math notranslate nohighlight">
 \[
-a_{t,n} 
+a_{t,n}
 = [\tilde{\mathbf{x}}_n \star \mathbf{v}_n]_t +  \sum_{m=1}^N \sum_{d=1}^D y_{t-d,m} g_{m,n,d}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{G} \in \mathbb{R}^{N \times N \times D}\)</span> is a tensor of <strong>coupling</strong> weights.</p>
@@ -1293,13 +1444,51 @@ a_{t,n}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GLM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generalized linear model (GLM) with a spatiotemporal filter</span>
+<span class="sd">    and coupling weights. The model consists of a linear filter (spatial and</span>
+<span class="sd">    temporal convolution) followed by a nonlinear function to produce the mean</span>
+<span class="sd">    of a Poisson spike count distribution. The model also includes coupling</span>
+<span class="sd">    weights to account for the influence of other neurons on the firing rate</span>
+<span class="sd">    of a neuron.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_neurons : int</span>
+<span class="sd">        The number of neurons in the model.</span>
+<span class="sd">    height : int</span>
+<span class="sd">        The height of the stimulus in pixels.</span>
+<span class="sd">    width : int</span>
+<span class="sd">        The width of the stimulus in pixels.</span>
+<span class="sd">    max_delay : int</span>
+<span class="sd">        The maximum delay in frames for the temporal convolution.</span>
+<span class="sd">    mean_function : callable</span>
+<span class="sd">        The function to compute the mean of the Poisson distribution.</span>
+<span class="sd">    initial_bias : float</span>
+<span class="sd">        The initial bias for the temporal convolution.</span>
+<span class="sd">    spatial_conv : nn.Linear</span>
+<span class="sd">        The linear layer for the spatial convolution.</span>
+<span class="sd">    temporal_conv : nn.Conv1d</span>
+<span class="sd">        The convolutional layer for the temporal convolution.</span>
+<span class="sd">    coupling_conv : nn.Conv1d</span>
+<span class="sd">        The convolutional layer for the coupling weights.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_neurons</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">mean_function</span><span class="p">:</span> <span class="nb">callable</span>
+    <span class="n">spatial_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span>
+    <span class="n">temporal_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span>
+    <span class="n">coupling_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
-                 <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
-                 <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                 <span class="n">max_delay</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-                 <span class="n">initial_bias</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-                 <span class="n">mean_function</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">):</span>
+                 <span class="n">num_neurons</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">NUM_NEURONS</span><span class="p">,</span>
+                 <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span>
+                 <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">,</span>
+                 <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">MAX_DELAY</span><span class="p">,</span>
+                 <span class="n">initial_bias</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                 <span class="n">mean_function</span><span class="p">:</span> <span class="nb">callable</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">GLM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_neurons</span> <span class="o">=</span> <span class="n">num_neurons</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
@@ -1309,21 +1498,35 @@ a_{t,n}
 
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
+        <span class="c1">#</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">spatial_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coupling_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="c1">###</span>
 
         <span class="c1"># Initialize the bias</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> 
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
                                 <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">initial_bias</span><span class="p">)))</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">],</span>
+                <span class="n">spikes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        stimulus: num_frames x height x width</span>
-<span class="sd">        spikes: num_frames x num_neurons</span>
-<span class="sd">        </span>
-<span class="sd">        returns: num_frames x num_neurons tensor of expected spike counts</span>
+<span class="sd">        Compute the expected spike counts for a given stimulus and spikes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stimulus: Float[Tensor, &quot;num_frames height width&quot;]</span>
+<span class="sd">            The stimulus to be processed.</span>
+<span class="sd">        spikes: Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">            The spike counts for the neurons. This is used to compute the</span>
+<span class="sd">            coupling weights.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">            The expected spike counts for the neurons.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span>
 
@@ -1332,11 +1535,12 @@ a_{t,n}
         <span class="n">rate</span> <span class="o">=</span> <span class="o">...</span>
         <span class="c1">###</span>
 
+        <span class="c1"># Apply the nonlinearity and add small positive bias</span>
         <span class="k">return</span> <span class="mf">1e-4</span> <span class="o">+</span> <span class="n">rate</span>
 
 <span class="c1"># Construct a coupled GLM model with random initial weights.</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">glm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">(</span><span class="n">num_neurons</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">glm</span> <span class="o">=</span> <span class="n">GLM</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 <span class="n">check_model_outputs</span><span class="p">(</span><span class="n">glm</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1348,13 +1552,26 @@ a_{t,n}
 <p>Put an <span class="math notranslate nohighlight">\(\ell_2\)</span> penalty on the weights of the <code class="docutils literal notranslate"><span class="pre">spatial_conv</span></code>, <code class="docutils literal notranslate"><span class="pre">temporal_conv</span></code>, and <code class="docutils literal notranslate"><span class="pre">coupling_conv</span></code>. No need to regularize the bias. Scale the regularization by <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">glm_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">glm_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1e-3</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implement an \ell_2 penalty on the norm of the model weights,</span>
 <span class="sd">    as described above.</span>
 
-<span class="sd">    model: GLM instance</span>
-<span class="sd">    alpha: scaling parameter for the \ell_2 penalty.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model: GLM</span>
+<span class="sd">        The GLM model to be regularized.</span>
+<span class="sd">    alpha: float</span>
+<span class="sd">        The regularization strength.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The regularization term for the model. This is the sum of the</span>
+<span class="sd">        squared weights of the spatial, temporal, and coupling convolution</span>
+<span class="sd">        filters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
@@ -1378,19 +1595,14 @@ a_{t,n}
 <span class="c1"># Fit the model</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training coupled GLM. This should take about 2-4 minutes...&quot;</span><span class="p">)</span>
 <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> \
-    <span class="n">train_model</span><span class="p">(</span><span class="n">glm</span><span class="p">,</span> 
-                <span class="n">train_dataset</span><span class="p">,</span> 
-                <span class="n">val_dataset</span><span class="p">,</span> 
+    <span class="n">train_model</span><span class="p">(</span><span class="n">glm</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="p">,</span>
+                <span class="n">val_dataset</span><span class="p">,</span>
                 <span class="n">poisson_loss</span><span class="p">,</span>
                 <span class="n">glm_regularizer</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training coupled GLM. This should take about 2-4 minutes...
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "340ca411dfc5498f9d463ae21e9f6c28", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "076ebf3e7f774bbfb0a3bd5840c6c835", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="id1">
@@ -1417,9 +1629,6 @@ a_{t,n}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/2c6d7a129f32ec17b32dfdbf4e9f4f2a1f71d3bb95654a58805568dbc4372377.png" src="../_images/2c6d7a129f32ec17b32dfdbf4e9f4f2a1f71d3bb95654a58805568dbc4372377.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1427,18 +1636,12 @@ a_{t,n}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/0acc478f78eb4cd817f1febc69e571bf8b48e66670d20a63309bf0b7ac82ec04.png" src="../_images/0acc478f78eb4cd817f1febc69e571bf8b48e66670d20a63309bf0b7ac82ec04.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_coupling_weights</span><span class="p">(</span><span class="n">glm</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/442c8afc53ac807686a93adf0c49dd277c767a2a3a6418cda3da6b01e2acdd5e.png" src="../_images/442c8afc53ac807686a93adf0c49dd277c767a2a3a6418cda3da6b01e2acdd5e.png" />
 </div>
 </div>
 </section>
@@ -1450,10 +1653,6 @@ a_{t,n}
 </section>
 <section id="part-4-convolutional-neural-network-model">
 <h2>Part 4: Convolutional neural network model<a class="headerlink" href="#part-4-convolutional-neural-network-model" title="Link to this heading">#</a></h2>
-<center>
-<img src=https://github.com/slinderman/stats320/raw/main/assets/cnn.png width=500>
-</center>
-<small><it>Image credit: McIntosh et al (NeurIPS, 2016).</it></small>
 <p>Finally, we’ll implement a convolutional neural network like the one proposed in McIntosh et al (2016). (See above.) We’ll make some slight modifications though, so that the model doesn’t take so long to fit.</p>
 <section id="problem-4a-implement-the-convolutional-model">
 <h3>Problem 4a: Implement the convolutional model<a class="headerlink" href="#problem-4a-implement-the-convolutional-model" title="Link to this heading">#</a></h3>
@@ -1481,50 +1680,117 @@ a_{t,n}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A convolutional neural network (CNN) model for RGC data, as described above.</span>
+<span class="sd">    The model consists of a series of convolutional layers followed by a</span>
+<span class="sd">    fully connected layer to produce the mean of a Poisson spike count</span>
+<span class="sd">    distribution. The model also includes a nonlinear activation function</span>
+<span class="sd">    between layers to capture nonlinear features of the stimulus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_neurons : int</span>
+<span class="sd">        The number of neurons in the model.</span>
+<span class="sd">    height : int</span>
+<span class="sd">        The height of the stimulus in pixels.</span>
+<span class="sd">    width : int</span>
+<span class="sd">        The width of the stimulus in pixels.</span>
+<span class="sd">    max_delay : int</span>
+<span class="sd">        The maximum delay in frames for the temporal convolution.</span>
+<span class="sd">    rf_size_1 : int</span>
+<span class="sd">        The size of the receptive field for the first layer.</span>
+<span class="sd">    rf_size_2 : int</span>
+<span class="sd">        The size of the receptive field for the second layer.</span>
+<span class="sd">    num_subunits_1 : int</span>
+<span class="sd">        The number of subunits in the first layer.</span>
+<span class="sd">    num_subunits_2 : int</span>
+<span class="sd">        The number of subunits in the second layer.</span>
+<span class="sd">    mean_function : callable</span>
+<span class="sd">        The function to compute the mean of the Poisson distribution.</span>
+<span class="sd">    initial_bias : float</span>
+<span class="sd">        The initial bias for the temporal convolution.</span>
+<span class="sd">    spatial_conv : nn.Conv2d</span>
+<span class="sd">        The convolutional layer for the spatial convolution.</span>
+<span class="sd">    temporal_conv : nn.Conv1d</span>
+<span class="sd">        The convolutional layer for the temporal convolution.</span>
+<span class="sd">    layer2 : nn.Conv2d</span>
+<span class="sd">        The convolutional layer for the second layer.</span>
+<span class="sd">    layer3 : nn.Linear</span>
+<span class="sd">        The fully connected layer for the output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_neurons</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">rf_size_1</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">rf_size_2</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">num_subunits_1</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">num_subunits_2</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">mean_function</span><span class="p">:</span> <span class="nb">callable</span>
+    <span class="n">spatial_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span>
+    <span class="n">temporal_conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span>
+    <span class="n">layer2</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span>
+    <span class="n">layer3</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
-                 <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
-                 <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                 <span class="n">rf_size_1</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
-                 <span class="n">rf_size_2</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                 <span class="n">max_delay</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-                 <span class="n">num_subunits_1</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                 <span class="n">num_subunits_2</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                 <span class="n">initial_bias</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-                 <span class="n">mean_function</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">):</span>
-        
+                 <span class="n">num_neurons</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">NUM_NEURONS</span><span class="p">,</span>
+                 <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span>
+                 <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">,</span>
+                 <span class="n">rf_size_1</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+                 <span class="n">rf_size_2</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                 <span class="n">max_delay</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">MAX_DELAY</span><span class="p">,</span>
+                 <span class="n">num_subunits_1</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                 <span class="n">num_subunits_2</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                 <span class="n">initial_bias</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                 <span class="n">mean_function</span><span class="p">:</span> <span class="nb">callable</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">):</span>
+
         <span class="nb">super</span><span class="p">(</span><span class="n">CNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_neurons</span> <span class="o">=</span> <span class="n">num_neurons</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_delay</span> <span class="o">=</span> <span class="n">max_delay</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rf_size_1</span> <span class="o">=</span> <span class="n">rf_size_1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_subunits_1</span> <span class="o">=</span> <span class="n">num_subunits_1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rf_size_2</span> <span class="o">=</span> <span class="n">rf_size_2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_subunits_1</span> <span class="o">=</span> <span class="n">num_subunits_1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_subunits_2</span> <span class="o">=</span> <span class="n">num_subunits_2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_function</span> <span class="o">=</span> <span class="n">mean_function</span>
-        
+
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
+        <span class="c1">#</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">spatial_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">temporal_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="c1">#</span>
         <span class="c1">###</span>
 
         <span class="c1"># Initialize the bias</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer3</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> 
+        <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">constant_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer3</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span>
                                 <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">initial_bias</span><span class="p">)))</span>
-        
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="n">spikes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">stimulus</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames height width&quot;</span><span class="p">],</span>
+                <span class="n">spikes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_frames num_neurons&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        stimulus: num_frames x height x width</span>
-<span class="sd">        spikes: num_frames x num_neurons (unused by this model)</span>
-<span class="sd">        </span>
-<span class="sd">        returns: num_frames x num_neurons tensor of expected spike counts</span>
+<span class="sd">        Compute the expected spike counts for a given stimulus and spikes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        stimulus: Float[Tensor, &quot;num_frames height width&quot;]</span>
+<span class="sd">            The stimulus to be processed.</span>
+<span class="sd">        spikes: Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">            The spike counts for the neurons. This is NOT USED in this model,</span>
+<span class="sd">            but is included for compatibility with the training loop.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Float[Tensor, &quot;num_frames num_neurons&quot;]</span>
+<span class="sd">            The expected spike counts for the neurons.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">stimulus</span>
-        
         <span class="c1">###</span>
         <span class="c1"># YOUR CODE BELOW</span>
         <span class="n">rate</span> <span class="o">=</span> <span class="o">...</span>
@@ -1547,17 +1813,31 @@ a_{t,n}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regularize the weights of the CNN</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">cnn_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cnn_regularizer</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">CNN</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1e-5</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implement an \ell_2 penalty on the norm of the model weights,</span>
 <span class="sd">    as described above.</span>
 
-<span class="sd">    model: CNN instance</span>
-<span class="sd">    alpha: scaling parameter for the \ell_2 penalty.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model: CNN</span>
+<span class="sd">        The CNN model to be regularized</span>
+<span class="sd">    alpha: float</span>
+<span class="sd">        The regularization strength.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The regularization term for the objective. This is the sum of the</span>
+<span class="sd">        squared weights of the spatial, temporal, and coupling convolution</span>
+<span class="sd">        filters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###</span>
     <span class="c1"># YOUR CODE BELOW</span>
     <span class="n">reg</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="c1">#</span>
     <span class="c1">###</span>
 
     <span class="k">return</span> <span class="n">reg</span>
@@ -1575,19 +1855,14 @@ a_{t,n}
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitting the CNN model. This should take about 10-20 minutes.&quot;</span><span class="p">)</span>
 <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> \
-    <span class="n">train_model</span><span class="p">(</span><span class="n">cnn</span><span class="p">,</span> 
-                <span class="n">train_dataset</span><span class="p">,</span> 
+    <span class="n">train_model</span><span class="p">(</span><span class="n">cnn</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="p">,</span>
                 <span class="n">val_dataset</span><span class="p">,</span>
                 <span class="n">poisson_loss</span><span class="p">,</span>
                 <span class="n">cnn_regularizer</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting the CNN model. This should take about 10-20 minutes.
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "80eece62ffb941bfaf3bd41df963eecd", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "8458b719948f4e1a991a32968aac671b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="id2">
@@ -1614,9 +1889,6 @@ a_{t,n}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/b3e1f0e6829b08923f49d9d16f6b80ad05161269f2a7520cf98d86c3f27ba907.png" src="../_images/b3e1f0e6829b08923f49d9d16f6b80ad05161269f2a7520cf98d86c3f27ba907.png" />
-</div>
 </div>
 </section>
 <section id="plot-the-subunit-weights-for-the-cnn">
@@ -1628,9 +1900,6 @@ a_{t,n}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/741a7e76fc664da2dd72906b10ac3ee3abf64ed597676c6414c30b37a36c7026.png" src="../_images/741a7e76fc664da2dd72906b10ac3ee3abf64ed597676c6414c30b37a36c7026.png" />
-</div>
 </div>
 </section>
 <section id="plot-the-spatial-weights-for-the-second-layer-of-subunits">
@@ -1640,9 +1909,6 @@ a_{t,n}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_cnn_subunits2</span><span class="p">(</span><span class="n">cnn</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/c217f37d50f4ab65e6efdc3c54ce323ce0927514ce119284901c07a9fc8a673e.png" src="../_images/c217f37d50f4ab65e6efdc3c54ce323ce0927514ce119284901c07a9fc8a673e.png" />
 </div>
 </div>
 </section>
@@ -1659,23 +1925,19 @@ a_{t,n}
 
 <span class="c1">###</span>
 <span class="c1"># YOUR CODE BELOW</span>
+<span class="c1">#</span>
 <span class="n">lnp_test_rates</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">glm_test_rates</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">cnn_test_rates</span> <span class="o">=</span> <span class="o">...</span>
 
 <span class="c1"># Plot a slice of the true and predicted firing rates</span>
-<span class="n">slc</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">):</span>
-    <span class="o">...</span>
+<span class="o">...</span>
+<span class="c1">#</span>
 <span class="c1">###</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/708643cc2fabe0dd9539a553575ca51d42388f7c835f4a81cb12e9e11bd6ee7b.png" src="../_images/708643cc2fabe0dd9539a553575ca51d42388f7c835f4a81cb12e9e11bd6ee7b.png" />
 </div>
 </div>
 </section>
@@ -1686,10 +1948,12 @@ a_{t,n}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###</span>
 <span class="c1"># YOUR CODE BELOW</span>
+<span class="c1">#</span>
 <span class="n">mse_const</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">mse_lnp</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">mse_glm</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">mse_cnn</span> <span class="o">=</span> <span class="o">...</span>
+<span class="c1">#</span>
 <span class="c1">###</span>
 
 <span class="c1"># Make a bar plot</span>
@@ -1701,12 +1965,6 @@ a_{t,n}
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Test MSE&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Test MSE&#39;)
-</pre></div>
-</div>
-<img alt="../_images/6c0ef4494cbb2c15647565c5848474959fa78cfa29d6209039ae4304d3fbd1d5.png" src="../_images/6c0ef4494cbb2c15647565c5848474959fa78cfa29d6209039ae4304d3fbd1d5.png" />
 </div>
 </div>
 </section>
@@ -1744,6 +2002,19 @@ a_{t,n}
 <h2>Author contributions<a class="headerlink" href="#author-contributions" title="Link to this heading">#</a></h2>
 <p>Write a short paragraph describing how each team member contributed to this assignment.</p>
 <p><em>Your answer here</em></p>
+</section>
+<section id="submission-instructions">
+<h2>Submission Instructions<a class="headerlink" href="#submission-instructions" title="Link to this heading">#</a></h2>
+<p>Download your notebook in .ipynb format and use the following command to convert it to PDF</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="o">--</span><span class="n">to</span> <span class="n">pdf</span> <span class="n">lab4_teamname</span><span class="o">.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+<p>If you’re using Anaconda for package management, you can install <code class="docutils literal notranslate"><span class="pre">nbconvert</span></code> with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">anaconda</span> <span class="n">nbconvert</span>
+</pre></div>
+</div>
+<p>Upload your .pdf file to Gradescope.</p>
+<p><strong>Only one submission per team!</strong></p>
 </section>
 </section>
 
@@ -1862,6 +2133,7 @@ a_{t,n}
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author-contributions">Author contributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
 </ul>
   </nav></div>
 

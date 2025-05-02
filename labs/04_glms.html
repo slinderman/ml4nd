@@ -955,8 +955,8 @@ Add a colorbar and label your axes!</p>
 <h3>Problem 1c: Compute and plot the spike triggered average<a class="headerlink" href="#problem-1c-compute-and-plot-the-spike-triggered-average" title="Link to this heading">#</a></h3>
 <p>The spike triggered average for neuron <span class="math notranslate nohighlight">\(n\)</span> is the average stimulus in the lead-up to a spike by that neuron.</p>
 <p>Formally, let <span class="math notranslate nohighlight">\(A_n \in \mathbb{R}^{D \times P_H \times P_W}\)</span> denote the STA for neuron <span class="math notranslate nohighlight">\(n\)</span>. It’s defined as,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3a22f7c8-928f-4c0b-b859-54b904cf4d04">
-<span class="eqno">(1)<a class="headerlink" href="#equation-3a22f7c8-928f-4c0b-b859-54b904cf4d04" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2710b5df-5584-4bb0-9cd3-167e72505347">
+<span class="eqno">(1)<a class="headerlink" href="#equation-2710b5df-5584-4bb0-9cd3-167e72505347" title="Permalink to this equation">#</a></span>\[\begin{align}
 A_{n,d,i,j} = \frac{1}{S_{n,d}} \sum_{t=d+1}^T x_{t-d,i,j} \mathbb{I}[y_{t,n} &gt;0]
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(S_{n,d} = \sum_{t=d+1}^T \mathbb{I}[y_{t,n} &gt;0]\)</span> is the number of spikes on neuron <span class="math notranslate nohighlight">\(n\)</span>, accounting for edge effects.</p>

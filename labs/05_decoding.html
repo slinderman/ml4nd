@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 5: Bayesian Decoding &#8212; Machine Learning Methods for Neural Data Analysis</title>
+    <title>Bayesian Decoding &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
   
   
@@ -209,7 +209,7 @@
 <li class="toctree-l1"><a class="reference internal" href="02_calcium_imaging.html">Calcium Deconvolution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_pose_tracking.html">Markerless Pose Tracking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 5: Bayesian Decoding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bayesian Decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Autoregressive HMMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07_slds.html">Switching LDS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Sequential Variational Autoencoders</a></li>
@@ -386,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 5: Bayesian Decoding</h1>
+    <h1>Bayesian Decoding</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,7 +413,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-bayesian-decoding-with-a-correlated-prior">Part 2: Bayesian decoding with a correlated prior</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2a-math-derive-the-posterior-distribution">Problem 2a [Math]: Derive the posterior distribution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-estimate-the-velocity-dynamics">Problem 2b: Estimate the velocity dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-estimate-the-prior-parameters">Problem 2b: Estimate the prior parameters</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2c-plot-the-prior-covariance-and-correlation-matrices">Problem 2c: Plot the prior covariance and correlation matrices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2d-implement-the-correlated-decoder">Problem 2d: Implement the correlated decoder</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Instantiate the model</a></li>
@@ -445,8 +445,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-5-bayesian-decoding">
-<h1>Lab 5: Bayesian Decoding<a class="headerlink" href="#lab-5-bayesian-decoding" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-decoding">
+<h1>Bayesian Decoding<a class="headerlink" href="#bayesian-decoding" title="Link to this heading">#</a></h1>
 <p>The previous lab developed nonlinear <em>encoder</em> models for predicting neural responses to sensory stimuli.  This lab develops <em>decoder</em> models for inferring movements from neural spike trains.  One way to decode is via Bayesian inference: if we have a strong encoding model and a good prior distribution on movements, we can combine them to infer the posterior distribution of movements given spikes. This allows us to build constraints into the prior; e.g. that movements tend to be smooth. Ultimately, decoding is just another regression problem, and the Bayesian approach offers a convenient way of constructing a conditional distribution of movements given spikes, leveraging prior knowledge about how movements unfold.</p>
 <p>We’ll use a dataset from <a class="reference external" href="https://engineering.stanford.edu/magazine/krishna-shenoy-engineer-who-reimagined-how-brain-makes-body-move-dies-54">Prof. Krishna Shenoy</a>, a leader in the field of motor neuroscience and brain-computer interfaces who sadly passed away a few years ago. The data consists of a 96-channel Utah array recording from motor cortex of a non-human primate performing a center-out reaching task. The data and a related model are described in (Gilja*, Nuyujukian*, et al, 2012).</p>
 <p><strong>References</strong></p>
@@ -481,7 +481,12 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Helper functions</span>
 
@@ -720,10 +725,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="load-the-data">
 <h3>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h3>
-<p>We have preprocessed the data into training, validation, and test dictionaries. Each dictionary contains the following keys:</p>
+<p>We have preprocessed the data into training and test dictionaries. Each dictionary contains the following keys:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">spikes</span></code> a (<span class="math notranslate nohighlight">\(R \times T \times 96\)</span>) array of spike counts for each of the 96 channels where <span class="math notranslate nohighlight">\(R\)</span> is the number of trials and <span class="math notranslate nohighlight">\(T\)</span> is the number of 25ms time bins per trial</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">position</span></code> a (<span class="math notranslate nohighlight">\(R \times T \times 2\)</span>) array of cursor positions</p></li>
@@ -817,7 +823,7 @@ document.write(`
 <li><p><span class="math notranslate nohighlight">\(\mathbf{C} \in \mathbb{R}^{96 \times 2}\)</span>: the <em>emission</em> matrix</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{d} \in \mathbb{R}^{96}\)</span>: the <em>emission</em> bias</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{R} \in \mathbb{R}^{96 \times 96}\)</span>: the <em>emission</em> covariance
-Note that <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> and <span class="math notranslate nohighlight">\(R\)</span> are positive definite matrices.</p></li>
+Note that <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> are positive definite matrices.</p></li>
 </ul>
 <p>As we derived in the notes, the posterior distribution of the velocity given the spike counts is,</p>
 <div class="math notranslate nohighlight">
@@ -1102,7 +1108,7 @@ p(\mathbf{x}_{i,t} \mid \mathbf{y}_{i,t}) &amp;= \mathcal{N}(\boldsymbol{\mu}_{i
 \[
 \begin{align}
 p(\mathrm{vec}(\mathbf{X}_i) \mid \mathbf{Y}_i) 
-&amp;= \mathcal{N}\left( \mathrm{vec}(\mathbf{X}_i) \, \bigg| \,
+&amp;= \mathcal{N}\left( \mathrm{vec}(\mathbf{X}_i) \mid
     \boldsymbol{\mu}_i, \mathbf{\Sigma}_i
     \right).
 \end{align}
@@ -1112,8 +1118,8 @@ p(\mathrm{vec}(\mathbf{X}_i) \mid \mathbf{Y}_i)
 <hr class="docutils" />
 <p><em>Your answer here</em></p>
 </section>
-<section id="problem-2b-estimate-the-velocity-dynamics">
-<h3>Problem 2b: Estimate the velocity dynamics<a class="headerlink" href="#problem-2b-estimate-the-velocity-dynamics" title="Link to this heading">#</a></h3>
+<section id="problem-2b-estimate-the-prior-parameters">
+<h3>Problem 2b: Estimate the prior parameters<a class="headerlink" href="#problem-2b-estimate-the-prior-parameters" title="Link to this heading">#</a></h3>
 <p>Estimate the prior covariance mean, <span class="math notranslate nohighlight">\(\hat{\mathbf{m}} \in \mathbb{R}^{2T}\)</span>, and covariance matrix, <span class="math notranslate nohighlight">\(\hat{\mathbf{Q}} \in \mathbb{R}^{2T \times 2T}\)</span>, using the empirical mean and covariance of the flattened velocities, <span class="math notranslate nohighlight">\(\mathrm{vec}(\mathbf{X}_i)\)</span>, across trials.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1173,7 +1179,7 @@ p(\mathrm{vec}(\mathbf{X}_i) \mid \mathbf{Y}_i)
 <h3>Problem 2d: Implement the correlated decoder<a class="headerlink" href="#problem-2d-implement-the-correlated-decoder" title="Link to this heading">#</a></h3>
 <p>Implement the correlated decoder as a PyTorch module, using your derivations from Problem 2a.</p>
 <p>Your <code class="docutils literal notranslate"><span class="pre">forward</span></code> function should return <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> as a <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">2</span></code> tensor and <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> as a <code class="docutils literal notranslate"><span class="pre">2T</span> <span class="pre">x</span> <span class="pre">2T</span></code> tensor.</p>
-<p><strong>Note</strong>: Inverting <span class="math notranslate nohighlight">\(\mathbf{J}\)</span> naively takse <span class="math notranslate nohighlight">\(O(T^3)\)</span> operations since it’s a <span class="math notranslate nohighlight">\(2T \times 2T\)</span> matrix.  We can cut down on this cost if we make simplifying assumptions on the prior over <span class="math notranslate nohighlight">\(\mathbf{X}_i\)</span>. We’ll talk more about later in the course. For now, just pay the cubic price since these matrices aren’t that big anyway.</p>
+<p><strong>Note</strong>: Computing <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span> requires a matrix inversion that takes <span class="math notranslate nohighlight">\(O(T^3)\)</span> operations since it’s a <span class="math notranslate nohighlight">\(2T \times 2T\)</span> matrix.  We can cut down on this cost if we make simplifying assumptions on the prior covariance of <span class="math notranslate nohighlight">\(\mathbf{X}_i\)</span>. We’ll talk more about later in the course. For now, just pay the cubic price since these matrices aren’t that big anyway.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CorrelatedDecoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -1524,7 +1530,7 @@ Why?</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-bayesian-decoding-with-a-correlated-prior">Part 2: Bayesian decoding with a correlated prior</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2a-math-derive-the-posterior-distribution">Problem 2a [Math]: Derive the posterior distribution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-estimate-the-velocity-dynamics">Problem 2b: Estimate the velocity dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2b-estimate-the-prior-parameters">Problem 2b: Estimate the prior parameters</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2c-plot-the-prior-covariance-and-correlation-matrices">Problem 2c: Plot the prior covariance and correlation matrices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2d-implement-the-correlated-decoder">Problem 2d: Implement the correlated decoder</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Instantiate the model</a></li>

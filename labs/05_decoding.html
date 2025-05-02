@@ -812,8 +812,8 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\mathbf{x}_{i,t} &amp;\sim \mathcal{N}(\mathbf{m}, \mathbf{Q}) \\
-\mathbf{y}_{i,t} \mid \mathbf{x}_{i,t} &amp;\sim \mathcal{N}(\mathbf{C} \mathbf{x}_{i,t} + \mathbf{d}, \mathbf{R}).
+\mathbf{x}_{i,t} &amp;\sim \mathrm{N}(\mathbf{m}, \mathbf{Q}) \\
+\mathbf{y}_{i,t} \mid \mathbf{x}_{i,t} &amp;\sim \mathrm{N}(\mathbf{C} \mathbf{x}_{i,t} + \mathbf{d}, \mathbf{R}).
 \end{aligned}
 \end{split}\]</div>
 <p>with parameters,</p>
@@ -829,7 +829,7 @@ Note that <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> and <
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-p(\mathbf{x}_{i,t} \mid \mathbf{y}_{i,t}) &amp;= \mathcal{N}(\boldsymbol{\mu}_{i,t}, \boldsymbol{\Sigma}_{i,t}) \\
+p(\mathbf{x}_{i,t} \mid \mathbf{y}_{i,t}) &amp;= \mathrm{N}(\boldsymbol{\mu}_{i,t}, \boldsymbol{\Sigma}_{i,t}) \\
 \boldsymbol{\mu}_{i,t} &amp;= \mathbf{J}_{i,t}^{-1} \mathbf{h}_{i,t},  \\
 \boldsymbol{\Sigma}_{i,t} &amp;= \mathbf{J}_{i,t}^{-1},  \\
 \mathbf{J}_{i,t} &amp;= \mathbf{Q}^{-1} + \mathbf{C}^\top \mathbf{R}^{-1} \mathbf{C}, \\
@@ -1108,7 +1108,7 @@ p(\mathbf{x}_{i,t} \mid \mathbf{y}_{i,t}) &amp;= \mathcal{N}(\boldsymbol{\mu}_{i
 \[
 \begin{align}
 p(\mathrm{vec}(\mathbf{X}_i) \mid \mathbf{Y}_i) 
-&amp;= \mathcal{N}\left( \mathrm{vec}(\mathbf{X}_i) \mid
+&amp;= \mathrm{N}\left( \mathrm{vec}(\mathbf{X}_i) \mid
     \boldsymbol{\mu}_i, \mathbf{\Sigma}_i
     \right).
 \end{align}

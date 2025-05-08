@@ -449,15 +449,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Download crowd movies for each state</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-4-fitting-arhmms-with-stochastic-em">Bonus Problem 4: Fitting ARHMMs with Stochastic EM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead">Bonus Problem 4a: Adapt your EM code to run stochastic EM instead</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the data and the inferred states</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the state usage histogram</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-pc-trajectories-upon-state-entry">Plot PC trajectories upon state entry</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Make “crowd” movies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Download crowd movies for each state</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author-contributions">Author contributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
 </ul>
             </nav>
         </div>
@@ -483,6 +476,11 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pynwb</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">dynamax</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span> <span class="n">numpy</span> <span class="c1"># Resolve colab issues with npr</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">jaxtyping</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">jaxtyping</span>
 </pre></div>
 </div>
 </div>
@@ -493,11 +491,13 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_cmap</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynwb</span><span class="w"> </span><span class="kn">import</span> <span class="n">NWBHDF5IO</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">UInt8</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultivariateNormal</span><span class="p">,</span> <span class="n">Normal</span>
@@ -505,6 +505,8 @@ document.write(`
 <span class="c1"># Specify that we want our tensors on the GPU and in float32</span>
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
 <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+
+<span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 
 <span class="c1"># Helper function to convert between numpy arrays and tensors</span>
 <span class="n">to_t</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">array</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
@@ -541,7 +543,46 @@ document.write(`
                             <span class="s2">&quot;pink&quot;</span><span class="p">])</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">Tb</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span><span class="n">Ta</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+            <span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+            <span class="n">Tb</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+            <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Number</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combines two (optional) tuples of statistics, &#39;a&#39; and &#39;b&#39;, weighted by Ta and Tb.</span>
+
+<span class="sd">    If &#39;a&#39; is None, the function returns (Tb, b). If &#39;b&#39; is None, it returns (Ta, a).</span>
+<span class="sd">    Otherwise, it computes a new tuple where each element is a weighted average</span>
+<span class="sd">    of the corresponding elements in &#39;a&#39; and &#39;b&#39;. The weights Ta and Tb are used</span>
+<span class="sd">    for elements from &#39;a&#39; and &#39;b&#39; respectively, and (Ta + Tb) serves as the</span>
+<span class="sd">    denominator for the average.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Ta: The numerical weight for the first tuple of statistics &#39;a&#39;.</span>
+<span class="sd">        a: An optional tuple of torch.Tensors or similar numerical sequences.</span>
+<span class="sd">        Tb: The numerical weight for the second tuple of statistics &#39;b&#39;.</span>
+<span class="sd">        b: An optional tuple of torch.Tensors or similar numerical sequences.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The return structure varies:</span>
+<span class="sd">        - If `a` is None: Returns a 2-tuple `(Tb, b)`, where `Tb` is the</span>
+<span class="sd">          weight and `b` is the original sequence of statistics.</span>
+<span class="sd">        - If `b` is None: Returns a 2-tuple `(Ta, a)`, where `Ta` is the</span>
+<span class="sd">          weight and `a` is the original sequence of statistics.</span>
+<span class="sd">        - If both `a` and `b` are provided: Returns a single tuple containing</span>
+<span class="sd">          the element-wise weighted average of statistics from `a` and `b`.</span>
+<span class="sd">          Note that in this specific case, unlike the others, a combined weight</span>
+<span class="sd">          is not returned alongside the resulting sequence.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The function asserts that at least one of &#39;a&#39; or &#39;b&#39; must be truthy</span>
+<span class="sd">        (i.e., not None and not empty if it&#39;s a sequence that Python evaluates as False when empty).</span>
+<span class="sd">        It is assumed that if both &#39;a&#39; and &#39;b&#39; are provided:</span>
+<span class="sd">        - They are sequences (e.g., tuples of torch.Tensors) of the same length</span>
+<span class="sd">          for a meaningful element-wise combination. `zip` will truncate to the</span>
+<span class="sd">          length of the shorter sequence if lengths differ.</span>
+<span class="sd">        - The sum of weights (Ta + Tb) is non-zero to avoid division by zero errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">b</span>
     <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Tb</span><span class="p">,</span> <span class="n">b</span>
@@ -551,12 +592,29 @@ document.write(`
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">Ta</span> <span class="o">*</span> <span class="n">ai</span> <span class="o">+</span> <span class="n">Tb</span> <span class="o">*</span> <span class="n">bi</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Ta</span> <span class="o">+</span> <span class="n">Tb</span><span class="p">)</span> <span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
 
 
+
 <span class="n">_VIDEO_TAG</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;video controls&gt;</span>
 <span class="s2"> &lt;source src=&quot;data:video/x-m4v;base64,</span><span class="si">{0}</span><span class="s2">&quot; type=&quot;video/mp4&quot;&gt;</span>
 <span class="s2"> Your browser does not support the video tag.</span>
 <span class="s2">&lt;/video&gt;&quot;&quot;&quot;</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">Animation</span><span class="p">,</span>
+                  <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a matplotlib.animation.Animation object to an HTML video tag string.</span>
+
+<span class="sd">    Saves the animation as a temporary MP4 file, encodes the video data in</span>
+<span class="sd">    base64, and embeds it into an HTML &lt;video&gt; tag. Caches the base64 encoded</span>
+<span class="sd">    video as an attribute `_encoded_video` on the `anim` object to avoid</span>
+<span class="sd">    re-processing on subsequent calls.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        anim: The matplotlib.animation.Animation object to convert.</span>
+<span class="sd">        fps: Frames per second for the output MP4 video.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An HTML string containing the &lt;video&gt; tag with the embedded animation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># todo: todocument</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="s1">&#39;_encoded_video&#39;</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.mp4&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -566,12 +624,63 @@ document.write(`
 
     <span class="k">return</span> <span class="n">_VIDEO_TAG</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">_encoded_video</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_display_animation</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_display_animation</span><span class="p">(</span><span class="n">anim</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">Animation</span><span class="p">,</span>
+                       <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+                       <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># Currently unused</span>
+                       <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> <span class="c1"># Currently unused</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays a matplotlib.animation.Animation object as an HTML video.</span>
+
+<span class="sd">    This function closes the original matplotlib figure associated with the</span>
+<span class="sd">    animation and then renders the animation as an HTML5 video element,</span>
+<span class="sd">    suitable for display in Jupyter notebooks or similar environments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        anim: The matplotlib.animation.Animation object to display.</span>
+<span class="sd">        fps: Frames per second for the video playback.</span>
+<span class="sd">        start: Start frame (parameter is present but currently unused by this function).</span>
+<span class="sd">        stop: Stop frame (parameter is present but currently unused by this function).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An IPython.display.HTML object that renders the animation as a video.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">_fig</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">))</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">movie</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">speedup</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fig_height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-         <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
+         <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+         <span class="n">speedup</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="n">fig_height</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+         <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+         <span class="n">show_time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+         <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HTML</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates, displays, or saves an animation from a sequence of images.</span>
+
+<span class="sd">    The animation is generated using matplotlib and can be shown directly</span>
+<span class="sd">    in environments like Jupyter notebooks or saved to an MP4 file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        movie: A 3D (T,H,W) or 4D (T,H,W,C) NumPy array or PyTorch Tensor</span>
+<span class="sd">               representing the video frames.</span>
+<span class="sd">        fps: Frames per second for playback and for the saved video file.</span>
+<span class="sd">        speedup: Factor to speed up playback (e.g., speedup=2 plays</span>
+<span class="sd">                 every other frame).</span>
+<span class="sd">        fig_height: Height of the matplotlib figure in inches. The width is</span>
+<span class="sd">                    adjusted based on the movie&#39;s aspect ratio.</span>
+<span class="sd">        filename: Optional. If provided, the animation is saved as an MP4</span>
+<span class="sd">                  video to this path.</span>
+<span class="sd">        show_time: If True, displays the current time (in seconds) overlaid</span>
+<span class="sd">                   on the animation frames.</span>
+<span class="sd">        show: If True, the animation is displayed as an HTML video in the</span>
+<span class="sd">              output. If False, only saving (if `filename` is given) occurs.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An IPython.display.HTML object containing the animation if &#39;show&#39;</span>
+<span class="sd">        is True and rendering is successful. Returns None otherwise (e.g.,</span>
+<span class="sd">        if &#39;show&#39; is False or an error occurs during HTML generation).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># First set up the figure, the axis, and the plot element we want to animate</span>
     <span class="n">T</span><span class="p">,</span> <span class="n">Py</span><span class="p">,</span> <span class="n">Px</span> <span class="o">=</span> <span class="n">movie</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">fig_height</span> <span class="o">*</span> <span class="n">Px</span><span class="o">/</span><span class="n">Py</span><span class="p">,</span> <span class="n">fig_height</span><span class="p">))</span>
@@ -610,9 +719,46 @@ document.write(`
         <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">_anim_to_html</span><span class="p">(</span><span class="n">anim</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_data_and_states</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span>
-                         <span class="n">spc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">slc</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span>
-                         <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_data_and_states</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">states</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">spc</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">slc</span><span class="p">:</span> <span class="nb">slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots principal component data along with discrete states over time.</span>
+
+<span class="sd">    The function visualizes time-series data (e.g., principal components)</span>
+<span class="sd">    as line plots. The discrete states, passed via the `states` argument,</span>
+<span class="sd">    are shown as a background image. The `data` dictionary is also expected</span>
+<span class="sd">    to contain a &quot;labels&quot; key, which is sliced and assigned to an internal</span>
+<span class="sd">    variable, though its direct use in subsequent plotting commands within</span>
+<span class="sd">    this snippet is not apparent; the `states` argument is used for the imshow background.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (Dict[str, Union[torch.Tensor, np.ndarray, Any]]): A dictionary</span>
+<span class="sd">            containing the data to plot. It must include:</span>
+<span class="sd">            - &quot;data&quot;: A 2D array-like (num_timesteps, num_features) of the</span>
+<span class="sd">                      main data trajectories (e.g., principal components).</span>
+<span class="sd">            - &quot;times&quot;: A 1D array-like of timestamps corresponding to the data.</span>
+<span class="sd">            - &quot;labels&quot;: A 1D array-like of discrete labels. This is accessed</span>
+<span class="sd">                        internally, though the primary state visualization uses</span>
+<span class="sd">                        the `states` argument.</span>
+<span class="sd">        states (Union[torch.Tensor, np.ndarray]): A 1D array-like of discrete</span>
+<span class="sd">            states corresponding to each time step, used for the background</span>
+<span class="sd">            visualization.</span>
+<span class="sd">        spc (int, optional): Spacing factor for plotting multiple principal</span>
+<span class="sd">            components vertically. Defaults to 4.</span>
+<span class="sd">        slc (slice, optional): A slice object to select a portion of the</span>
+<span class="sd">            data and states to plot. Defaults to slice(0, 900).</span>
+<span class="sd">        title (Optional[str], optional): The title for the plot. If None,</span>
+<span class="sd">            a default title &quot;data and discrete states&quot; is used.</span>
+<span class="sd">            Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None: The function generates and displays a plot using matplotlib.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">times</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">][</span><span class="n">slc</span><span class="p">]</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">][</span><span class="n">slc</span><span class="p">]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="n">slc</span><span class="p">]</span>
@@ -642,13 +788,53 @@ document.write(`
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">extract_syllable_slices</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
-                            <span class="n">posteriors</span><span class="p">,</span>
-                            <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                            <span class="n">num_instances</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                            <span class="n">min_duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                            <span class="n">max_duration</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
-                            <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_syllable_slices</span><span class="p">(</span>
+    <span class="n">state_idx</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="n">posteriors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]]],</span>
+    <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">num_instances</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">min_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">max_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">45</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">slice</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts slices of data corresponding to occurrences of a specified state.</span>
+
+<span class="sd">    This function identifies segments (syllables) where a given `state_idx`</span>
+<span class="sd">    is the most probable state, based on posterior probabilities. It processes</span>
+<span class="sd">    data for multiple &quot;mice&quot; (sessions), concatenates all found occurrences,</span>
+<span class="sd">    filters them by duration and proximity to the start of the sequence (padding),</span>
+<span class="sd">    and then selects a random subset of these occurrences. The final output is</span>
+<span class="sd">    a list of lists, where the outer list corresponds to each mouse/session,</span>
+<span class="sd">    and each inner list contains slice objects representing the selected</span>
+<span class="sd">    syllable occurrences for that mouse.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        state_idx: A scalar integer tensor representing the target state index</span>
+<span class="sd">            for which to extract syllables.</span>
+<span class="sd">        posteriors: A list of dictionaries, where each dictionary corresponds</span>
+<span class="sd">            to a mouse/session. Each dictionary must contain the key</span>
+<span class="sd">            &quot;expected_states&quot;, which maps to a 2D tensor of shape</span>
+<span class="sd">            (num_timesteps, num_states) representing the posterior probabilities</span>
+<span class="sd">            of being in each state at each time step.</span>
+<span class="sd">        pad: Minimum number of time steps from the beginning of a sequence</span>
+<span class="sd">            for a syllable to be considered valid. Syllables starting before</span>
+<span class="sd">            this padding are discarded. Defaults to 30.</span>
+<span class="sd">        num_instances: The maximum number of syllable instances to randomly</span>
+<span class="sd">            select across all mice after filtering. If fewer valid instances</span>
+<span class="sd">            are found, all valid instances are returned. Defaults to 50.</span>
+<span class="sd">        min_duration: The minimum duration (in time steps) for a syllable</span>
+<span class="sd">            to be considered valid. Shorter syllables are discarded. Defaults to 5.</span>
+<span class="sd">        max_duration: The maximum duration (in time steps) for a syllable</span>
+<span class="sd">            to be considered valid. Longer syllables are discarded. Defaults to 45.</span>
+<span class="sd">        seed: Seed for the random number generator used to select a subset</span>
+<span class="sd">            of syllable instances. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of lists of slice objects. The outer list has a length equal to</span>
+<span class="sd">        the number of mice (i.e., `len(posteriors)`). Each inner list contains</span>
+<span class="sd">        `slice(start_index, stop_index)` objects for the selected syllables</span>
+<span class="sd">        of the corresponding mouse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Find all the start indices and durations of specified state</span>
     <span class="n">state_idx</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">state_idx</span><span class="p">)</span>
     <span class="n">all_mouse_inds</span> <span class="o">=</span> <span class="p">[]</span>
@@ -703,36 +889,67 @@ document.write(`
     <span class="k">return</span> <span class="n">slices</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">make_crowd_movie</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
-                     <span class="n">dataset</span><span class="p">,</span>
-                     <span class="n">posteriors</span><span class="p">,</span>
-                     <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                     <span class="n">raw_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">424</span><span class="p">),</span>
-                     <span class="n">crop_size</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
-                     <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-                     <span class="n">scale</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span>
-                     <span class="n">min_height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Adapted from https://github.com/dattalab/moseq2-viz/blob/release/moseq2_viz/viz.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_crowd_movie</span><span class="p">(</span>
+    <span class="n">state_idx</span><span class="p">:</span> <span class="n">Int</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">UInt8</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_dataset_frames frame_height frame_width&quot;</span><span class="p">],</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_dataset_frames&quot;</span><span class="p">]]]],</span>
+    <span class="n">posteriors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]]],</span>
+    <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="n">raw_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">424</span><span class="p">),</span>
+    <span class="n">crop_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">min_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">UInt8</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s2">&quot;output_num_frames canvas_height canvas_width 3&quot;</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a &quot;crowd movie&quot; by superimposing video clips of a specific behavioral state.</span>
 
-<span class="sd">    Creates crowd movie video numpy array.</span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dataset (list of dicts): list of dictionaries containing data</span>
-<span class="sd">    slices (np.ndarray): video slices of specific syllable label</span>
-<span class="sd">    pad (int): number of frame padding in video</span>
-<span class="sd">    raw_size (tuple): video dimensions.</span>
-<span class="sd">    frame_path (str): variable to access frames in h5 file</span>
-<span class="sd">    crop_size (tuple): mouse crop size</span>
-<span class="sd">    offset (tuple): centroid offsets from cropped videos</span>
-<span class="sd">    scale (int): mouse size scaling factor.</span>
-<span class="sd">    min_height (int): minimum max height from floor to use.</span>
-<span class="sd">    kwargs (dict): extra keyword arguments</span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    crowd_movie (np.ndarray): crowd movie for a specific syllable.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    This function first extracts time slices (syllables) corresponding to a given</span>
+<span class="sd">    `state_idx` using the `extract_syllable_slices` function. For each of these</span>
+<span class="sd">    syllables, it takes the corresponding video frames from the `dataset`,</span>
+<span class="sd">    processes them (rotation, scaling), and overlays them onto a larger canvas</span>
+<span class="sd">    to create a movie where multiple instances of the behavior play simultaneously.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        state_idx: A scalar integer tensor representing the target state index</span>
+<span class="sd">            for which to create the crowd movie.</span>
+<span class="sd">        dataset: A list of dictionaries, where each dictionary corresponds to a</span>
+<span class="sd">            data session (e.g., a mouse). Each dictionary must contain:</span>
+<span class="sd">            - &#39;frames&#39;: A 3D tensor (num_frames, height, width) of uint8 video frames.</span>
+<span class="sd">            - &#39;centroid_x_px&#39;: A 1D float tensor of x-coordinates for the centroid.</span>
+<span class="sd">            - &#39;centroid_y_px&#39;: A 1D float tensor of y-coordinates for the centroid.</span>
+<span class="sd">            - &#39;angles&#39;: A 1D float tensor of orientation angles.</span>
+<span class="sd">        posteriors: A list of dictionaries, passed to `extract_syllable_slices`.</span>
+<span class="sd">            Each dictionary corresponds to a session and must contain</span>
+<span class="sd">            &quot;expected_states&quot;: a 2D tensor (num_timesteps, num_states) of</span>
+<span class="sd">            posterior probabilities.</span>
+<span class="sd">        pad: Integer, number of padding frames to add before and after each</span>
+<span class="sd">            syllable clip in the output movie. This `pad` also influences the</span>
+<span class="sd">            total duration of the output movie. Note that `extract_syllable_slices`</span>
+<span class="sd">            might use its own `pad` parameter (potentially passed via `**kwargs`)</span>
+<span class="sd">            for syllable selection.</span>
+<span class="sd">        raw_size: Tuple (canvas_width, canvas_height) defining the dimensions</span>
+<span class="sd">            of the output movie canvas. Defaults to (512, 424).</span>
+<span class="sd">        crop_size: Tuple (crop_width, crop_height) defining the size to which</span>
+<span class="sd">            individual mouse frames are warped and cropped. This also determines</span>
+<span class="sd">            the reference for rotation centers `xc0, yc0`. Defaults to (80, 80).</span>
+<span class="sd">        offset: Tuple (offset_x, offset_y) added to centroid coordinates for</span>
+<span class="sd">            positioning the cropped frames on the canvas. Defaults to (50, 50).</span>
+<span class="sd">        scale: Float, scaling factor applied to frame pixel values during processing.</span>
+<span class="sd">            Defaults to 0.5.</span>
+<span class="sd">        min_height: Integer, a threshold for pixel values. Pixels below this</span>
+<span class="sd">            height in processed frames are zeroed out before blending.</span>
+<span class="sd">            Defaults to 10.</span>
+<span class="sd">        **kwargs: Additional keyword arguments passed directly to the</span>
+<span class="sd">            `extract_syllable_slices` function. This can include arguments like</span>
+<span class="sd">            `pad` (for syllable selection), `num_instances`, `min_duration`,</span>
+<span class="sd">            `max_duration`, and `seed`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An optional 4D numpy array (num_frames, height, width, channels=3) of</span>
+<span class="sd">        dtype uint8, representing the generated crowd movie. Returns `None` if</span>
+<span class="sd">        no valid syllables are found for the given `state_idx`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">slices</span> <span class="o">=</span> <span class="n">extract_syllable_slices</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">)</span>
 
     <span class="n">xc0</span><span class="p">,</span> <span class="n">yc0</span> <span class="o">=</span> <span class="n">crop_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
@@ -815,14 +1032,47 @@ document.write(`
 
     <span class="k">return</span> <span class="n">crowd_movie</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_average_pcs</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span>
-                     <span class="n">dataset</span><span class="p">,</span>
-                     <span class="n">posteriors</span><span class="p">,</span>
-                     <span class="n">spc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                     <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-                     <span class="n">fps</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_average_pcs</span><span class="p">(</span>
+    <span class="n">state_idx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Int</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]],</span> <span class="c1"># Can be int or scalar Tensor</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;Any num_features&quot;</span><span class="p">],</span> <span class="n">Float</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s2">&quot;Any num_features&quot;</span><span class="p">]]]],</span>
+    <span class="n">posteriors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]]],</span>
+    <span class="n">spc</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">pad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots the average Principal Component (PC) trajectories time-locked to a specific state.</span>
+
+<span class="sd">    This function first extracts occurrences (syllables) of the specified `state_idx`</span>
+<span class="sd">    using `extract_syllable_slices`. It then aligns these occurrences and calculates</span>
+<span class="sd">    the mean and standard deviation of the PC trajectories around the onset of the state.</span>
+<span class="sd">    The resulting average PCs are plotted, with shaded areas indicating +/- 2 standard</span>
+<span class="sd">    deviations. A vertical red line marks the state onset (t=0).</span>
+
+<span class="sd">    This function relies on globally defined `fps` (frames per second) and</span>
+<span class="sd">    `data_dim` (number of PC features to plot).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        state_idx: The state index for which to plot the average PCs. Can be an</span>
+<span class="sd">            integer or a scalar integer PyTorch Tensor.</span>
+<span class="sd">        dataset: A list of dictionaries, where each dictionary corresponds to a data</span>
+<span class="sd">            session (e.g., a mouse). Each dictionary must contain the key &#39;data&#39;,</span>
+<span class="sd">            mapping to a 2D Tensor or numpy array of shape (num_timesteps, num_features)</span>
+<span class="sd">            containing the PC time series. `num_features` should match global `data_dim`.</span>
+<span class="sd">        posteriors: A list of dictionaries, passed to `extract_syllable_slices`.</span>
+<span class="sd">            Each dictionary corresponds to a session and must contain</span>
+<span class="sd">            &quot;expected_states&quot;: a 2D tensor (num_timesteps, num_states) of</span>
+<span class="sd">            posterior probabilities.</span>
+<span class="sd">        spc: Vertical spacing factor for plotting multiple PC traces.</span>
+<span class="sd">            Defaults to 4.</span>
+<span class="sd">        pad: Padding (in time steps) around each extracted syllable, used for</span>
+<span class="sd">            defining the time window for averaging and plotting. Also passed to</span>
+<span class="sd">            `extract_syllable_slices` for its `pad` argument during slice extraction.</span>
+<span class="sd">            Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. The function generates and displays a plot using matplotlib.</span>
+<span class="sd">              It prints a message and returns if no valid syllables are found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Find slices for this state</span>
     <span class="n">slices</span> <span class="o">=</span> <span class="n">extract_syllable_slices</span><span class="p">(</span><span class="n">state_idx</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">,</span> <span class="n">num_instances</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
     <span class="n">data_dim</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -1118,9 +1368,55 @@ document.write(`
 <p>The Datta lab has already computed the principal components and included them in the NWB. We’ll extract them, along with other relevant information like the centroid position and heading angle of the mouse, which we’ll use for making “crowd” movies below. Finally, they also included labels from MoSeq, an autoregressive (AR) HMM. You’ll build an ARHMM in Part 3 of the lab and infer similar discrete latent state sequences yourself!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_dataset</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">load_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">num_pcs</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_dataset</span><span class="p">(</span>
+    <span class="n">indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">load_frames</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">num_pcs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_train_frames num_pcs_loaded&quot;</span><span class="p">],</span>
+                         <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_train_frames&quot;</span><span class="p">]]]],</span>
+    <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_test_frames num_pcs_loaded&quot;</span><span class="p">],</span>
+                         <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_test_frames&quot;</span><span class="p">],</span>
+                         <span class="n">UInt8</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_test_frames frame_height frame_width&quot;</span><span class="p">]]]]</span>
+    <span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads and processes mouse behavioral data from a series of NWB files.</span>
+
+<span class="sd">    For each NWB file specified by `indices`, this function reads various</span>
+<span class="sd">    time series data (principal components, timestamps, centroids, angles, labels),</span>
+<span class="sd">    splits it into training (first 80%) and testing (remaining ~20%) segments,</span>
+<span class="sd">    and converts the data into PyTorch tensors. Raw video frames can also be</span>
+<span class="sd">    loaded for the test set.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        indices: A sequence or NumPy array of integer indices specifying which</span>
+<span class="sd">            NWB files to load (e.g., `saline_example_{index}.nwb`).</span>
+<span class="sd">            If None, defaults to `np.arange(24)`, loading files 0 through 23.</span>
+<span class="sd">        load_frames: If True, loads the raw video frames for the test dataset</span>
+<span class="sd">            segments. Defaults to True.</span>
+<span class="sd">        num_pcs: The number of principal components to extract from the</span>
+<span class="sd">            &#39;pcs_clean&#39; dataset in the NWB files. Defaults to 10.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple `(train_dataset, test_dataset)`:</span>
+<span class="sd">        - `train_dataset`: A list of dictionaries. Each dictionary contains</span>
+<span class="sd">          data for one training segment from an NWB file, with keys:</span>
+<span class="sd">            - &quot;raw_pcs&quot;: Tensor (num_train_frames, `num_pcs`) of principal components.</span>
+<span class="sd">            - &quot;times&quot;: Tensor (num_train_frames,) of timestamps.</span>
+<span class="sd">            - &quot;centroid_x_px&quot;: Tensor (num_train_frames,) of x-centroids.</span>
+<span class="sd">            - &quot;centroid_y_px&quot;: Tensor (num_train_frames,) of y-centroids.</span>
+<span class="sd">            - &quot;angles&quot;: Tensor (num_train_frames,) of head angles.</span>
+<span class="sd">            - &quot;labels&quot;: Tensor (num_train_frames,) of behavioral labels.</span>
+<span class="sd">              (Note: converted to float32 by the `to_t` helper).</span>
+<span class="sd">        - `test_dataset`: A list of dictionaries, similar structure to</span>
+<span class="sd">          `train_dataset` but for testing segments. If `load_frames` is True,</span>
+<span class="sd">          each dictionary will also contain:</span>
+<span class="sd">            - &quot;frames&quot;: Tensor (num_test_frames, frame_height, frame_width)</span>
+<span class="sd">              of uint8 video frames.</span>
+<span class="sd">          (Note: `num_train_frames` and `num_test_frames` can vary per file.</span>
+<span class="sd">           `num_pcs_loaded` will match the `num_pcs` argument. `frame_height`</span>
+<span class="sd">           and `frame_width` are inherent to the video data.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
 
@@ -1193,7 +1489,31 @@ subsequent modeling, but it will make it easier for us
 to visualize the time series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize_pcs</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize_pcs</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">mean</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_pcs&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">std</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_pcs&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_pcs&quot;</span><span class="p">],</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_pcs&quot;</span><span class="p">]</span>
+    <span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Standardizes &#39;raw_pcs&#39; in each item of `dataset` (to mean=0, std=1).</span>
+
+<span class="sd">    If `mean` and `std` are None, they are computed from all &#39;raw_pcs&#39;</span>
+<span class="sd">    tensors in `dataset`. A &#39;data&#39; key with the standardized PCs is added</span>
+<span class="sd">    to each dictionary in `dataset` (in-place modification).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset: List of dicts, each must contain a &#39;raw_pcs&#39; PyTorch Tensor.</span>
+<span class="sd">                 The list and its dictionaries are modified in-place.</span>
+<span class="sd">        mean: Optional 1D PyTorch Tensor of means for each PC.</span>
+<span class="sd">        std: Optional 1D PyTorch Tensor of standard deviations for each PC.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple: (`dataset`, `mean`, `std`), where `dataset` is the modified</span>
+<span class="sd">        list of dicts, and `mean`/`std` are the 1D Tensors used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">mean</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">std</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">all_pcs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;raw_pcs&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">])</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">all_pcs</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1238,13 +1558,59 @@ to visualize the time series.</p>
 <h3>Helper functions to create random parameters<a class="headerlink" href="#helper-functions-to-create-random-parameters" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">stickiness</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sticky_transitions</span><span class="p">(</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">stickiness</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a &#39;sticky&#39; transition probability matrix.</span>
+
+<span class="sd">    Diagonal elements (self-transitions) are set to `stickiness`. The</span>
+<span class="sd">    remaining probability (1 - `stickiness`) is distributed equally among</span>
+<span class="sd">    the other (`num_states` - 1) transitions for each row.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_states: The number of states (K), determining matrix size (KxK).</span>
+<span class="sd">        stickiness: Probability of self-transition. Defaults to 0.95.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A PyTorch Tensor (shape: `num_states` x `num_states`) representing</span>
+<span class="sd">        the sticky transition matrix, with float32 data type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">stickiness</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span>
     <span class="n">P</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">stickiness</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_states</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">num_states</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">P</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_args</span><span class="p">(</span>
+    <span class="n">num_timesteps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">],</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]</span>
+    <span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates random HMM parameters: initial distribution, transition matrix, and log likelihoods.</span>
+
+<span class="sd">    Sets the PyTorch random seed for reproducibility. It creates a uniform</span>
+<span class="sd">    initial state distribution (`pi`), a &#39;sticky&#39; transition matrix (`P`) via</span>
+<span class="sd">    `sticky_transitions`, and log likelihoods sampled from a Normal(0,1)</span>
+<span class="sd">    distribution, adjusted by `offset` and `scale`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_timesteps: Number of time steps (T) for log likelihoods.</span>
+<span class="sd">        num_states: Number of hidden states (K).</span>
+<span class="sd">        seed: Seed for PyTorch&#39;s random number generator. Defaults to 0.</span>
+<span class="sd">        offset: Offset added to the log likelihoods. Defaults to 0.</span>
+<span class="sd">        scale: Scale factor for the random component of log likelihoods. Defaults to 1.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple `(pi, P, log_likes)` containing:</span>
+<span class="sd">        - `pi` (torch.Tensor): Uniform initial state distribution (shape: K).</span>
+<span class="sd">        - `P` (torch.Tensor): Sticky transition probability matrix (shape: KxK).</span>
+<span class="sd">        - `log_likes` (torch.Tensor): Simulated log likelihoods (shape: TxK).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_states</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span>
@@ -1266,7 +1632,14 @@ to visualize the time series.</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward_pass</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward_pass</span><span class="p">(</span>
+    <span class="n">initial_dist</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>
+    <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">],</span>
+    <span class="n">log_likes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">],</span> <span class="c1"># alphas</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>                         <span class="c1"># marginal_ll (scalar tensor)</span>
+    <span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform the (normalized) forward pass of the HMM.</span>
 
@@ -1299,7 +1672,25 @@ to visualize the time series.</p>
 <p>Compare outputs of your function to Dynamax outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_forward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_forward_pass</span><span class="p">(</span>
+        <span class="n">num_timesteps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests the `forward_pass` HMM function.</span>
+
+<span class="sd">    Compares `forward_pass` outputs (alpha messages, marginal log likelihood)</span>
+<span class="sd">    against `ssm` library results using randomly generated HMM parameters.</span>
+<span class="sd">    Asserts for correctness and numerical stability.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_timesteps: Number of time steps for the test data.</span>
+<span class="sd">        num_states: Number of hidden states for the test HMM.</span>
+<span class="sd">        offset: Offset used for generating test log likelihoods.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Raises AssertionError on test failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Call your code</span>
@@ -1330,7 +1721,10 @@ to visualize the time series.</p>
 <p>Recursively compute the backward messages <span class="math notranslate nohighlight">\(\beta_t\)</span>. Again, normalize to avoid underflow, and be careful when you exponentiate the log likelihoods. The same trick of subtracting the max before exponentiating will work here too.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">backward_pass</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">backward_pass</span><span class="p">(</span>
+    <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">],</span>
+    <span class="n">log_likes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform the (normalized) backward pass of the HMM.</span>
 
@@ -1359,7 +1753,26 @@ to visualize the time series.</p>
 <p>Compare outputs of your function to Dynamax outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_backward_pass</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_backward_pass</span><span class="p">(</span>
+    <span class="n">num_timesteps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests the `backward_pass` HMM function.</span>
+
+<span class="sd">    Compares `backward_pass` outputs (normalized beta messages) against</span>
+<span class="sd">    `ssm.messages.backward_pass` results using randomly generated HMM</span>
+<span class="sd">    parameters. Asserts for correctness and numerical stability.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_timesteps: Number of time steps for the test data.</span>
+<span class="sd">        num_states: Number of states for the test HMM.</span>
+<span class="sd">        offset: Offset used for generating test log likelihoods.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Raises AssertionError on test failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Call your code</span>
@@ -1387,7 +1800,14 @@ to visualize the time series.</p>
 <p>Compute the posterior marginal probabilities. We call these the <code class="docutils literal notranslate"><span class="pre">expected_states</span></code> because <span class="math notranslate nohighlight">\(q(z_t = k) = \mathbb{E}_{q(z)}[\mathbb{I}[z_t = k]]\)</span>. To copmute them, combine the forward messages, backward messages, and the likelihoods, then normalize. Again, be careful when exponentiating the likelihoods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">E_step</span><span class="p">(</span><span class="n">initial_dist</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">,</span> <span class="n">log_likes</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">E_step</span><span class="p">(</span>
+    <span class="n">initial_dist</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>
+    <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">],</span>
+    <span class="n">log_likes</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">],</span> <span class="c1"># For &quot;expected_states&quot;</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>                         <span class="c1"># For &quot;marginal_ll&quot; (scalar tensor)</span>
+    <span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fun the forward and backward passes and then combine to compute the</span>
 <span class="sd">    posterior probabilities q(z_t=k).</span>
@@ -1421,7 +1841,25 @@ to visualize the time series.</p>
 <p>Compare your outputs to Dynamax.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_E_step</span><span class="p">(</span><span class="n">num_timesteps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_states</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_E_step</span><span class="p">(</span>
+    <span class="n">num_timesteps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Number</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests the `E_step` HMM function.</span>
+
+<span class="sd">    Compares `E_step` outputs (expected states, marginal log likelihood)</span>
+<span class="sd">    against `ssm.messages.hmm_expected_states` results using randomly</span>
+<span class="sd">    generated HMM parameters. Asserts for correctness.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        num_timesteps: Number of time steps for the test data.</span>
+<span class="sd">        num_states: Number of states for the test HMM.</span>
+<span class="sd">        offset: Offset used for generating test log likelihoods.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Raises AssertionError on test failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pi</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">log_likes</span> <span class="o">=</span> <span class="n">random_args</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
 
     <span class="c1"># Run your code</span>
@@ -1467,7 +1905,33 @@ to visualize the time series.</p>
 <p>Finally, we’ll initialize the HMM with a random posterior distribution. That way our first M step will yield reasonable parameters estimates from a random weighted combination of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">initialize_posteriors</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">initialize_posteriors</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes a list of random posterior distributions for an HMM.</span>
+
+<span class="sd">    For each item in the input `dataset` (where each item is a dictionary</span>
+<span class="sd">    expected to have a &#39;data&#39; key providing time series length), this function</span>
+<span class="sd">    creates a corresponding dictionary. This dictionary contains randomly</span>
+<span class="sd">    initialized &#39;expected_states&#39; (posterior probabilities, normalized per</span>
+<span class="sd">    time step) and a &#39;marginal_ll&#39; (marginal log likelihood) set to -infinity.</span>
+<span class="sd">    Sets the PyTorch random seed for reproducibility.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset: A list of dictionaries. Each dictionary should contain a &#39;data&#39;</span>
+<span class="sd">                 key, where `len(data[&#39;data&#39;])` gives the number of time steps</span>
+<span class="sd">                 for that data sequence.</span>
+<span class="sd">        num_states: The number of hidden states (K) for the HMM.</span>
+<span class="sd">        seed: Seed for PyTorch&#39;s random number generator. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of dictionaries. Each dictionary has two keys:</span>
+<span class="sd">        - &#39;expected_states&#39;: A 2D PyTorch Tensor (shape: T x K) of randomly</span>
+<span class="sd">          initialized posterior probabilities (rows sum to 1). T varies per item.</span>
+<span class="sd">        - &#39;marginal_ll&#39;: A float, initialized to `-torch.inf`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">posteriors</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
@@ -1495,14 +1959,20 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 <section id="problem-2a-write-a-gaussian-observations-object">
 <h3>Problem 2a: Write a Gaussian Observations object<a class="headerlink" href="#problem-2a-write-a-gaussian-observations-object" title="Link to this heading">#</a></h3>
 <p>We’ll write a <code class="docutils literal notranslate"><span class="pre">GaussianObservations</span></code> class to wrap the parameters and implement key functions for EM.</p>
-<p>Most important, <code class="docutils literal notranslate"><span class="pre">M_step</span></code> solves for the optimal parameters given the expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{N}_k, \overline{\mathbf{t}}_{k,1}, \overline{\mathbf{t}}_{k,2}\)</span>, which are passed in as a tuple. The new parameters are written to the class variables <code class="docutils literal notranslate"><span class="pre">self.means</span></code> and <code class="docutils literal notranslate"><span class="pre">self.covs</span></code></p>
+<p>Most important, <code class="docutils literal notranslate"><span class="pre">M_step</span></code> solves for the optimal parameters given the expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{T}_k, \overline{\mathbf{t}}_{k,1}, \overline{\mathbf{t}}_{k,2}\)</span>, which are passed in as a tuple. The new parameters are written to the class variables <code class="docutils literal notranslate"><span class="pre">self.means</span></code> and <code class="docutils literal notranslate"><span class="pre">self.covs</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GaussianObservations</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for a collection of Gaussian observation parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">):</span>
+    <span class="c1"># Instance variable type hints</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">means</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim&quot;</span><span class="p">]</span>
+    <span class="n">covs</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim data_dim&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a collection of observation parameters for a Gaussian HMM</span>
 <span class="sd">        with `num_states` (i.e. K) discrete states and `data_dim` (i.e. D)</span>
@@ -1514,7 +1984,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
         <span class="bp">self</span><span class="o">.</span><span class="n">covs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">data_dim</span><span class="p">),</span> <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the sufficient statistics of the Gaussian distribution for each</span>
 <span class="sd">        data dictionary in the dataset. This modifies the dataset in place.</span>
@@ -1534,7 +2004,10 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
                                   <span class="n">x</span><span class="p">,</span>                                   <span class="c1"># x_t</span>
                                   <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ti,tj-&gt;tij&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>    <span class="c1"># x_t x_t^T</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the matrix of log likelihoods of data for each state.</span>
 <span class="sd">        (I like to use torch.distributions for this, though it requires</span>
@@ -1560,7 +2033,14 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
         <span class="c1">###</span>
         <span class="k">return</span> <span class="n">log_likes</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">stats</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span> <span class="c1"># This tuple structure comes from compute_expected_suff_stats</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>               <span class="c1"># Ns (expected counts per state)</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim&quot;</span><span class="p">],</span>      <span class="c1"># t1s (expected sum_of_x per state)</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim data_dim&quot;</span><span class="p">]</span> <span class="c1"># t2s (expected sum_of_xxT per state)</span>
+        <span class="p">]</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the Gaussian parameters give the expected sufficient statistics.</span>
 
@@ -1588,7 +2068,23 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_gaussian</span><span class="p">(</span><span class="n">data_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_gaussian</span><span class="p">(</span>
+    <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests `GaussianObservations` class methods (`log_likelihoods`, `M_step`).</span>
+
+<span class="sd">    Generates synthetic Gaussian data. Asserts shapes and numerical values</span>
+<span class="sd">    of computed log likelihoods and estimated parameters (means, covariances)</span>
+<span class="sd">    after the M_step against expected analytical results.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_dim: Dimensionality of the synthetic data. Defaults to 3.</span>
+<span class="sd">        seed: Seed for random number generation. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Raises AssertionError on test failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">data1</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">))</span>
     <span class="n">data2</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">))</span>
@@ -1638,13 +2134,16 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 <h3>Problem 2b: Write a function to compute <em>normalized</em> expected sufficient statistics<a class="headerlink" href="#problem-2b-write-a-function-to-compute-normalized-expected-sufficient-statistics" title="Link to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(M\)</span> denote the number of mice in the dataset and let <span class="math notranslate nohighlight">\(x_t^{(m)}\)</span> and <span class="math notranslate nohighlight">\(z_t^{(m)}\)</span> denote their data and discrete states, respectively. Compute</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\overline{N}_{k}\)</span> for each of the <span class="math notranslate nohighlight">\(k\)</span> states</p></li>
+<li><p><span class="math notranslate nohighlight">\(\overline{T}_{k}\)</span> for each of the <span class="math notranslate nohighlight">\(k\)</span> states</p></li>
 <li><p><span class="math notranslate nohighlight">\(\overline{\mathbf{t}}_{k,1} = \sum_{m=1}^M \sum_{t=1}^{T_m} q(z_{t}^{(m)} = k) \, t_1(x_t^{(m)})\)</span> for each of the <span class="math notranslate nohighlight">\(k\)</span> states</p></li>
 <li><p><span class="math notranslate nohighlight">\(\overline{\mathbf{t}}_{k,2} = \sum_{m=1}^M \sum_{t=1}^{T_m} q(z_{t}^{(m)} = k) \, t_2(x_t^{(m)})\)</span> for each of the <span class="math notranslate nohighlight">\(k\)</span> states</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_expected_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_expected_suff_stats</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">posteriors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute a tuple of normalized sufficient statistics, taking a weighted sum</span>
 <span class="sd">    of the posterior expected states and the sufficient statistics, then</span>
@@ -1688,7 +2187,20 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
             <span class="n">combined_T</span><span class="p">,</span> <span class="n">combined_stats</span><span class="p">,</span> <span class="n">this_T</span><span class="p">,</span> <span class="n">these_stats</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">combined_stats</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">test_expec_suff_stats</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_expec_suff_stats</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests the `compute_expected_suff_stats` function.</span>
+
+<span class="sd">    Uses a data item from `train_dataset` (assumed globally available)</span>
+<span class="sd">    and a randomly generated posterior distribution. Asserts the shapes</span>
+<span class="sd">    and numerical values of the output expected sufficient statistics</span>
+<span class="sd">    against predefined correct values for a Gaussian HMM.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Raises AssertionError on test failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">data_dim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -1725,13 +2237,30 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 <h3>Problem 2c: Write a function to fit an HMM with EM<a class="headerlink" href="#problem-2c-write-a-function-to-fit-an-hmm-with-em" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_hmm</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
-            <span class="n">test_dataset</span><span class="p">,</span>
-            <span class="n">initial_dist</span><span class="p">,</span>
-            <span class="n">transition_matrix</span><span class="p">,</span>
-            <span class="n">observations</span><span class="p">,</span>
-            <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">num_iters</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_hmm</span><span class="p">(</span>
+    <span class="n">train_dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">test_dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">initial_dist</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>
+    <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states num_states&quot;</span><span class="p">],</span>
+    <span class="n">observations</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">num_iters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_iters&quot;</span><span class="p">],</span>
+    <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_iters&quot;</span><span class="p">],</span>
+    <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span>
+    <span class="nb">str</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">[</span>
+        <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">],</span>
+        <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+        <span class="p">]]],</span>
+    <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span>
+    <span class="nb">str</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">[</span>
+        <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">],</span>
+        <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+        <span class="p">]]]</span>
+    <span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fit a Hidden Markov Model (HMM) with expectation maximization (EM).</span>
 
@@ -1979,7 +2508,7 @@ p(x, z \mid \Theta) &amp;= \mathrm{Cat}(z_1 \mid \pi) \prod_{t=2}^{T} \mathrm{Ca
 </section>
 <section id="download-crowd-movies-for-each-state">
 <h3>Download crowd movies for each state<a class="headerlink" href="#download-crowd-movies-for-each-state" title="Link to this heading">#</a></h3>
-<p>I’ve commented this out because it takes about ten minutes. Please do it once though!</p>
+<p>I’ve commented this out because it takes about ten minutes, but this will allow you to download and view the crowd movies for all states.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Make &quot;crowd&quot; movies for each state and save them to disk</span>
@@ -2051,14 +2580,14 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 \mathcal{L}(q, \theta) \triangleq \mathbb{E}_{q(z)}\left[ \sum_{t=1}^T \mathbb{I}[z_t=k] \cdot \log \mathcal{N}(x_t \mid W_k \phi_t, Q_k) \right] + c.
 \end{align}
 \]</div>
-<p>Write it as a sum of inner products between natural parameters (i.e. functions of <span class="math notranslate nohighlight">\(W_k\)</span> and <span class="math notranslate nohighlight">\(Q_k\)</span>) and expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{N}_k\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,1}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,2}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,3}\)</span> (i.e. functions of <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>).</p>
+<p>Write it as a sum of inner products between natural parameters (i.e. functions of <span class="math notranslate nohighlight">\(W_k\)</span> and <span class="math notranslate nohighlight">\(Q_k\)</span>) and expected sufficient statistics <span class="math notranslate nohighlight">\(\overline{T}_k\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,1}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,2}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,3}\)</span> (i.e. functions of <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>).</p>
 <p><strong>Hint</strong>: The form should look similar to that of the Gaussian distribution we derived in class, except that now we have a three sufficient statistics and they depend on both <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>.</p>
 <p><em>Answer below this line</em></p>
 </section>
 <hr class="docutils" />
 <section id="problem-3b-math-solve-for-the-optimal-linear-regression-parameters-given-expected-sufficient-statistics">
 <h3>Problem 3b [Math]: Solve for the optimal linear regression parameters given expected sufficient statistics<a class="headerlink" href="#problem-3b-math-solve-for-the-optimal-linear-regression-parameters-given-expected-sufficient-statistics" title="Link to this heading">#</a></h3>
-<p>Solve for <span class="math notranslate nohighlight">\(W_k^\star, Q_k^\star\)</span> that maximize the objective above in terms of the expected sufficient statistics <span class="math notranslate nohighlight">\(N_k\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,1}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,2}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,3}\)</span>.</p>
+<p>Solve for <span class="math notranslate nohighlight">\(W_k^\star, Q_k^\star\)</span> that maximize the objective above in terms of the expected sufficient statistics <span class="math notranslate nohighlight">\(T_k\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,1}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,2}\)</span>, <span class="math notranslate nohighlight">\(\bar{\mathbf{t}}_{k,3}\)</span>.</p>
 <p><em>Answer below this line</em></p>
 </section>
 <hr class="docutils" />
@@ -2070,7 +2599,14 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for a collection of Gaussian observation parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span> <span class="n">covariate_dim</span><span class="p">):</span>
+    <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># K</span>
+    <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span>        <span class="c1"># D (dimension of observed data y_t)</span>
+    <span class="n">covariate_dim</span><span class="p">:</span> <span class="nb">int</span>   <span class="c1"># M (dimension of covariates phi_t)</span>
+
+    <span class="n">weights</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim covariate_dim&quot;</span><span class="p">]</span>       <span class="c1"># W_k (K, D, M)</span>
+    <span class="n">covs</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim data_dim&quot;</span><span class="p">]</span>               <span class="c1"># Q_k (K, D, D)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_states</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">covariate_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a collection of observation parameters for an HMM whose</span>
 <span class="sd">        observation distributions are linear regressions. The HMM has</span>
@@ -2087,7 +2623,7 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="bp">self</span><span class="o">.</span><span class="n">covs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">data_dim</span><span class="p">),</span> <span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">precompute_suff_stats</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the sufficient statistics of the linear regression for each</span>
 <span class="sd">        data dictionary in the dataset. This modifies the dataset in place.</span>
@@ -2108,7 +2644,10 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="c1">#</span>
         <span class="c1">###</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_likelihoods</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_timesteps num_states&quot;</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the matrix of log likelihoods of data for each state.</span>
 <span class="sd">        (I like to use torch.distributions for this, though it requires</span>
@@ -2132,7 +2671,15 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
         <span class="c1">###</span>
         <span class="k">return</span> <span class="n">log_likes</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">M_step</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">stats</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states&quot;</span><span class="p">],</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim data_dim&quot;</span><span class="p">],</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states data_dim covariate_dim&quot;</span><span class="p">],</span>
+            <span class="n">Float</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;num_states covariate_dim covariate_dim&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the linear regression parameters given the expected</span>
 <span class="sd">        sufficient statistics.</span>
@@ -2164,9 +2711,31 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <h3>Problem 3d: Precompute the covariates for an autoregressive model<a class="headerlink" href="#problem-3d-precompute-the-covariates-for-an-autoregressive-model" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">precompute_ar_covariates</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span>
-                             <span class="n">num_lags</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                             <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">precompute_ar_covariates</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">num_lags</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">fit_intercept</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Precomputes autoregressive (AR) covariates for time series data.</span>
+
+<span class="sd">    For each data item in `dataset` (which must contain a &#39;data&#39; key mapping</span>
+<span class="sd">    to a TxD_in tensor), this function generates AR features. These include</span>
+<span class="sd">    `num_lags` lagged versions of the &#39;data&#39; tensor (zero-padded at the start)</span>
+<span class="sd">    and optionally an intercept term. The resulting covariate matrix is added</span>
+<span class="sd">    to each data item&#39;s dictionary under the key &#39;covariates&#39; (in-place).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataset: A list of dictionaries. Each dictionary is expected to have</span>
+<span class="sd">                 a &#39;data&#39; key with a 2D PyTorch Tensor (time_steps x features).</span>
+<span class="sd">                 These dictionaries are modified in-place.</span>
+<span class="sd">        num_lags: Number of past time steps to include as covariates.</span>
+<span class="sd">                  Defaults to 2.</span>
+<span class="sd">        fit_intercept: If True, adds a constant intercept term (a column of</span>
+<span class="sd">                       ones) to the covariates. Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None. The `dataset` dictionaries are modified directly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
         <span class="n">data_dim</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -2403,236 +2972,23 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 </div>
 </section>
 </section>
-<section id="bonus-problem-4-fitting-arhmms-with-stochastic-em">
-<h2>Bonus Problem 4: Fitting ARHMMs with Stochastic EM<a class="headerlink" href="#bonus-problem-4-fitting-arhmms-with-stochastic-em" title="Link to this heading">#</a></h2>
-<p>The EM algorithm above sweeps through the entire dataset during each E-step. In this part, you’ll implement a stochastic EM algorithm that performs an E-step on one minibatch of data at a time and keeps a rolling average of the expected sufficient statistics.</p>
-<section id="bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead">
-<h3>Bonus Problem 4a: Adapt your EM code to run stochastic EM instead<a class="headerlink" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit_hmm_stoch_em</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
-                     <span class="n">test_dataset</span><span class="p">,</span>
-                     <span class="n">initial_dist</span><span class="p">,</span>
-                     <span class="n">transition_matrix</span><span class="p">,</span>
-                     <span class="n">observations</span><span class="p">,</span>
-                     <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                     <span class="n">num_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                     <span class="n">forgetting_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Fit a Hidden Markov Model (HMM) with expectation maximization (EM).</span>
-
-<span class="sd">    Note: This is only a partial fit, as this method will treat the initial</span>
-<span class="sd">    state distribution and the transition matrix as fixed!</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    train_dataset: a list of dictionary with multiple keys, including &quot;data&quot;,</span>
-<span class="sd">        the TxD array of observations for this mouse, and &quot;suff_stats&quot;, the</span>
-<span class="sd">        tuple of sufficient statistics.</span>
-
-<span class="sd">    test_dataset: as above but only used for tracking the test log likelihood</span>
-<span class="sd">        during training.</span>
-
-<span class="sd">    initial_dist: a length-K vector giving the initial state distribution.</span>
-
-<span class="sd">    transition_matrix: a K x K matrix whose rows sum to 1.</span>
-
-<span class="sd">    observations: an Observations object with `log_likelihoods` and `M_step`</span>
-<span class="sd">        functions.</span>
-
-<span class="sd">    seed: random seed for initializing the algorithm.</span>
-
-<span class="sd">    num_iters: number of EM iterations.</span>
-
-<span class="sd">    forgetting_rate: number &gt; 0 that controls how quickly the step size decays.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    train_lls: array of likelihoods of training data over EM iterations</span>
-<span class="sd">    test_lls: array of likelihoods of testing data over EM iterations</span>
-<span class="sd">    posteriors: final list of posterior distributions for the training data</span>
-<span class="sd">    test_posteriors: final list of posterior distributions for the test data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># Get some constants</span>
-    <span class="n">num_batches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
-    <span class="n">num_states</span> <span class="o">=</span> <span class="n">observations</span><span class="o">.</span><span class="n">num_states</span>
-    <span class="n">num_train</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">train_dataset</span><span class="p">])</span>
-    <span class="n">num_test</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">test_dataset</span><span class="p">])</span>
-
-    <span class="c1"># Initialize the step size schedule</span>
-    <span class="n">schedule</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">num_batches</span> <span class="o">*</span> <span class="n">num_epochs</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
-
-    <span class="c1"># Initialize progress bars</span>
-    <span class="n">outer_pbar</span> <span class="o">=</span> <span class="n">trange</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)</span>
-    <span class="n">inner_pbar</span> <span class="o">=</span> <span class="n">trange</span><span class="p">(</span><span class="n">num_batches</span><span class="p">)</span>
-    <span class="n">outer_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
-    <span class="n">inner_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Batch&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Initialize with a random posterior on the first batch</span>
-    <span class="n">posteriors</span> <span class="o">=</span> <span class="n">initialize_posteriors</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
-    <span class="n">stats</span> <span class="o">=</span> <span class="n">compute_expected_suff_stats</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">posteriors</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
-
-    <span class="c1"># Main loop</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-    <span class="n">train_lls</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">test_lls</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
-        <span class="n">perm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_batches</span><span class="p">)</span> <span class="c1"># could randomize</span>
-
-        <span class="n">inner_pbar</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_batches</span><span class="p">):</span>
-            <span class="n">minibatch</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_dataset</span><span class="p">[</span><span class="n">perm</span><span class="p">[</span><span class="n">itr</span><span class="p">]]]</span>
-            <span class="n">this_num_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">minibatch</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
-
-            <span class="c1"># M step: using current stats</span>
-            <span class="o">...</span>
-
-            <span class="c1"># E step: on this minibatch</span>
-            <span class="n">posteriors</span> <span class="o">=</span> <span class="o">...</span>
-
-            <span class="c1"># Compute sufficient statistics for this batch</span>
-            <span class="n">these_stats</span> <span class="o">=</span> <span class="o">...</span>
-
-            <span class="c1"># Take a convex combination of the statistics using current step sz</span>
-            <span class="n">stepsize</span> <span class="o">=</span> <span class="n">schedule</span><span class="p">[</span><span class="n">epoch</span> <span class="o">*</span> <span class="n">num_batches</span> <span class="o">+</span> <span class="n">itr</span><span class="p">]</span>
-            <span class="n">stats</span> <span class="o">=</span> <span class="o">...</span>
-
-            <span class="c1"># Store the normalized log likelihood for this minibatch</span>
-            <span class="n">avg_mll</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;marginal_ll&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">posteriors</span><span class="p">])</span> <span class="o">/</span> <span class="n">this_num_train</span>
-            <span class="n">train_lls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_mll</span><span class="p">)</span>
-            <span class="n">inner_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Batch LL: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_mll</span><span class="p">))</span>
-            <span class="n">inner_pbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-
-        <span class="c1"># Evaluate the likelihood and posteriors on the test dataset</span>
-        <span class="n">test_posteriors</span> <span class="o">=</span> <span class="o">...</span>
-
-        <span class="n">avg_test_mll</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;marginal_ll&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">test_posteriors</span><span class="p">])</span> <span class="o">/</span> <span class="n">num_test</span>
-        <span class="n">test_lls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_test_mll</span><span class="p">)</span>
-        <span class="n">outer_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Test LL: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_test_mll</span><span class="p">))</span>
-        <span class="n">outer_pbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-    <span class="c1"># Finally, compute the posteriors for each training dataset</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing posteriors for the whole training dataset&quot;</span><span class="p">)</span>
-    <span class="n">posteriors</span> <span class="o">=</span> <span class="o">...</span>
-
-    <span class="c1"># convert lls to arrays</span>
-    <span class="n">train_lls</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">train_lls</span><span class="p">)</span>
-    <span class="n">test_lls</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">test_lls</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">train_lls</span><span class="p">,</span> <span class="n">test_lls</span><span class="p">,</span> <span class="n">posteriors</span><span class="p">,</span> <span class="n">test_posteriors</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the HMM</span>
-<span class="n">num_states</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">initial_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_states</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_states</span>
-<span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">sticky_transitions</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">stickiness</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
-<span class="n">observations</span> <span class="o">=</span> <span class="n">LinearRegressionObservations</span><span class="p">(</span><span class="n">num_states</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">,</span>
-                                            <span class="n">num_lags</span> <span class="o">*</span> <span class="n">data_dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Fit it with stochastic EM</span>
-<span class="n">train_lls</span><span class="p">,</span> <span class="n">test_lls</span><span class="p">,</span> <span class="n">train_posteriors</span><span class="p">,</span> <span class="n">test_posteriors</span><span class="p">,</span> <span class="o">=</span> \
-    <span class="n">fit_hmm_stoch_em</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
-                     <span class="n">test_dataset</span><span class="p">,</span>
-                     <span class="n">initial_dist</span><span class="p">,</span>
-                     <span class="n">transition_matrix</span><span class="p">,</span>
-                     <span class="n">observations</span><span class="p">)</span>
-
-<span class="c1"># Interpolate the test lls at each minibatch</span>
-<span class="n">test_lls</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">torch</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="n">test_lls</span><span class="p">])</span>
-<span class="n">test_lls</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">test_lls</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)),</span> <span class="p">[</span><span class="n">test_lls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_lls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test_lls</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;avg marginal log lkhd&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+<section id="author-contributions">
+<h2>Author contributions<a class="headerlink" href="#author-contributions" title="Link to this heading">#</a></h2>
+<p>Write a short paragraph describing how each team member contributed to this assignment.</p>
+<p><em>Your answer here</em></p>
 </section>
-<section id="id4">
-<h3>Plot the data and the inferred states<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>We’ll make the same plot as above (in the warm-up) but using our inferred states instead. Hopefully, the states seem to switch along with changes in the data.</p>
-<p><strong>Note</strong>: We’re showing the state with the highest marginal probability, <span class="math notranslate nohighlight">\(z_t^\star = \mathrm{arg} \, \mathrm{max}_k \; q(z_t = k)\)</span>. This is different from the most likely state path, <span class="math notranslate nohighlight">\(z_{1:T}^\star = \mathrm{arg}\,\mathrm{max} \; q(z)\)</span>. We could compute the latter with the Viterbi algorithm, which is similar to the forward-backward algorithm you implemented above.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_data_and_states</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                     <span class="n">train_posteriors</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;expected_states&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<section id="submission-instructions">
+<h2>Submission Instructions<a class="headerlink" href="#submission-instructions" title="Link to this heading">#</a></h2>
+<p>Download your notebook in .ipynb format and use the following command to convert it to PDF</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="o">--</span><span class="n">to</span> <span class="n">pdf</span> <span class="n">lab6_name</span><span class="o">.</span><span class="n">ipynb</span>
 </pre></div>
 </div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Plot the state usage histogram<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Sort states by usage</span>
-<span class="n">arhmm_sem_usage</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">posterior</span> <span class="ow">in</span> <span class="n">train_posteriors</span><span class="p">:</span>
-    <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">posterior</span><span class="p">[</span><span class="s2">&quot;expected_states&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">arhmm_sem_usage</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="n">num_states</span><span class="p">)</span>
-<span class="n">arhmm_sem_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">arhmm_sem_usage</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_states</span><span class="p">),</span> <span class="n">arhmm_sem_usage</span><span class="p">[</span><span class="n">arhmm_sem_order</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;state index [ordered]&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;num frames&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;histogram of inferred state usage&quot;</span><span class="p">)</span>
+<p>If you’re using Anaconda for package management, you can install <code class="docutils literal notranslate"><span class="pre">nbconvert</span></code> with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">anaconda</span> <span class="n">nbconvert</span>
 </pre></div>
 </div>
-</div>
-</div>
-</section>
-<section id="plot-pc-trajectories-upon-state-entry">
-<h3>Plot PC trajectories upon state entry<a class="headerlink" href="#plot-pc-trajectories-upon-state-entry" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_average_pcs</span><span class="p">(</span><span class="n">arhmm_sem_order</span><span class="p">[</span><span class="mi">44</span><span class="p">],</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">train_posteriors</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Make “crowd” movies<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">play</span><span class="p">(</span><span class="n">make_crowd_movie</span><span class="p">(</span><span class="n">arhmm_sem_order</span><span class="p">[</span><span class="mi">49</span><span class="p">],</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">test_posteriors</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3>Download crowd movies for each state<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>I’ve commented this out because it takes about ten minutes. Please do it once though!</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Make &quot;crowd&quot; movies for each state and save them to disk</span>
-<span class="c1"># # Then you can download them and play them offline</span>
-<span class="c1"># for i in trange(num_states):</span>
-<span class="c1">#     play(make_crowd_movie(arhmm_sem_order[i], test_dataset, test_posteriors),</span>
-<span class="c1">#          filename=&quot;arhmm_sem_crowd_{}.mp4&quot;.format(i), show=False)</span>
-
-<span class="c1"># # Zip the movies up</span>
-<span class="c1"># !zip arhmm_sem_crowd_movies.zip arhmm_sem_crowd_*.mp4</span>
-
-<span class="c1"># from google.colab import files</span>
-<span class="c1"># files.download(&quot;arhmm_sem_crowd_movies.zip&quot;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
+<p>Upload your .pdf file to Gradescope.</p>
+<p><strong>Only one submission per team!</strong></p>
 </section>
 </section>
 
@@ -2753,15 +3109,8 @@ W_k = \begin{bmatrix} A_{k,1}  &amp; A_{k,2} &amp; \ldots &amp; A_{kg} &amp; b_k
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Download crowd movies for each state</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-4-fitting-arhmms-with-stochastic-em">Bonus Problem 4: Fitting ARHMMs with Stochastic EM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-4a-adapt-your-em-code-to-run-stochastic-em-instead">Bonus Problem 4a: Adapt your EM code to run stochastic EM instead</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the data and the inferred states</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the state usage histogram</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-pc-trajectories-upon-state-entry">Plot PC trajectories upon state entry</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Make “crowd” movies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Download crowd movies for each state</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#author-contributions">Author contributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-instructions">Submission Instructions</a></li>
 </ul>
   </nav></div>
 

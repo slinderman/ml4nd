@@ -476,7 +476,9 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pynwb</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">dynamax</span>
-<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="c1"># Resolve colab issues with npr</span>
+<span class="c1"># Deal with some temporary incompatibility issues</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span> <span class="n">numpy</span>  
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">jaxtyping</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -489,7 +491,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, import necessary libraries.</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">trange</span>

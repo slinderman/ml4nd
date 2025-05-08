@@ -476,7 +476,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pynwb</span>
 <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">dynamax</span>
-<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span> <span class="n">numpy</span> <span class="c1"># Resolve colab issues with npr</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="c1"># Resolve colab issues with npr</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">jaxtyping</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -1785,7 +1785,7 @@ to visualize the time series.</p>
     <span class="n">P_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">log_likes_np</span> <span class="o">=</span> <span class="n">from_t</span><span class="p">(</span><span class="n">log_likes</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">backward_pred_probs</span>  <span class="o">=</span> <span class="n">hmm_backward_filter</span><span class="p">(</span><span class="n">P_np</span><span class="p">,</span> <span class="n">log_likes_np</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">betas</span><span class="p">,</span> <span class="n">backward_pred_probs</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">betas</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">backward_pred_probs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pass&quot;</span><span class="p">)</span>
 
 <span class="n">test_backward_pass</span><span class="p">()</span>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Switching LDS &#8212; Machine Learning Methods for Neural Data Analysis</title>
+    <title>Variational EM &#8212; Machine Learning Methods for Neural Data Analysis</title>
   
   
   
@@ -211,7 +211,7 @@
 <li class="toctree-l1"><a class="reference internal" href="04_glms.html">Generalized Linear Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_decoding.html">Bayesian Decoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_arhmm.html">Autoregressive HMMs</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Switching LDS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Variational EM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08_lfads.html">Sequential Variational Autoencoders</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -386,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Switching LDS</h1>
+    <h1>Variational EM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -437,10 +437,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-overlap-between-the-given-and-inferred-discrete-states">Compute the overlap between the given and inferred discrete states</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-inferred-segmentation-and-the-given-state-labels">Plot the inferred segmentation and the given state labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-3b-compare-and-contrast">Bonus: Problem 3b: Compare and contrast</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-3c-assessing-variability-across-initializations">Bonus: Problem 3c: Assessing variability across initializations</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-switching-linear-dynamical-systems-slds">Part 4: Switching Linear Dynamical Systems (SLDS)</a></li>
 </ul>
             </nav>
         </div>
@@ -452,14 +450,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="switching-lds">
-<h1>Switching LDS<a class="headerlink" href="#switching-lds" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="variational-em">
+<h1>Variational EM<a class="headerlink" href="#variational-em" title="Link to this heading">#</a></h1>
 <p><img alt="" src="https://els-jbs-prod-cdn.jbs.elsevierhealth.com/cms/attachment/09c7213d-d3ef-4c84-8321-07ab84a365af/fx1.jpg" /></p>
-<p>In this lab, we will implement a variational expectation maximization algorithm to fit a latent variable model with both discrete and continuous states. We’ll use a mean field approximation, which we’ll fit using coordinate ascent variational inference (CAVI). Then we’ll test it out on neural activity traces extracted from calcium imaging of the worm <em>C. elegans</em> by Kato et al (2015), in their paper on low dimensional dynamics of whole brain activity.</p>
-<p>We won’t implement variational EM for full-blown hierachical, recurrent, switching linear dynamical systems (Linderman et al, 2019). Instead, we’ll work on a simpler model without time dependencies, which reduces to a mixture of factor analysis models. Once we’ve done so, you’ll understand how the main fitting algorithms underlying <a class="reference external" href="https://github.com/lindermanlab/ssm">SSM</a> work under the hood!</p>
+<p>In this lab, we will implement a variational expectation-maximization (EM) algorithm to fit a latent variable model with both discrete and continuous states. We’ll use a mean field approximation, which we’ll fit using coordinate ascent variational inference (CAVI). Then we’ll test it out on neural activity traces extracted from calcium imaging of the worm <em>C. elegans</em> by Kato et al (2015), in their paper on low dimensional dynamics of whole brain activity.</p>
+<p>We won’t implement variational EM for full-blown switching linear dynamical systems, as described in clas. Instead, we’ll work on a simpler model without time dependencies, which reduces to a mixture of factor analysis models. Once we’ve done so, you’ll understand how the main fitting algorithms for SLDS work under the hood!</p>
 <p><strong>References</strong></p>
 <p>Kato, Saul, Harris S. Kaplan, Tina Schrödel, Susanne Skora, Theodore H. Lindsay, Eviatar Yemini, Shawn Lockery, and Manuel Zimmer. 2015. “Global Brain Dynamics Embed the Motor Command Sequence of Caenorhabditis Elegans.” Cell 163 (3): 656–69.</p>
-<p>Linderman, Scott W., Annika L. A. Nichols, David M. Blei, Manuel Zimmer, and Liam Paninski. 2019. “Hierarchical Recurrent State Space Models Reveal Discrete and Continuous Dynamics of Neural Activity in C. Elegans.” bioRxiv.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1937,81 +1934,6 @@ p(y_t \mid x_t, \Theta) &amp;= \mathcal{N}(y_t \mid W \phi_t, R),
 </div>
 </div>
 </section>
-<section id="bonus-problem-3c-assessing-variability-across-initializations">
-<h3>Bonus: Problem 3c: Assessing variability across initializations<a class="headerlink" href="#bonus-problem-3c-assessing-variability-across-initializations" title="Link to this heading">#</a></h3>
-<p>The estimated parameters and the inferred posterior depend on the random intialization of the model. How much does that affect our results? To compare the segmentations across model fits, make a <span class="math notranslate nohighlight">\(T \times T\)</span> matrix that shows how often the most likely discrete state at time <span class="math notranslate nohighlight">\(t\)</span> is the same as that at time <span class="math notranslate nohighlight">\(t'\)</span>.  I.e. let <span class="math notranslate nohighlight">\(\hat{z}_t^{(i)} = \mathrm{argmax}_k q(z_{t}^{(i)}=k)\)</span>, where the superscript <span class="math notranslate nohighlight">\((i)\)</span> denotes inferred posterior from the <span class="math notranslate nohighlight">\(i\)</span>-th model fit. Make a matrix whose entries are the average of the indicator <span class="math notranslate nohighlight">\(\mathbb{I}[\hat{z}_t^{(i)} = \hat{z}_{t'}^{(i)}]\)</span> taken over multiple fits of the MFA model with different random initializations.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###</span>
-<span class="c1"># </span>
-<span class="c1"># YOUR ANALYSIS CODE BELOW</span>
-
-<span class="c1">#</span>
-<span class="c1">###</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="part-4-switching-linear-dynamical-systems-slds">
-<h2>Part 4: Switching Linear Dynamical Systems (SLDS)<a class="headerlink" href="#part-4-switching-linear-dynamical-systems-slds" title="Link to this heading">#</a></h2>
-<p>If you’re interested in digging deeper and fitting models that explicitly incorporate temporal dependencies, check out the <a class="reference external" href="https://github.com/lindermanlab/ssm">SSM</a> package! To get you started, here’s some code to start fitting SLDS to this dataset.</p>
-<p>Note that by default SSM uses a Laplace approximation for the continuous state posterior, which it fits with Newton’s method. Likewise, it uses a Monte Carlo approximation for the M-step, which works with non-Gaussian observation models. For the special case of Gaussian observations, we could find the exact posterior update for <span class="math notranslate nohighlight">\(q(x_{1:T})\)</span> and exact M-steps, as described in class. That would be a bit faster than the code below, but this is still fast enough for our purposes.</p>
-<p>For more information, check out the <a class="reference external" href="https://lindermanlab.github.io/ssm-docs/">demo notebooks</a>!</p>
-<p>Finally, you might also be interested in our latest project, <a class="reference external" href="https://probml.github.io/dynamax/">Dynamax</a>, which has JAX implementations of many probabilistic state space models. (Unfortunately, not yet SLDS!)</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">ssm</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/lindermanlab/ssm.git@master#egg<span class="o">=</span>ssm
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">ssm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SLDS</span>
-<span class="n">slds</span> <span class="o">=</span> <span class="n">SLDS</span><span class="p">(</span><span class="n">num_neurons</span><span class="p">,</span> <span class="n">num_states</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">)</span>
-<span class="n">elbos</span><span class="p">,</span> <span class="n">posterior</span> <span class="o">=</span> <span class="n">slds</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">from_t</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]),</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-
-<span class="c1"># Plot the normalized elbos</span>
-<span class="n">plot_elbos</span><span class="p">(</span><span class="n">elbos</span> <span class="o">/</span> <span class="n">num_frames</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Collecting ssm
-  Cloning https://github.com/lindermanlab/ssm.git (to revision master) to /tmp/pip-install-v40s2lyd/ssm_7022d754fa2d40199508dd4c4fc7d9b1
-  Running command git clone --filter=blob:none --quiet https://github.com/lindermanlab/ssm.git /tmp/pip-install-v40s2lyd/ssm_7022d754fa2d40199508dd4c4fc7d9b1
-  Resolved https://github.com/lindermanlab/ssm.git to commit 6c856ad3967941d176eb348bcd490cfaaa08ba60
-  Preparing metadata (setup.py) ... ?25l?25hdone
-Requirement already satisfied: numpy&gt;=1.18 in /usr/local/lib/python3.8/dist-packages (from ssm) (1.22.4)
-Requirement already satisfied: scipy in /usr/local/lib/python3.8/dist-packages (from ssm) (1.10.1)
-Requirement already satisfied: numba in /usr/local/lib/python3.8/dist-packages (from ssm) (0.56.4)
-Requirement already satisfied: scikit-learn in /usr/local/lib/python3.8/dist-packages (from ssm) (1.2.1)
-Requirement already satisfied: tqdm in /usr/local/lib/python3.8/dist-packages (from ssm) (4.64.1)
-Requirement already satisfied: autograd in /usr/local/lib/python3.8/dist-packages (from ssm) (1.5)
-Requirement already satisfied: cython in /usr/local/lib/python3.8/dist-packages (from ssm) (0.29.33)
-Requirement already satisfied: future&gt;=0.15.2 in /usr/local/lib/python3.8/dist-packages (from autograd-&gt;ssm) (0.16.0)
-Requirement already satisfied: importlib-metadata in /usr/local/lib/python3.8/dist-packages (from numba-&gt;ssm) (6.0.0)
-Requirement already satisfied: llvmlite&lt;0.40,&gt;=0.39.0dev0 in /usr/local/lib/python3.8/dist-packages (from numba-&gt;ssm) (0.39.1)
-Requirement already satisfied: setuptools in /usr/local/lib/python3.8/dist-packages (from numba-&gt;ssm) (57.4.0)
-Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /usr/local/lib/python3.8/dist-packages (from scikit-learn-&gt;ssm) (3.1.0)
-Requirement already satisfied: joblib&gt;=1.1.1 in /usr/local/lib/python3.8/dist-packages (from scikit-learn-&gt;ssm) (1.2.0)
-Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.8/dist-packages (from importlib-metadata-&gt;numba-&gt;ssm) (3.15.0)
-Building wheels for collected packages: ssm
-  Building wheel for ssm (setup.py) ... ?25l?25hdone
-  Created wheel for ssm: filename=ssm-0.0.1-cp38-cp38-linux_x86_64.whl size=562291 sha256=dd86a3a39db8d1948fa3d7685783a081cb71b5f55d899f1d886b0ad38f1c32e0
-  Stored in directory: /tmp/pip-ephem-wheel-cache-zqgxan2j/wheels/50/34/75/a5397844576e080cdc001e6421017d9f4e355f83a1dd23f481
-Successfully built ssm
-Installing collected packages: ssm
-Successfully installed ssm-0.0.1
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ca783cce9ec94b188cadffb8b9d3e796", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initializing with an ARHMM using 25 steps of EM.
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5972113fb5654f7aa75d813dd5b756ba", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e5cb179e4bbe431d946d0714e79ed4d8", "version_major": 2, "version_minor": 0}</script><img alt="../_images/7eb651ad5b66322aadcccc35f39e71de90205af47b83630e41a055fb1c7fb824.png" src="../_images/7eb651ad5b66322aadcccc35f39e71de90205af47b83630e41a055fb1c7fb824.png" />
-</div>
-</div>
 </section>
 </section>
 
@@ -2120,10 +2042,8 @@ Successfully installed ssm-0.0.1
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-overlap-between-the-given-and-inferred-discrete-states">Compute the overlap between the given and inferred discrete states</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-inferred-segmentation-and-the-given-state-labels">Plot the inferred segmentation and the given state labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-3b-compare-and-contrast">Bonus: Problem 3b: Compare and contrast</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-problem-3c-assessing-variability-across-initializations">Bonus: Problem 3c: Assessing variability across initializations</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-switching-linear-dynamical-systems-slds">Part 4: Switching Linear Dynamical Systems (SLDS)</a></li>
 </ul>
   </nav></div>
 

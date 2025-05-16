@@ -770,13 +770,10 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 <span class="sd">        -------</span>
 <span class="sd">        lp: a tensor of log likelihoods for each data point and covariate pair.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
-        <span class="n">lp</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="c1">###</span>
-        <span class="c1"># YOUR CODE BELOW</span>
-        <span class="n">lp</span> <span class="o">+=</span> <span class="o">...</span>
-        <span class="c1">###</span>
-        <span class="k">return</span> <span class="n">lp</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;...d,nd-&gt;...n&#39;</span><span class="p">,</span> <span class="n">covariates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> 
+        <span class="n">predictions</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
+        <span class="n">lkhd</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diag_covariance</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">lkhd</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">covariates</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -860,12 +857,9 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Draw a sample of the latent variables and data under the MFA model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">###</span>
-        <span class="c1"># YOUR CODE HERE</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="o">...</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="o">...</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="o">...</span>
-        <span class="c1">###</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_z</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_shape</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">MultivariateNormal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bs</span><span class="p">[</span><span class="n">z</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Qs</span><span class="p">[</span><span class="n">z</span><span class="p">])</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_y</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">spc</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -895,7 +889,7 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
         <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data index [sorted by discrete state]&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="n">spc</span><span class="p">,</span> <span class="n">spc</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">spc</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">spc</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;data dimension&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -927,8 +921,8 @@ p(z, x, y \mid \Theta) &amp;= \prod_{t=1}^T p(z_t \mid \Theta) \, p(x_t \mid z_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/93ea99bb119cb293b3f234923fa8b9a5414605f4d0189cd9714ae62dc4eaab40.png" src="../_images/93ea99bb119cb293b3f234923fa8b9a5414605f4d0189cd9714ae62dc4eaab40.png" />
-<img alt="../_images/077ae4d70024463820c66d22cd6218909a212bd08fe79018687784646d996f59.png" src="../_images/077ae4d70024463820c66d22cd6218909a212bd08fe79018687784646d996f59.png" />
+<img alt="../_images/3c7b8f8e725dbaa55affb225179601fcc7398f9d933965e28b7b98ee9637f059.png" src="../_images/3c7b8f8e725dbaa55affb225179601fcc7398f9d933965e28b7b98ee9637f059.png" />
+<img alt="../_images/1df5de50e9c2d2c05ef3410ba17814266bcfd69bb2d4e420eb1e3b60a82b07b1.png" src="../_images/1df5de50e9c2d2c05ef3410ba17814266bcfd69bb2d4e420eb1e3b60a82b07b1.png" />
 </div>
 </div>
 </section>
